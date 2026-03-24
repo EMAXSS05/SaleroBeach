@@ -87,7 +87,7 @@ classDiagram
 ### Principal
 ![](../img/principalCamarero.png)
 ### Mesa seleccionada
-![](../img/mesaSeleccionada.png)
+![](../img/mesaSeleccion.png)
 
 
 
