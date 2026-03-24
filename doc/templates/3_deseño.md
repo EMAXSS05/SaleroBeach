@@ -67,7 +67,7 @@ classDiagram
 ### Login  
 ![login](../img/login.png)  
 ### Home-Barra  
-![home-barra] (../img/home-Barra.png)
+![home-barra](../img/home-Barra.png)
 ### Historial de pedidos  
 ![HistorialPedios](../img/historialPedidos.png)
 ### Gestion de productos  
