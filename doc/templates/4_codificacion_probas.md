@@ -5,8 +5,9 @@
 ## Prototipos
 ## Prototipo 1
 ## Data de entrega: 14 de abril
-Requerimientos a implementar
-## Prototipo 1 – Funcionalidades a desarrollar
+## Requerimientos a implementar:
+ 
+
 
 - **RF1 - Creación de Rutas de la Carta:** Programar los endpoints necesarios para que el backend 
 pueda enviar al cliente la lista de platos, bebidas y raciones.
