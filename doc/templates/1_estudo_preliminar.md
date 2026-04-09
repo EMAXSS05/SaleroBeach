@@ -69,9 +69,11 @@ El modelo de negocio elegido es el de **Desarrollo a medida ** con posibilidad d
 * Html y css: Para la estrutura de la aplicación y el diseño visual. 
 * Fetch Api: Para enviar los pedidos desde el móvil a la base de datos sin que la página tenga que recargarse por completo.
 * Diseño Responsivo: Uso de Media Queries y unidades relativas para asegurar que la interfaz sea cómoda de usar en los móviles de los clientes y camareros.    
+* Docker (Herramienta de virtualización): Plataforma basada en contenedores que permite empaquetar la aplicación con todas sus dependencias, garantizando que funcione correctamente en cualquier entorno (local o servidor).
 #### **Librerías y frameworks**
 * Node js: Entorno de ejecución para el servidor.
 * Express js: Framework de backend para gestionar las rutas, la lógica de negocio y la comunicación con los dispositivos.
+React.js: Librería de frontend basada en componentes para construir la interfaz de usuario de forma dinámica, rápida y reactiva.
 * Mongoose Librería para el modelaje de objetos de MongoDB, facilitando la gestión de los esquemas de datos de pedidos y usuarios.  
 #### **Base de Datos y servicio**  
 * MongoDB Atlas: Base de datos NoSQL documental alojada en la nube. Es la pieza clave del sistema donde se almacenan los productos de la carta, los pedidos activos de cada mesa y el histórico de ventas. Se ha elegido por su flexibilidad para manejar pedidos con múltiples opciones y personalizaciones.

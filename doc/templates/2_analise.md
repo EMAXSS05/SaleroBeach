@@ -6,34 +6,40 @@ El proyecto consiste en una solución integral para establecimientos de hosteler
 ## Requerimientos  
 
 
-## Requerimientos Funcionales
+## 2. Requisitos funcionales del prototipo
 
-| Acción                | Actor               | Descripción del Proceso                                                                 | Datos de Entrada                          | Datos de Salida                          |
-|----------------------|--------------------|------------------------------------------------------------------------------------------|-------------------------------------------|------------------------------------------|
-| Autenticación        | Barra / Camarero   | El sistema valida las credenciales y otorga acceso según el rol del usuario.           | Usuario, Contraseña                       | Acceso al Panel / Token                  |
-| Alta de Producto     | Administrador      | Se registra un nuevo ítem en la base de datos para que aparezca en el menú.             | Nombre, Precio, Categoría, Imagen         | Producto guardado en BD                  |
-| Modificar Producto   | Barra      | Se actualizan los datos (precio, stock o disponibilidad) de un producto existente.     | ID Producto, Nuevos datos                 | Confirmación de actualización            |
-| Apertura de Mesa     | Camarero           | Se inicia un servicio en una mesa libre, creando un documento de pedido vinculado.      | Nº de Mesa                                | Pedido Creado (Estado: Abierto)          |
-| Pedido por QR        | Cliente            | El cliente selecciona productos desde su móvil y los envía al sistema del bar.(Opcional)          | Selección de ítems, Mesa                  | Pedido en Cola de Barra                  |
-| Añadir Ítems         | Camarero           | El staff añade consumiciones extra a una mesa que ya está siendo atendida.              | ID Pedido, Nuevos productos               | Pedido actualizado en tiempo real        |
-| Asignar Camarero     | Camarero           | Uno de los camareros se "adueña" de un pedido pendiente para gestionarlo.               | ID Pedido, ID Camarero                    | Pedido vinculado al Camarero             |
-| Cambio de Estado     | Camarero / Barra   | Se marca un producto como "Listo" o "Entregado" al cliente.                             | ID Ítem, Nuevo Estado                     | Actualización visual (Badges)            |
-| Cierre de Cuenta     | Camarero/barra           | Se calcula el total de los ítems y se libera la mesa en el sistema.                     | ID Pedido                                 | Total a pagar / Mesa Libre               |
-| Eliminar Usuario     | Barra      | Se elimina un perfil de camarero de la base de datos por fin de contrato o error.       | ID Usuario                                | Usuario eliminado                        |
-|Alta de Mesa | Barra |Crear una nueva mesa física en el sistema| Número de Mesa, Zona | Nueva Mesa en Interfaz|
-Deshabilitar Mesa| Barra | Marcar una mesa como deshabilitada para que nadie pida en ella.| ID Mesa | Mesa bloqueada|
-Eliminar Mesa | Barra | Borrar definitivamente una mesa del sistema si ya no existe físicamente.| ID Mesa | Mesa eliminada de la Bd.|
+| Acción | Actor | Descripción del proceso | Datos de entrada | Datos de salida |
 
+|------|------|------|------|------|
 
-## Requerimientos No Funcionales  
-Seguridad: Las contraseñas se almacenan mediante hash con Bcrypt.
+| Autenticación | Personal (Bar/Camarero) | El sistema valida las credenciales y otorga acceso según el rol (administración o camarero). | Usuario, Contraseña | Acceso al panel / Token de sesión |
 
-Dispositivos: Interfaz Responsive compatible con Tablets, Móviles y PC.
+| Registro de producto | Administrador / Bar | Registro de nuevos artículos en el menú, definiendo su lugar de preparación (Cocina o Bar). | Nombre, Precio, Categoría, Destino | Producto guardado en la base de datos |
 
+| Modificar producto | Bar / Administrador | Actualización de precios, stock o disponibilidad de un producto existente. | ID del producto, Nuevos datos | Confirmación de actualización |
 
-Accesibilidad: Uso de Código de Colores (Naranja/Verde/Gris) para una lectura rápida en condiciones de estrés.
+| Apertura de mesa | Camarero | Inicio del servicio en una mesa libre, creando un documento de pedido vinculado. | Número de mesa | Pedido creado (Estado: Abierto) |
 
-Rendimiento: Sincronización rápida para que los 3 camareros vean los cambios de estado al instante.
+| Agregar artículos | Camarero | El personal agrega bebidas a una mesa libre desde su terminal portátil. | ID del pedido, Lista de productos | Pedido actualizado en tiempo real |
+
+| Gestión de pedidos | Cocina / Bar | Interfaz para ver los pedidos pendientes filtrados por destino (solo platos de cocina). | ID del artículo del pedido | Notificación de "Listo para servir" |
+
+| Cambio de estado | Camarero / Bar | Marcar los productos como "Servidos" para controlar el flujo en la mesa. | ID del artículo, nuevo estado | Actualización visual en la interfaz |
+
+| Cierre de cuenta | Bar / Camarero | Cálculo del total acumulado, impresión de un ticket (simulado) y liberación de la mesa. | ID del pedido | Total a pagar / Mesa libre |
+
+| Gestión de mesas | Bar | Creación, edición o desactivación de mesas físicas en el plano del local. | N.º de mesa, zona, estado | Base de datos de mesas actualizada |
+
+| Pedido por QR (opcional) | Cliente | Futura mejora: El cliente solicita productos desde su móvil tras escanear un código QR. | Selección de artículos, ID de mesa | Pedido registrado en el sistema |
+
+## Requirimentos No Funcionais
+* Seguridad y privacidad: Las credenciales de acceso nunca se almacenan en texto plano, sino que se utiliza cifrado hash (Bcrypt) para garantizar su persistencia. Además, la configuración confidencial (claves de la base de datos) se gestiona mediante variables de entorno (.env) para evitar fugas de información en el repositorio.
+
+* Disponibilidad e implementación: El sistema debe empaquetarse utilizando Docker y Docker Compose, lo que garantiza que la aplicación funcione de forma idéntica tanto en el ordenador del instituto como en el de desarrollo, sin necesidad de instalar dependencias manualmente.
+
+* Persistencia de datos: Se utilizará una base de datos NoSQL en la nube (MongoDB Atlas) para asegurar que la información sea accesible y persistente, independientemente de dónde se ejecute el contenedor.
+
+Usabilidad e interfaz: La interfaz debe ser adaptable y de carga rápida, optimizada especialmente para tabletas y dispositivos móviles, que son los que utilizarán los camareros en sus desplazamientos. El uso de códigos de color (semáforos) facilitará la lectura rápida del estado de los pedidos.
 
 ## Tipos de usuarios
 Usuario Anónimo (Cliente): Usuario que accede sin credenciales a través del escaneo del código QR de su mesa. Su acceso está limitado exclusivamente a la visualización de la carta y al envío de pedidos para su mesa específica.
