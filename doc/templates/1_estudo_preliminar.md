@@ -8,7 +8,7 @@ La necesidad del proyecto surge al detectar ineficiencias en el modelo analógic
 
 ### 1.2. Funcionalidades do proxecto
 
-#### Autogestión para Clientes (vía QR):
+#### Autogestión para Clientes vía QR:
 
 * Acceso instantáneo: Al escanear el código QR de la mesa, el cliente accede directamente a la carta sin necesidad de descargar ninguna aplicación.
 
