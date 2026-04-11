@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import './App.css'
+import TerminalCamarero from './components/TerminalCamarero'
 
 function App() {
   
 
   return (
-    <div>
-      Hola mundo
-    </div>
+    <div className='App'>
+      <TerminalCamarero/>
+          </div>
     
     
   )
