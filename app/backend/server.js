@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 //para usar las rutas
 app.use('/api/productos', require('./routes/productos'));
 app.use('/api/pedidos', require('./routes/pedidos'));
+app.use('/api/mesas', require('./routes/mesas'));
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);

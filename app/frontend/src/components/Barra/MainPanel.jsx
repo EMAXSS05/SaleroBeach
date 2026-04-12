@@ -65,7 +65,7 @@ const MainPanel = () => {
                         className={`${styles.filterBtn} ${!filtroSeleccionado ? styles.active : ''}`}
                         onClick={() => setFiltroSeleccionado(null)}
                     >
-                        Todos
+                        All
                     </button>
                     {pedidos.map(p => (
                         <button 
