@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+
 // Crea un nuevo pedido
 router.post('/', async (req, res) => {
     // Calcula el total

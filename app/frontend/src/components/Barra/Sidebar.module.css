@@ -1,0 +1,93 @@
+.sidebar {
+    width: 260px;
+    background-color: #1F1D2B;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 1px solid #2a2d3e;
+}
+
+.logoContainer {
+    text-align: center;
+    margin: 25px 0;
+}
+
+.logo {
+    width: 125px;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nav {
+    flex: 1;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: #a1a6b4;
+    transition: all 0.3s ease;
+}
+
+.menuItemActive {
+    background-color: #1c1e2d;
+    color: #f56a23;
+    font-weight: 600;
+}
+
+.icon {
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.statusContainer {
+    display: flex;
+    align-items: center;
+    color: #4caf50;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.statusOnline {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #4caf50;
+    margin-right: 10px;
+}
+
+
+
+
+.sidebar {
+    width: 260px;
+    background-color: #12131b;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 1px solid #2a2d3e;
+    position: sticky; 
+    top: 0;
+}
+
+.nav {
+    flex: 1; 
+    overflow-y: auto;
+}
+
+.statusContainer {
+    margin-top: auto; 
+    display: flex;
+    align-items: center;
+    color: #4caf50;
+    padding: 20px 15px;
+    font-size: 14px;
+    border-top: 1px solid #1c1e2d;
+}

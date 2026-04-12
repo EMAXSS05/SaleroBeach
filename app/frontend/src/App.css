@@ -1,27 +1,7 @@
-*{
-    padding: 0;
+body {
     margin: 0;
-}
-.productos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.producto-card {
-    background: #2a2d3e; 
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.producto-card button {
-    background: #ff6b00; 
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    font-family: 'Poppins', sans-serif; /* Poppins o Arial/Helvetica si no quieres líos de fuentes */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #0b0c11; /* Color de fondo muy oscuro */
 }
