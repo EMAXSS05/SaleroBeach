@@ -1,0 +1,161 @@
+.card {
+    background-color: #1c1e2d;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.orderNumber {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    display: block;
+}
+
+.waiterInfo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #a1a6b4;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.clockIcon {
+    font-size: 10px;
+}
+
+.alertIcon {
+    color: #ef4444;
+    font-size: 20px;
+}
+
+.itemList {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.itemRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.itemImage {
+    width: 45px;
+    height: 45px;
+    background-color: #2a2d3e;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f56a23;
+    font-weight: bold;
+}
+
+.itemDetails {
+    flex: 1;
+}
+
+.itemName {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.itemQty {
+    color: #a1a6b4;
+    font-size: 12px;
+    margin: 2px 0 0 0;
+}
+
+.itemPrice {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.divider {
+    height: 1px;
+    background-color: #2a2d3e;
+    margin: 10px 0 20px 0;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.totalBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.totalLabel {
+    color: #a1a6b4;
+    font-size: 12px;
+}
+
+.totalAmount {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.tableBadge {
+    background-color: #2a2d3e;
+    color: #f56a23;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 14px;
+    border: 1px solid rgba(245, 106, 35, 0.2);
+}
+
+
+
+.actions {
+    display: flex;
+    gap: 10px; 
+}
+
+.btnCobrar {
+    flex: 2;
+    background: linear-gradient(45deg, #FFA113, #F4350A);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btnCancelar {
+    flex: 1; /* El de cancelar es más pequeño */
+    background-color: transparent;
+    color: #ef4444; /* Rojo para peligro/cancelar */
+    border: 1px solid #ef4444;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btnCancelar:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}

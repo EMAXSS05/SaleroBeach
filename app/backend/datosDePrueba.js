@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Producto = require('./models/Producto'); 
 const Mesa = require('./models/Mesa');
 const Usuario = require('./models/Usuario');
+const Pedido = require('./models/Pedido');
 const MONGO_URI = "mongodb://database:27017/salero_beach";
 
 const cargarDatos = async () => {
@@ -16,9 +17,9 @@ const cargarDatos = async () => {
 
         // Insertar Productos 
         await Producto.insertMany([
-            { nombre: "Cerveza Estrella", precio: 2.50, categoria: "Barra", sub: "Drinks", imagen: "ejemplo", disponible: true },
-            { nombre: "Pulpo a la Feira", precio: 23.00, categoria: "Cocina", sub: "Food", imagen: "ejemplo", disponible: true },
-            { nombre: "Aquarius de Naranja", precio: 2.50, categoria: "Barra", sub: "Drinks", imagen: "ejemplo", disponible: true }
+            { id: "d1",nombre: "Cerveza Estrella", precio: 2.50, categoria: "Barra", sub: "Drinks", imagen: "ejemplo", disponible: true },
+            { id: "f1",nombre: "Pulpo a la Feira", precio: 23.00, categoria: "Cocina", sub: "Food", imagen: "ejemplo", disponible: true },
+            { id: "d2",nombre: "Aquarius de Naranja", precio: 2.50, categoria: "Barra", sub: "Drinks", imagen: "ejemplo", disponible: true }
         ]);
 
         //Insertar Mesas
@@ -45,7 +46,29 @@ const cargarDatos = async () => {
             { username: 'Chef_Salero', password: '123', nombreReal: 'Cocinero', rol: 'cocina' }
         ]);
 
-        console.log("Productos, Mesas y Usuarios cargados correctamente.");
+        await Pedido.insertMany([
+            {
+                mesa: "4",
+                camarero: "Juan Carlos",
+                items: [
+                    { nombre: "Cerveza Estrella", cantidad: 2, precio: 2.50 },
+                    { nombre: "Pulpo a la Feira", precio: 23.00, cantidad: 1 }
+                ],
+                total: 28.00,
+                estado: "pendiente"
+            },
+            {
+                mesa: "Terraza 1",
+                camarero: "Juan Carlos",
+                items: [
+                    { nombre: "Aquarius de Naranja", precio: 2.50, cantidad: 1 }
+                ],
+                total: 2.50,
+                estado: "pendiente"
+            }
+        ]);
+
+        console.log("Productos, Mesas,Usuarios y pedidos cargados correctamente.");
         mongoose.connection.close();
     } catch (error) {
         console.error("Error al cargar datos:", error);

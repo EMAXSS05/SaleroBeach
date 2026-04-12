@@ -14,8 +14,9 @@ app.get('/', (req, res) => {
     res.send('Servidor del Bar de Carnota funcionando en Docker');
 });
 
-//para usar la ruta
+//para usar las rutas
 app.use('/api/productos', require('./routes/productos'));
+app.use('/api/pedidos', require('./routes/pedidos'));
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
