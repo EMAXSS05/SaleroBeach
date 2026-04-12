@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import TerminalCamarero from './components/TerminalCamarero'
 import Sidebar from './components/Barra/Sidebar'
+import MainPanel from './components/Barra/MainPanel'
 
 function App() {
   
@@ -14,15 +15,10 @@ function App() {
             overflow: 'hidden'
         }}>
             <Sidebar />
-
-          
-            <main style={{
-                flex: 1, 
-                backgroundColor: '#0b0c11', 
-                color: 'white'
-            }}>
+            <MainPanel/>
+            
               
-            </main>
+            
         </div>
     
     
