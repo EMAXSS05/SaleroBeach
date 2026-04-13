@@ -9,8 +9,7 @@
  
 
 
-- **RF1 - Creación de Rutas de la Carta:** Programar los endpoints necesarios para que el backend 
-pueda enviar al cliente la lista de platos, bebidas y raciones.
+- **RF1 - Endpoints de Carta y Comandas:** Programar la comunicación del backend para enviar productos al cliente y recibir pedidos, asegurando que cada venta quede registrada.
 
 - **RF2 - Diseño de Modelos de Datos:** Definición de esquemas en Mongoose para productos, usuarios, mesas y pedidos, asegurando la integridad de la información.
 
