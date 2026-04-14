@@ -13,7 +13,7 @@ const DetalleMesa = ({ mesa, pedido, alAñadir, alCobrar, alVolver }) => {
             </header>
 
             <div className={styles.atendidoPor}>
-                <span>👤 Atendido por TI</span>
+                <span>Atendido por TI</span>
             </div>
 
             <div className={styles.listaConsumo}>

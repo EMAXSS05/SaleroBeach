@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import styles from './CartaProductos.module.css';
 import DetalleProducto from './DetalleProductos'; 
 
-const CartaProductos = ({ mesa, alVolver }) => {
+const CartaProductos = ({ mesa, alVolver, alFinalizarPedido }) => { 
     const [productos, setProductos] = useState([]);
     const [filtro, setFiltro] = useState('');
     const [cargando, setCargando] = useState(true);
     const [productoEdicion, setProductoEdicion] = useState(null);
     const [pedidoActual, setPedidoActual] = useState([]);
+    const [enviando, setEnviando] = useState(false); 
 
-    // 1. Cargar productos de tu API real
     useEffect(() => {
         const obtenerProductos = async () => {
             try {
@@ -25,29 +25,50 @@ const CartaProductos = ({ mesa, alVolver }) => {
         obtenerProductos();
     }, []);
 
-    // Lógica de selección
-    const manejarClickProducto = (p) => {
-    // "Barra" son bebidas (directo)
-    // "Cocina" son platos (abren modal para notas)
-    
-    if (p.categoria === 'Barra') {
-        // Se añade directamente al pedido con cantidad 1 y sin nota
-        añadirAlPedido(p, 1, "");
-    } else if (p.categoria === 'Cocina') {
-        // Abrimos el modal para especificar punto de cocción, alérgicos, notas, etc.
-        setProductoEdicion(p);
-    } else {
-        // Por si acaso tienes otras categorías, puedes elegir un comportamiento por defecto
-        setProductoEdicion(p);
-    }
-};
+    // Función para enviar a la DB
+    const manejarEnvioComanda = async () => {
+        if (pedidoActual.length === 0) return;
+        
+        setEnviando(true);
+        const totalCalculado = pedidoActual.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+
+        try {
+            const res = await fetch('http://localhost:5000/api/pedidos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    mesa: mesa, 
+                    camarero: "Juan",
+                    items: pedidoActual.map(item => ({
+                    nombre: item.nombre,
+                    precio: item.precio,
+                    cantidad: item.cantidad,
+                    nota: item.nota || ""
+                })),
+                    total: totalCalculado,
+                    estadoGeneral: 'en_curso'
+                })
+            });
+
+            if (res.ok) {
+                alFinalizarPedido(pedidoActual); 
+            } else {
+                alert("Hubo un error al enviar la comanda");
+            }
+        } catch (error) {
+            console.error("Error en la petición:", error);
+            alert("No se pudo conectar con el servidor");
+        } finally {
+            setEnviando(false);
+        }
+    };
 
     const añadirAlPedido = (producto, cantidad, nota) => {
         const nuevoItem = { 
             ...producto, 
             cantidad, 
             nota, 
-            idTemporal: Date.now() // Para poder borrarlo luego si te equivocas
+            idTemporal: Date.now() 
         };
         setPedidoActual([...pedidoActual, nuevoItem]);
         setProductoEdicion(null);
@@ -57,7 +78,7 @@ const CartaProductos = ({ mesa, alVolver }) => {
         p.nombre.toLowerCase().includes(filtro.toLowerCase())
     );
 
-    if (cargando) return <div className={styles.loader}>Cargando carta...</div>;
+    if (cargando) return <div className={styles.loader}>Cargando carta de Salero...</div>;
 
     return (
         <div className={styles.container}>
@@ -84,11 +105,16 @@ const CartaProductos = ({ mesa, alVolver }) => {
 
             <div className={styles.grid}>
                 {productosFiltrados.map(p => (
-                    <div key={p._id} className={styles.card} onClick={() => manejarClickProducto(p)}>
-                        {/* Aquí asumo que guardas la URL de la imagen en el modelo */}
+                    <div key={p._id} className={styles.card} onClick={() => {
+                        if (p.categoria === 'Barra') {
+                            añadirAlPedido(p, 1, "");
+                        } else {
+                            setProductoEdicion(p);
+                        }
+                    }}>
                         <div className={styles.imgContainer}>
-                            {p.imagen ? (
-                                <img src={p.imagen} alt={p.nombre} />
+                            {p.imagen && p.imagen !== "ejemplo" ? (
+                                <img src={`http://localhost:5000/uploads/${p.imagen}`} alt={p.nombre} />
                             ) : (
                                 <span className="material-icons">restaurant</span>
                             )}
@@ -102,7 +128,6 @@ const CartaProductos = ({ mesa, alVolver }) => {
                 ))}
             </div>
 
-            {/* El modal de notas que implementamos antes */}
             {productoEdicion && (
                 <DetalleProducto 
                     producto={productoEdicion} 
@@ -113,8 +138,12 @@ const CartaProductos = ({ mesa, alVolver }) => {
 
             {pedidoActual.length > 0 && (
                 <div className={styles.footerAction}>
-                    <button className={styles.btnComanda}>
-                        ENVIAR COMANDA • {pedidoActual.reduce((acc, item) => acc + (item.precio * item.cantidad), 0).toFixed(2)}€
+                    <button 
+                        className={styles.btnComanda} 
+                        onClick={manejarEnvioComanda} 
+                        disabled={enviando}
+                    >
+                        {enviando ? 'ENVIANDO...' : `ENVIAR COMANDA • ${pedidoActual.reduce((acc, item) => acc + (item.precio * item.cantidad), 0).toFixed(2)}€`}
                     </button>
                 </div>
             )}

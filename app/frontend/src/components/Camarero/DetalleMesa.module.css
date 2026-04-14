@@ -1,0 +1,123 @@
+.container {
+    background-color: #131521;
+    min-height: 100vh;
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.btnBack {
+    background: none;
+    border: none;
+    color: #f56a23;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+.atendidoPor {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    padding-left: 45px;
+}
+
+/* Lista de productos ya pedidos */
+.listaConsumo {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.item {
+    padding: 15px 0;
+    border-bottom: 1px solid #2a2d3e;
+}
+
+.itemInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nombre {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.precio {
+    color: #f56a23;
+    font-weight: bold;
+}
+
+/* Caja de total */
+.totalBox {
+    background-color: #1c1f2e;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border: 1px solid #2a2d3e;
+}
+
+.totalBox span:first-child {
+    color: #888;
+    font-weight: bold;
+}
+
+.montoTotal {
+    font-size: 1.8rem;
+    color: white;
+    font-weight: 800;
+}
+
+/* Botones de acción inferiores */
+.acciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding-bottom: 20px;
+}
+
+.btnAñadir {
+    background-color: #f56a23;
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.btnCobrar {
+    background-color: #27ae60; 
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.btnAñadir:active, .btnCobrar:active {
+    transform: scale(0.95);
+}

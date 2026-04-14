@@ -145,9 +145,9 @@
 }
 
 .btnCancelar {
-    flex: 1; /* El de cancelar es más pequeño */
+    flex: 1; 
     background-color: transparent;
-    color: #ef4444; /* Rojo para peligro/cancelar */
+    color: #ef4444;
     border: 1px solid #ef4444;
     padding: 12px;
     border-radius: 10px;
