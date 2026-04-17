@@ -1,52 +1,63 @@
 # Presupuesto – Salero Beach
+
 ## 1. Inversiones y costes
 
 ### Inversiones iniciales
 
 | Concepto | Descripción | Coste estimado |
 |---|---|---|
-| Ordenador de desarrollo | Equipo ya disponible | 0 €  |
-| Material fungible | Folios, bolígrafos, tóner para documentación impresa | 10 € |
-Electricidad| Consumo del equipo| 15€
-Internet| suministro de red y conectividad| 30€|
-Mano de obra | Desarrollo integral del sistema. Incluye análisis, diseño, codificación y manuales.| 350€|
-**Total**||380€
+| Alquiler/amortización de equipo | Coste estimado de uso de equipo informático durante el desarrollo (70h × 0,15 €/h) | 10,50 € |
+| Material fungible | Folios, bolígrafos, tóner para documentación impresa | 10,00 € |
+| Electricidad | Consumo del equipo durante el desarrollo | 15,00 € |
+| Internet | Suministro de red y conectividad | 30,00 € |
+| Mano de obra | Desarrollo integral del sistema: análisis, diseño, codificación y documentación. 70h × 14 €/h | 980,00 € |
+| **Total** | | **1.045,50 €** |
+
+> La mano de obra se calcula en base a la planificación estimada del proyecto (entre 60 y 80 horas), tomando como referencia un salario medio de 14 €/h para un programador autónomo.
+
+---
 
 ### Infraestructura y servicios en la nube
 
 | Servicio | Proveedor | Coste | Motivo |
 |---|---|---|---|
-| Base de datos | MongoDB Atlas | 0,00 € | Plan "M0 Sandbox" (512MB de datos) |
-| Backend (API) | Render (Docker) | 0,00 € | Plan "Free"  |
-| Frontend | Render (Static) | 0,00 € | Plan "Free"  |
-| Certificado SSL | Let's Encrypt | 0,00 € | Incluido gratis en Render |
+| Base de datos | MongoDB Atlas | 0,00 € | Plan "M0 Sandbox" (512 MB de datos) |
+| Backend (API) | Render (Docker) | 0,00 € | Plan "Free" |
+| Frontend | Render (Static) | 0,00 € | Plan "Free" |
+| Certificado SSL | Let's Encrypt | 0,00 € | Incluido en Render |
+
+---
 
 ### Costes de mantenimiento anual estimados
 
 | Concepto | Coste anual estimado |
 |---|---|
 | Infraestructura completa (cloud) | 0,00 € |
-| Material fungible ocasional | 10 € |
-| **Total mantenimiento anual** | **10 €** |
-> Al usar los planes gratuitos de MongoDB Atlas y Render, el coste de infraestructura es 0 €.
+| Material fungible ocasional | 10,00 € |
+| **Total mantenimiento anual** | **10,00 €** |
+
+> Al usar los planes gratuitos de MongoDB Atlas y Render, el coste de infraestructura se mantiene en 0 €.
+
+---
+
 ## 2. Ingresos y Beneficio
 
 ### Precio de venta
 
 | Concepto | Importe |
 |---|---|
-| Venta del software al cliente (Salero Beach) | 400 € |
-| **Total ingresos** | **400 €** |
+| Venta del software al cliente (Salero Beach) | 1.098,00 € |
+| **Total ingresos** | **1.098,00 €** |
+
+---
 
 ### Resultado económico
 
 | Concepto | Importe |
 |---|---|
-| Total ingresos | 400 € |
-| Total costes (inversión inicial) | 380 € |
-| **Resultado** | **+ 20 €** |
+| Total ingresos | 1.098,00 € |
+| Total costes (inversión inicial) | 1.045,50 € |
+| **Beneficio** | **+ 52,50 €** |
 
-> El precio de venta se ha ajustado a la baja por tratarse de un familiar. Sin embargo, este proyecto 
-> no solo aporta un beneficio económico, sino que también supone una experiencia real de desarrollo 
-> y un caso práctico para incluir en mi portafolio profesional. En un contexto comercial real, 
-> según lo que he investigado, el desarrollo de un sistema de estas características rondaría los **800 – 1.200 €**.
+
+> Al tratarse de un cliente familiar, se ha aplicado el margen mínimo razonable (5% sobre costes), frente al 15% habitual en un contexto comercial estándar. En condiciones normales, el precio de mercado de este sistema rondaría los **1.150 – 1.200 €**. Más allá del beneficio económico, este proyecto supone una experiencia real de desarrollo y un caso práctico para incluir en el portafolio profesional.
