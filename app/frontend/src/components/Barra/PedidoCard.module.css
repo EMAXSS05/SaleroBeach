@@ -48,37 +48,30 @@
 
 .itemRow {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    align-items: center; 
+    gap: 0; 
+    padding: 4px 0; 
 }
 
-.itemImage {
-    width: 45px;
-    height: 45px;
-    background-color: #2a2d3e;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #f56a23;
-    font-weight: bold;
-}
 
 .itemDetails {
     flex: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
 }
 
 .itemName {
     color: white;
-    font-size: 14px;
+    font-size: 15px; 
     font-weight: 500;
     margin: 0;
 }
-
 .itemQty {
-    color: #a1a6b4;
-    font-size: 12px;
-    margin: 2px 0 0 0;
+    color: #f56a23; 
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
 }
 
 .itemPrice {

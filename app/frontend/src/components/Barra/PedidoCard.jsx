@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaExclamationCircle, FaClock } from 'react-icons/fa';
 import styles from './PedidoCard.module.css';
+import { formatDistanceToNow } from 'date-fns';
+import { es } from 'date-fns/locale/es';
 
 const PedidoCard = ({ pedido, onCobrar, onCancelar }) => {
     const totalProductos = pedido.items.reduce((acc, item) => acc + item.cantidad, 0);
+    const [, setTick] = useState(0);
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTick(tick => tick + 1);
+        }, 60000); 
+        return () => clearInterval(timer);
+    }, []);
+
+    const fechaPedido = pedido.createdAt ? new Date(pedido.createdAt) : new Date();
 
     return (
         <div className={styles.card}>
@@ -12,7 +23,9 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar }) => {
                     <span className={styles.orderNumber}>Pedido #...{pedido._id?.slice(-3)}</span>
                     <div className={styles.waiterInfo}>
                         <FaClock className={styles.clockIcon} />
-                        <span>Hace 5 min • Por {pedido.camarero || 'Camarero'}</span>
+                        <span>
+                            Hace {formatDistanceToNow(fechaPedido, { locale: es })} • Por {pedido.camarero || 'Camarero'}
+                        </span>
                     </div>
                 </div>
                 <FaExclamationCircle className={styles.alertIcon} />
@@ -21,12 +34,10 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar }) => {
             <div className={styles.itemList}>
                 {pedido.items.map((item, index) => (
                     <div key={index} className={styles.itemRow}>
-                        <div className={styles.itemImage}>
-                            {item.nombre.charAt(0)}
-                        </div>
+                        
                         <div className={styles.itemDetails}>
                             <p className={styles.itemName}>{item.nombre}</p>
-                            <p className={styles.itemQty}>Cantidad: {item.cantidad}</p>
+                            <p className={styles.itemQty}>x {item.cantidad}</p>
                         </div>
                         <span className={styles.itemPrice}>{(item.precio * item.cantidad).toFixed(2)}€</span>
                     </div>
