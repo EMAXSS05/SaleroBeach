@@ -14,7 +14,8 @@
 | **Total** | | **1.045,50 €** |
 
 > La mano de obra se calcula en base a la planificación estimada del proyecto (entre 60 y 80 horas), tomando como referencia un salario medio de 14 €/h para un programador autónomo.
-
+Para facer isto terás que chegar a acordos con persoal autónomo. Se contratas a este persoal tes que ter en conta o convenio colectivo do sector e planificar tendo en conta o seu salario e os custes de seguridade social
+Tes que xustificar todos os datos que proporcionas. A min dame a sensación de que os custes están moi por abaixo do que son en realidade nun caso coma este
 ---
 
 ### Infraestructura y servicios en la nube
