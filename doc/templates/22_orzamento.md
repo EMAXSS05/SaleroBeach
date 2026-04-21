@@ -26,7 +26,7 @@ Tes que xustificar todos os datos que proporcionas. A min dame a sensación de q
 | Backend (API) | Render (Docker) | 0,00 € | Plan "Free" |
 | Frontend | Render (Static) | 0,00 € | Plan "Free" |
 | Certificado SSL | Let's Encrypt | 0,00 € | Incluido en Render |
-
+Non vexo por ningun lado o custe dos equipos informáticos. Cales son? onde están? se son equipos teus que cedes á empresa tes que determinar o seu valor de mercado a día de hoxe. Non o tes en conta
 ---
 
 ### Costes de mantenimiento anual estimados
