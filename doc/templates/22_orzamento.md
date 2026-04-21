@@ -1,5 +1,5 @@
 # Presupuesto – Salero Beach
-
+Onde está especificado o tipo de empresa que vas crear? é relevate para determinar a inversión, xa que os gastos de constitución nalgúns casos son mais elevados do que prevees
 ## 1. Inversiones y costes
 
 ### Inversiones iniciales
@@ -38,7 +38,7 @@ Non vexo por ningun lado o custe dos equipos informáticos. Cales son? onde est�
 | **Total mantenimiento anual** | **10,00 €** |
 
 > Al usar los planes gratuitos de MongoDB Atlas y Render, el coste de infraestructura se mantiene en 0 €.
-
+Volvemos ao mesmo: e o custe de internet? luz? aluguer das instalacións? faltan moitos datos
 ---
 
 ## 2. Ingresos y Beneficio
@@ -50,14 +50,14 @@ Non vexo por ningun lado o custe dos equipos informáticos. Cales son? onde est�
 | Venta del software al cliente (Salero Beach) | 1.098,00 € |
 | **Total ingresos** | **1.098,00 €** |
 
----
+---Como determianas este precio? non o xustificas. E se so te pagan 800€ que? TEs que xustificar o dato que aportas
 
 ### Resultado económico
 
 | Concepto | Importe |
 |---|---|
 | Total ingresos | 1.098,00 € |
-| Total costes (inversión inicial) | 1.045,50 € |
+| Total costes (inversión inicial) | 1.045,50 € | Este dato quédase curto. Estás sendo moi optimista. Faltan cousas, como expliquei arriba
 | **Beneficio** | **+ 52,50 €** |
 
 
