@@ -3,10 +3,15 @@ import styles from './MapaMesas.module.css';
 import iconoInterior from '../../assets/iconos/interior.png';
 import iconoTerraza from '../../assets/iconos/terraza.png';
 
-const MapaMesas = ({ alSeleccionarMesa }) => {
+const MapaMesas = ({ alSeleccionarMesa, pedidos }) => {
     const [mesas, setMesas] = useState([]);
     const [terrazaAbierta, setTerrazaAbierta] = useState(true);
     const [interiorAbierto, setInteriorAbierto] = useState(true);
+    // Función para saber si una mesa tiene pedido real
+    const estaOcupada = (numeroMesa) => {
+        // Si existe el objeto y tiene items, está ocupada
+        return pedidos && pedidos[numeroMesa] && pedidos[numeroMesa].items.length > 0;
+    };
 
     useEffect(() => {
         const obtenerMesas = async () => {
@@ -18,7 +23,7 @@ const MapaMesas = ({ alSeleccionarMesa }) => {
                 console.error("Error al traer mesas:", error);
             }
         };
-        obtenerMesas(); 
+        obtenerMesas();
     }, []);
 
     const mesasTerraza = mesas.filter(m => m.zona === 'Terraza');
@@ -64,16 +69,21 @@ const MapaMesas = ({ alSeleccionarMesa }) => {
 
                 {terrazaAbierta && (
                     <div className={styles.gridMesas}>
-                        {mesasTerraza.map(mesa => (
-                            <div
-                                key={mesa._id}
-                                className={`${styles.mesaCard} ${mesa.estado === 'ocupada' ? styles.ocupada : styles.libre}`}
-                                onClick={() => alSeleccionarMesa(mesa.numero)}
-                            >
-                                <span className={styles.numeroMesa}>{mesa.numero}</span>
-                                <span className={styles.estadoTexto}>{mesa.estado.toUpperCase()}</span>
-                            </div>
-                        ))}
+                        {mesasTerraza.map(mesa => {
+                            const ocupada = estaOcupada(mesa.numero); // <--- Chequeamos aquí
+                            return (
+                                <div
+                                    key={mesa._id}
+                                    className={`${styles.mesaCard} ${ocupada ? styles.ocupada : styles.libre}`}
+                                    onClick={() => alSeleccionarMesa(mesa.numero)}
+                                >
+                                    <span className={styles.numeroMesa}>{mesa.numero}</span>
+                                    <span className={styles.estadoTexto}>
+                                        {ocupada ? 'OCUPADA' : 'LIBRE'}
+                                    </span>
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
             </div>
@@ -91,16 +101,23 @@ const MapaMesas = ({ alSeleccionarMesa }) => {
 
                 {interiorAbierto && (
                     <div className={styles.gridMesas}>
-                        {mesasInterior.map(mesa => (
-                            <div
-                                key={mesa._id}
-                                className={`${styles.mesaCard} ${mesa.estado === 'ocupada' ? styles.ocupada : styles.libre}`}
-                                onClick={() => alSeleccionarMesa(mesa.numero)}
-                            >
-                                <span className={styles.numeroMesa}>{mesa.numero}</span>
-                                <span className={styles.estadoTexto}>{mesa.estado.toUpperCase()}</span>
-                            </div>
-                        ))}
+                        {mesasInterior.map(mesa => {
+                            const ocupada = estaOcupada(mesa.numero);
+
+                            return (
+                                <div
+                                    key={mesa._id}
+                                    className={`${styles.mesaCard} ${ocupada ? styles.ocupada : styles.libre}`}
+                                    onClick={() => alSeleccionarMesa(mesa.numero)}
+                                >
+                                    <span className={styles.numeroMesa}>{mesa.numero}</span>
+                                    
+                                    <span className={styles.estadoTexto}>
+                                        {ocupada ? 'OCUPADA' : 'LIBRE'}
+                                    </span>
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
             </div>

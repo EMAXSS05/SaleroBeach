@@ -1,69 +1,128 @@
 import React, { useState, useEffect } from 'react';
 import MapaMesas from './MapaMesas';
-import CartaProductos from './CartaProductos';
 import DetalleMesa from './DetalleMesa';
 import styles from './TerminalCamarero.module.css';
 
 const TerminalCamarero = () => {
-    const [paso, setPaso] = useState(1);
     const [mesaSeleccionada, setMesaSeleccionada] = useState(null);
     const [pedidosActivos, setPedidosActivos] = useState({});
 
-    // Al tocar una mesa en el mapa
+    useEffect(() => {
+        const sincronizarMesas = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/api/pedidos');
+                const pedidosDB = await res.json();
+
+                const pedidosSoloActivos = pedidosDB.filter(p => p.estadoGeneral === 'en_curso');
+
+                const nuevoEstadoMesas = {};
+                pedidosSoloActivos.forEach(p => {
+                    nuevoEstadoMesas[p.mesa] = {
+                        items: p.items,
+                        comensales: p.comensales || 1,
+                        dbId: p._id
+                    };
+                });
+
+                setPedidosActivos(prev => {
+                    if (mesaSeleccionada) {
+                        // Mantenemos los datos locales de esa mesa para que no se borren
+                        return {
+                            ...nuevoEstadoMesas,
+                            [mesaSeleccionada]: prev[mesaSeleccionada]
+                        };
+                    }
+                    // Si no hay ninguna mesa abierta, actualizamos todo normal
+                    return nuevoEstadoMesas;
+                });
+
+            } catch (error) {
+                console.error("Error sincronizando mesas:", error);
+            }
+        };
+
+        sincronizarMesas();
+        const intervalo = setInterval(sincronizarMesas, 5000);
+        return () => clearInterval(intervalo);
+    }, [mesaSeleccionada]);
+    // Manejar selección de mesa
     const manejarSeleccionMesa = (numMesa) => {
         setMesaSeleccionada(numMesa);
-        if (pedidosActivos[numMesa]) {
-            setPaso(3);
-        } else {
-            setPaso(2);
+        if (!pedidosActivos[numMesa]) {
+            setPedidosActivos(prev => ({
+                ...prev,
+                [numMesa]: { items: [], comensales: 1 }
+            }));
         }
     };
 
-    // Función para guardar el pedido
-    const confirmarPedido = (mesa, nuevosItems) => {
-        const pedidoExistente = pedidosActivos[mesa]?.items || [];
-        setPedidosActivos({
-            ...pedidosActivos,
-            [mesa]: { items: [...pedidoExistente, ...nuevosItems] }
+    // Añadir items al pedido 
+    const confirmarPedidoFinal = (mesa, nuevoItem) => {
+        setPedidosActivos(prev => {
+            const pedidoPrevio = prev[mesa] || { items: [], comensales: 1 };
+            return {
+                ...prev,
+                [mesa]: {
+                    ...pedidoPrevio,
+                    items: [...pedidoPrevio.items, nuevoItem]
+                }
+            };
         });
-        setPaso(1); // Volvemos al mapa
     };
 
-    // Función para cobrar y liberar la mesa
+    // ENVIAR A LA DB 
+    const enviarPedidoFinalABaseDeDatos = async (numMesa) => {
+        const pedido = pedidosActivos[numMesa];
+        if (!pedido || pedido.items.length === 0) return;
+
+        try {
+            const res = await fetch('http://localhost:5000/api/pedidos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    mesa: numMesa,
+                    camarero: "Juan",
+                    items: pedido.items,
+                    total: pedido.items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0),
+                    estadoGeneral: 'en_curso'
+                })
+            });
+
+            if (res.ok) {
+                alert("¡Pedido enviado a cocina!");
+                setMesaSeleccionada(null); // Cerramos el detalle
+            } else {
+                alert("Error al guardar en base de datos");
+            }
+        } catch (error) {
+            console.error("Error enviando pedido:", error);
+            alert("No hay conexión con el servidor");
+        }
+    };
+
+    // Cobrar y limpiar
     const cobrarMesa = (mesa) => {
-        const copiaPedidos = { ...pedidosActivos };
-        delete copiaPedidos[mesa];
-        setPedidosActivos(copiaPedidos);
-        setPaso(1);
+        const copia = { ...pedidosActivos };
+        delete copia[mesa];
+        setPedidosActivos(copia);
+        setMesaSeleccionada(null);
     };
 
     return (
         <div className={styles.mainContainer}>
-            {paso === 1 && (
+            {!mesaSeleccionada ? (
                 <MapaMesas
                     alSeleccionarMesa={manejarSeleccionMesa}
                     pedidos={pedidosActivos}
                 />
-            )}
-
-            {paso === 2 && (
-                <CartaProductos
-                    mesa={mesaSeleccionada}
-                    alVolver={() => setPaso(1)}
-                    // actualizamos el estado local aquí para que el detalle funcione
-                    alFinalizarPedido={(itemsRecibidos) => {
-                        confirmarPedido(mesaSeleccionada, itemsRecibidos);
-                    }}
-                />
-            )}
-
-            {paso === 3 && (
+            ) : (
                 <DetalleMesa
                     mesa={mesaSeleccionada}
                     pedido={pedidosActivos[mesaSeleccionada]}
-                    alAñadir={() => setPaso(2)}
+                    alVolver={() => setMesaSeleccionada(null)}
+                    alConfirmarPedido={(item) => confirmarPedidoFinal(mesaSeleccionada, item)}
+                    alEnviarA_Cocina={() => enviarPedidoFinalABaseDeDatos(mesaSeleccionada)}
                     alCobrar={() => cobrarMesa(mesaSeleccionada)}
-                    alVolver={() => setPaso(1)}
                 />
             )}
         </div>

@@ -1,10 +1,11 @@
 .container {
     background-color: #131521;
-    min-height: 100vh;
+    height: 100vh; 
     padding: 20px;
     color: white;
     display: flex;
     flex-direction: column;
+    overflow: hidden; 
 }
 
 .header {
@@ -120,4 +121,73 @@
 
 .btnAñadir:active, .btnCobrar:active {
     transform: scale(0.95);
+}
+
+.selectorComensales {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 30px;
+    color: white;
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.counter button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #f56a23;
+    background: transparent;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.comensalesLarge {
+    font-size: 80px;
+    font-weight: bold;
+}
+
+.btnSiguiente {
+    background: #f56a23;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+.zonaScrollCarta {
+    flex: 1; 
+    overflow-y: auto; 
+    margin-top: 15px;
+    padding-right: 5px; 
+}
+
+.accionesFlujo {
+    padding: 15px 0;
+    border-top: 1px solid #2a2d3e;
+    background-color: #131521;
+}
+
+.btnSaltar {
+    background: #f56a23; 
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 15px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
 }
