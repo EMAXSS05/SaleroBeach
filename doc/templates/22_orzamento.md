@@ -1,5 +1,5 @@
 # Presupuesto – Salero Beach
-
+Onde está especificado o tipo de empresa que vas crear? é relevate para determinar a inversión, xa que os gastos de constitución nalgúns casos son mais elevados do que prevees
 ## 1. Inversiones y costes
 
 ### Inversiones iniciales
@@ -14,7 +14,8 @@
 | **Total** | | **1.045,50 €** |
 
 > La mano de obra se calcula en base a la planificación estimada del proyecto (entre 60 y 80 horas), tomando como referencia un salario medio de 14 €/h para un programador autónomo.
-
+Para facer isto terás que chegar a acordos con persoal autónomo. Se contratas a este persoal tes que ter en conta o convenio colectivo do sector e planificar tendo en conta o seu salario e os custes de seguridade social
+Tes que xustificar todos os datos que proporcionas. A min dame a sensación de que os custes están moi por abaixo do que son en realidade nun caso coma este
 ---
 
 ### Infraestructura y servicios en la nube
@@ -25,7 +26,7 @@
 | Backend (API) | Render (Docker) | 0,00 € | Plan "Free" |
 | Frontend | Render (Static) | 0,00 € | Plan "Free" |
 | Certificado SSL | Let's Encrypt | 0,00 € | Incluido en Render |
-
+Non vexo por ningun lado o custe dos equipos informáticos. Cales son? onde están? se son equipos teus que cedes á empresa tes que determinar o seu valor de mercado a día de hoxe. Non o tes en conta
 ---
 
 ### Costes de mantenimiento anual estimados
@@ -37,7 +38,7 @@
 | **Total mantenimiento anual** | **10,00 €** |
 
 > Al usar los planes gratuitos de MongoDB Atlas y Render, el coste de infraestructura se mantiene en 0 €.
-
+Volvemos ao mesmo: e o custe de internet? luz? aluguer das instalacións? faltan moitos datos
 ---
 
 ## 2. Ingresos y Beneficio
@@ -49,14 +50,14 @@
 | Venta del software al cliente (Salero Beach) | 1.098,00 € |
 | **Total ingresos** | **1.098,00 €** |
 
----
+---Como determianas este precio? non o xustificas. E se so te pagan 800€ que? TEs que xustificar o dato que aportas
 
 ### Resultado económico
 
 | Concepto | Importe |
 |---|---|
 | Total ingresos | 1.098,00 € |
-| Total costes (inversión inicial) | 1.045,50 € |
+| Total costes (inversión inicial) | 1.045,50 € | Este dato quédase curto. Estás sendo moi optimista. Faltan cousas, como expliquei arriba
 | **Beneficio** | **+ 52,50 €** |
 
 

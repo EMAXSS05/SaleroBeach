@@ -14,7 +14,6 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar }) => {
         return () => clearInterval(timer);
     }, []);
 
-    // Buscamos específicamente el campo "fecha" que es el que envía tu API
 const fechaPedido = pedido.fecha ? new Date(pedido.fecha) : null;
 
     return (
