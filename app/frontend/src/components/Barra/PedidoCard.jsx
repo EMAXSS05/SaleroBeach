@@ -16,6 +16,20 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar }) => {
 
 const fechaPedido = pedido.fecha ? new Date(pedido.fecha) : null;
 
+const itemsAgrupados = pedido.items.reduce((acc, item) => {
+        // Buscamos si el producto ya está en nuestro acumulador
+        const existente = acc.find(i => i.nombre === item.nombre && i.nota === item.nota);
+        
+        if (existente) {
+            // Si ya existe (y tiene la misma nota), sumamos la cantidad
+            existente.cantidad += item.cantidad;
+        } else {
+            // Si no existe, lo añadimos como nuevo objeto (copiándolo para no mutar el original)
+            acc.push({ ...item });
+        }
+        return acc;
+    }, []);
+
     return (
         <div className={styles.card}>
             <div className={styles.cardHeader}>
@@ -32,14 +46,19 @@ const fechaPedido = pedido.fecha ? new Date(pedido.fecha) : null;
             </div>
 
             <div className={styles.itemList}>
-                {pedido.items.map((item, index) => (
+                {/* IMPORTANTE: Ahora mapeamos 'itemsAgrupados' en lugar de 'pedido.items' */}
+                {itemsAgrupados.map((item, index) => (
                     <div key={index} className={styles.itemRow}>
-                        
                         <div className={styles.itemDetails}>
-                            <p className={styles.itemName}>{item.nombre}</p>
+                            <p className={styles.itemName}>
+                                {item.nombre} 
+                                {item.nota && <span className={styles.notaItem}> ({item.nota})</span>}
+                            </p>
                             <p className={styles.itemQty}>x {item.cantidad}</p>
                         </div>
-                        <span className={styles.itemPrice}>{(item.precio * item.cantidad).toFixed(2)}€</span>
+                        <span className={styles.itemPrice}>
+                            {(item.precio * item.cantidad).toFixed(2)}€
+                        </span>
                     </div>
                 ))}
             </div>

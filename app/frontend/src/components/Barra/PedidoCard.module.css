@@ -79,6 +79,11 @@
     font-weight: 600;
     font-size: 14px;
 }
+.notaItem {
+    font-size: 0.85rem;
+    color: #ff9800; 
+    font-style: italic;
+}
 
 .divider {
     height: 1px;
