@@ -44,19 +44,24 @@
 }
 
 .item {
-    padding: 15px 0;
-    border-bottom: 1px solid #2a2d3e;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #2d2f3e;
+    gap: 15px; 
 }
 
-.itemInfo {
+.itemMainInfo {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     align-items: center;
+    flex: 1; 
 }
 
 .nombre {
     font-size: 1.1rem;
     font-weight: 500;
+    flex: 1;
 }
 
 .precio {
@@ -190,4 +195,33 @@
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
+}
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #2d2f3e;
+}
+
+.btnBorrarItem {
+    background: rgba(255, 68, 68, 0.1);
+    border: none;
+    color: #ff4444;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.btnBorrarItem:hover {
+    background: #ff4444;
+    color: white;
+}
+
+.btnBorrarItem span {
+    font-size: 1.2rem;
 }

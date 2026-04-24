@@ -5,6 +5,16 @@ const DetalleProductos = ({ producto, alConfirmar, alCerrar }) => {
     const [nota, setNota] = useState("");
     const [cant, setCant] = useState(1);
 
+    // Función para manejar el cambio manual en el input
+    const manejarCambioManual = (e) => {
+        const valor = parseInt(e.target.value);
+        if (isNaN(valor) || valor < 1) {
+            setCant(1); 
+        } else {
+            setCant(valor);
+        }
+    };
+
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
@@ -12,7 +22,13 @@ const DetalleProductos = ({ producto, alConfirmar, alCerrar }) => {
                 
                 <div className={styles.selector}>
                     <button onClick={() => setCant(Math.max(1, cant - 1))}>-</button>
-                    <span>{cant}</span>
+                    <input 
+                        type="number" 
+                        value={cant} 
+                        onChange={manejarCambioManual}
+                        className={styles.inputCantidad}
+                        min="1"
+                    />
                     <button onClick={() => setCant(cant + 1)}>+</button>
                 </div>
 

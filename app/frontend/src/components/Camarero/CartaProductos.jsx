@@ -37,7 +37,6 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
         return true;
     });
 
-    // ¡ESTA ES LA CLAVE! 
     // Ahora, al añadir un producto, avisamos directamente al padre
     const añadirAlPedido = (producto, cantidad, nota) => {
         const nuevoItem = { 
@@ -70,11 +69,7 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
             <div className={styles.grid}>
                 {productosFiltrados.map(p => (
                     <div key={p._id} className={styles.card} onClick={() => {
-                        if (p.categoria === 'Barra') {
-                            añadirAlPedido(p, 1, "");
-                        } else {
                             setProductoEdicion(p);
-                        }
                     }}>
                         <div className={styles.imgContainer}>
                             {p.imagen && p.imagen !== "ejemplo" ? (

@@ -26,13 +26,11 @@ const TerminalCamarero = () => {
 
                 setPedidosActivos(prev => {
                     if (mesaSeleccionada) {
-                        // Mantenemos los datos locales de esa mesa para que no se borren
                         return {
                             ...nuevoEstadoMesas,
                             [mesaSeleccionada]: prev[mesaSeleccionada]
                         };
                     }
-                    // Si no hay ninguna mesa abierta, actualizamos todo normal
                     return nuevoEstadoMesas;
                 });
 
@@ -90,7 +88,7 @@ const TerminalCamarero = () => {
 
             if (res.ok) {
                 alert("¡Pedido enviado a cocina!");
-                setMesaSeleccionada(null); // Cerramos el detalle
+                setMesaSeleccionada(null); 
             } else {
                 alert("Error al guardar en base de datos");
             }
@@ -107,6 +105,34 @@ const TerminalCamarero = () => {
         setPedidosActivos(copia);
         setMesaSeleccionada(null);
     };
+    const eliminarItemDelPedido = (numMesa, nombreItem, notaItem) => {
+    setPedidosActivos(prev => {
+        const pedidoActual = prev[numMesa];
+        if (!pedidoActual) return prev;
+        const nuevosItems = [...pedidoActual.items];
+        const index = nuevosItems.findIndex(
+            i => i.nombre === nombreItem && i.nota === notaItem
+        );
+
+        if (index !== -1) {
+            if (nuevosItems[index].cantidad > 1) {
+                nuevosItems[index] = { 
+                    ...nuevosItems[index], 
+                    cantidad: nuevosItems[index].cantidad - 1 
+                };
+            } else {
+                
+                nuevosItems.splice(index, 1);
+            }
+
+            return {
+                ...prev,
+                [numMesa]: { ...pedidoActual, items: nuevosItems }
+            };
+        }
+        return prev;
+    });
+};
 
     return (
         <div className={styles.mainContainer}>
@@ -123,6 +149,7 @@ const TerminalCamarero = () => {
                     alConfirmarPedido={(item) => confirmarPedidoFinal(mesaSeleccionada, item)}
                     alEnviarA_Cocina={() => enviarPedidoFinalABaseDeDatos(mesaSeleccionada)}
                     alCobrar={() => cobrarMesa(mesaSeleccionada)}
+                    alEliminarItem={(nombre, nota) => eliminarItemDelPedido(mesaSeleccionada, nombre, nota)}
                 />
             )}
         </div>
