@@ -55,7 +55,7 @@ const cargarDatos = async () => {
                     { nombre: "Pulpo a la Feira", precio: 23.00, cantidad: 1 }
                 ],
                 total: 28.00,
-                estado: "pendiente"
+                estadoGeneral: "en_curso"
             },
             {
                 mesa: "Terraza 1",
@@ -64,7 +64,7 @@ const cargarDatos = async () => {
                     { nombre: "Aquarius de Naranja", precio: 2.50, cantidad: 1 }
                 ],
                 total: 2.50,
-                estado: "pendiente"
+                estadoGeneral: "en_curso"
             }
         ]);
 

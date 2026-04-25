@@ -3,36 +3,52 @@ const router = express.Router();
 const Pedido = require('../models/Pedido');
 const Mesa = require('../models/Mesa'); 
 
-// Obtiene todos los pedidos activos para la Barra/Cocina
+// Obtiene todos los pedidos (para barra/cocina e historial)
 router.get('/', async (req, res) => {
     try {
-        const pedidos = await Pedido.find({ estadoGeneral: 'en_curso' });
+        const pedidos = await Pedido.find();
         res.json(pedidos);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
 
-// Crea un nuevo pedido
+// Crea un nuevo pedido verificando si la mesa está libre u ocupada.
 router.post('/', async (req, res) => {
-    //  Calcula el total
-    const totalCalculado = req.body.items.reduce((acc, item) => {
-        return acc + (item.precio * (item.cantidad || 1));
-    }, 0);
+   try {
+        const { mesa, items, camarero } = req.body;
 
-    const pedido = new Pedido({
-        ...req.body,
-        total: totalCalculado
-    });
+        //Buscamos si ya existe un pedido abierto para esa mesa
+        let pedidoExistente = await Pedido.findOne({ 
+            mesa: mesa, 
+            estadoGeneral: { $in: ['pendiente', 'en_curso', 'preparado'] } 
+        });
 
-    try {
-        //Guardamos el pedido
-        const nuevoPedido = await pedido.save();
-        // Buscamos la mesa por su número 
-        await Mesa.findOneAndUpdate(
-            { numero: req.body.mesa },
-            { estado: 'ocupada' }
-        );
+        if (pedidoExistente) {
+            items.forEach(nuevoItem => {
+                // Buscamos si el producto ya estaba en el pedido
+                const itemEnPedido = pedidoExistente.items.find(i => i.nombre === nuevoItem.nombre);
+                if (itemEnPedido) {
+                    itemEnPedido.cantidad += nuevoItem.cantidad;
+                } else {
+                    pedidoExistente.items.push(nuevoItem);
+                }
+            });
+
+            // Recalculamos el total del pedido existente
+            pedidoExistente.total = pedidoExistente.items.reduce((acc, item) => {
+                return acc + (item.precio * (item.cantidad || 1));
+            }, 0);
+
+            const pedidoActualizado = await pedidoExistente.save();
+            return res.status(200).json(pedidoActualizado);
+        }
+
+        const totalCalculado = items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+        const nuevoPedido = new Pedido({ ...req.body, total: totalCalculado });
+        
+        await nuevoPedido.save();
+        await Mesa.findOneAndUpdate({ numero: mesa }, { estado: 'ocupada' });
 
         res.status(201).json(nuevoPedido);
     } catch (err) {

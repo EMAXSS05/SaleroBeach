@@ -3,9 +3,8 @@ import CartaProductos from './CartaProductos';
 import styles from './DetalleMesa.module.css';
 
 const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEnviarA_Cocina,alEliminarItem }) => {
-    // 1. SI EL PEDIDO NO EXISTE (fue cancelado o no hay datos), VOLVEMOS ATRÁS
+    // Si el pedido no existe volvemos atrás
     if (!pedido) {
-        // Forzamos la salida si el pedido desaparece de repente
         setTimeout(() => alVolver(), 0);
         return null;
     }
@@ -17,9 +16,9 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
     // si se cambia de mesa el estado se actualiza.
     useEffect(() => {
         if (pedido.items.length > 0) {
-            setPaso(4); // Si ya hay comida, directo al resumen
+            setPaso(4);
         } else {
-            setPaso(0); // Si está limpia, a preguntar cuántos son
+            setPaso(0); 
         }
     }, [mesa]);
 
@@ -48,7 +47,7 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
             </div>
         );
     }
-
+   //VISTAS DEL PASO 1 AL 3
     if (paso >= 1 && paso <= 3) {
         const titulos = ["", "Bebidas y Entradas", "Segundos Platos", "Postres"];
         return (
@@ -85,7 +84,7 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
     }
 
     const itemsAgrupados = pedido.items.reduce((acc, item) => {
-        // Buscamos si ya existe el producto con la misma nota (importante por si hay variaciones)
+        // Buscamos si ya existe el producto con la misma nota
         const existente = acc.find(i => i.nombre === item.nombre && i.nota === item.nota);
         if (existente) {
             existente.cantidad += item.cantidad;
@@ -116,8 +115,6 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
                 {(item.precio * item.cantidad).toFixed(2)}€
             </span>
         </div>
-        
-        {/* El botón de borrar queda fuera del bloque de texto para que el flex lo mande al final */}
         <button 
             className={styles.btnBorrarItem} 
             onClick={() => alEliminarItem(item.nombre, item.nota)}
@@ -139,7 +136,7 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
                     Añadir más
                 </button>
                 <button className={styles.btnCobrar} onClick={alCobrar} onClick={alEnviarA_Cocina}>
-                    Cobrar y Cerrar
+                    Confirmar y Enviar
                 </button>
             </div>
         </div>

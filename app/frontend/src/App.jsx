@@ -6,14 +6,16 @@ import Sidebar from './components/Barra/Sidebar'
 import MainPanel from './components/Barra/MainPanel'
 
 function App() {
+  const [seccionActiva, setSeccionActiva] = useState('HOME');
   return (
     <div className="app-container">
       <Routes>
         <Route path="/barra" element={
           <>
-            <Sidebar />
+            <Sidebar seccionActiva={seccionActiva}
+              setSeccionActiva={setSeccionActiva} />
             <main className="content-area">
-              <MainPanel />
+              <MainPanel seccionActiva={seccionActiva} />
             </main>
           </>
         } />

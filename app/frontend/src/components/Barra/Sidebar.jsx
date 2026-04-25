@@ -3,13 +3,13 @@ import { FaHome, FaHistory, FaUsers, FaGlassMartiniAlt, FaTable } from 'react-ic
 import logoImg from '../.././assets/logoSalero.png'; 
 import styles from './Sidebar.module.css';
 
-const Sidebar = () => {
+const Sidebar = ({ seccionActiva, setSeccionActiva }) => {
     const menuItems = [
-        { name: 'HOME', icon: <FaHome />, active: true },
-        { name: 'ORDER HISTORY', icon: <FaHistory /> },
-        { name: 'TABLES', icon: <FaTable /> },
-        { name: 'USERS', icon: <FaUsers /> },
-        { name: 'PRODUCTS', icon: <FaGlassMartiniAlt /> },
+        { id: 'HOME',name: 'HOME', icon: <FaHome />, active: true },
+        { id: 'ORDER HISTORY',name: 'ORDER HISTORY', icon: <FaHistory /> },
+        { id: 'TABLES',name: 'TABLES', icon: <FaTable /> },
+        { id:'USERS', name:'USERS', icon: <FaUsers /> },
+        { id:'PRODUCTS',name: 'PRODUCTS', icon: <FaGlassMartiniAlt /> },
     ];
 
     return (
@@ -22,7 +22,8 @@ const Sidebar = () => {
                 {menuItems.map((item, index) => (
                     <div 
                         key={index} 
-                        className={`${styles.menuItem} ${item.active ? styles.menuItemActive : ''}`}
+                        className={`${styles.menuItem} ${seccionActiva === item.id ? styles.menuItemActive : ''}`}
+                        onClick={() => setSeccionActiva(item.id)}
                     >
                         <div className={styles.icon}>{item.icon}</div>
                         {item.name}

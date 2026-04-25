@@ -1,0 +1,128 @@
+.container {
+    padding: 30px;
+    background-color: #131521;
+    min-height: 100vh;
+    color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.statsCard {
+    background: #1c1f2e;
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid #f56a23;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.totalAmount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #27ae60;
+}
+
+.filterBar {
+    display: flex;
+    gap: 20px;
+    background: #1c1f2e;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    align-items: flex-end;
+}
+
+.filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filterGroup input {
+    background: #131521;
+    border: 1px solid #2d2f3e;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.tableWrapper {
+    background: #1c1f2e;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #2d2f3e;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabla th {
+    background: #2d2f3e;
+    padding: 15px;
+    color: #888;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.tabla td {
+    padding: 15px;
+    border-bottom: 1px solid #2d2f3e;
+}
+
+.mesaBadge {
+    background: rgba(245, 106, 35, 0.2);
+    color: #f56a23;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.totalTd {
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.btnVerDetalle {
+    background: #2d2f3e;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btnReset {
+    padding: 8px 16px;
+    background-color: #3d4450;
+    color: #ffffff;
+    border: 1px solid #4f5664;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    margin-top: auto; 
+}
+
+.btnReset:hover {
+    background-color: #e74c3c; 
+    border-color: #c0392b;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    transform: translateY(-1px);
+}
+
+.btnReset:active {
+    transform: translateY(0);
+}
