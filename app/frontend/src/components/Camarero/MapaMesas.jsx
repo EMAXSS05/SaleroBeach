@@ -25,9 +25,12 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos }) => {
         };
         obtenerMesas();
     }, []);
+    const mesasActivas = mesas.filter(m => m.activa !== false);
 
-    const mesasTerraza = mesas.filter(m => m.zona === 'Terraza');
-    const mesasInterior = mesas.filter(m => m.zona === 'Interior');
+
+    const mesasTerraza = mesasActivas.filter(m => m.zona === 'Terraza');
+    const mesasInterior = mesasActivas.filter(m => m.zona === 'Interior');
+    const [menuAbierto, setMenuAbierto] = useState(false);
 
     const cerrarSesion = () => {
         console.log("Cerrando sesión...");
@@ -37,24 +40,40 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos }) => {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles.header}>
-                <div className={styles.headerTop}>
-                    <h1>Salero <span className={styles.orangeText}>Beach</span></h1>
+       <div className={styles.container}>
+        <div className={styles.header}>
+            <div className={styles.headerTop}>
+                <h1>Salero <span className={styles.orangeText}>Beach</span></h1>
 
-                    <div className={styles.userControls}>
-                        {/* Círculo con la inicial */}
-                        <div className={styles.userAvatar}>
+                <div className={styles.userControls}>
+                    {/* Contenedor del menú relativo */}
+                    <div className={styles.menuWrapper}>
+                        <div 
+                            className={styles.userAvatar} 
+                            onClick={() => setMenuAbierto(!menuAbierto)}
+                        >
                             J
                         </div>
 
-                        <button className={styles.iconButton} onClick={cerrarSesion}>
-                            <span className="material-icons">logout</span>
-                        </button>
+                        {/* El menú desplegable */}
+                        {menuAbierto && (
+                            <div className={styles.dropdownMenu}>
+                                <div className={styles.userInfo}>
+                                    <span className={styles.userName}>Juan Pérez</span>
+                                    <span className={styles.userRole}>Camarero</span>
+                                </div>
+                                <hr className={styles.divider} />
+                                <button className={styles.logoutBtn} onClick={cerrarSesion}>
+                                    <span className="material-icons">logout</span>
+                                    Cerrar Sesión
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
-                <p>Panel de Sala</p>
             </div>
+            <p>Panel de Sala</p>
+        </div>
 
             {/* SECCIÓN TERRAZA */}
             <div className={styles.section}>
@@ -70,7 +89,7 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos }) => {
                 {terrazaAbierta && (
                     <div className={styles.gridMesas}>
                         {mesasTerraza.map(mesa => {
-                            const ocupada = estaOcupada(mesa.numero); // <--- Chequeamos aquí
+                            const ocupada = estaOcupada(mesa.numero);
                             return (
                                 <div
                                     key={mesa._id}

@@ -3,6 +3,7 @@ import Header from './Header';
 import PedidoCard from './PedidoCard';
 import styles from './MainPanel.module.css';
 import HistorialPedidos from './HistorialPedidos';
+import ConfiguracionMesas from './ConfiguracionMesas';
 
 const MainPanel = ({seccionActiva}) => {
     // Aquí se guardarám los pedidos que vengan de la base de datos
@@ -67,19 +68,18 @@ const MainPanel = ({seccionActiva}) => {
         }
     };
 
-    
-    return (
-        <div className={styles.mainContainer}>
-            <Header />
+    //muestra la seccion que está activa
+   const renderContent = () => {
+        switch (seccionActiva) {
+            case 'ORDER HISTORY':
+                return <HistorialPedidos pedidosFinalizados={historial} />;
             
-            <div className={styles.content}>
-                
-                
-                {seccionActiva === 'ORDER HISTORY' ? (
-                    // VISTA DE HISTORIAL
-                    <HistorialPedidos pedidosFinalizados={historial} />
-                ) : (
-                    // VISTA DE LOS PEDIDOS
+            case 'TABLES':
+                return <ConfiguracionMesas />;
+            
+            case 'HOME':
+            default:
+                return (
                     <>
                         <h1 className={styles.title}>POS - CASH REGISTER</h1>
                         
@@ -116,7 +116,15 @@ const MainPanel = ({seccionActiva}) => {
                             </div>
                         )}
                     </>
-                )}
+                );
+        }
+    };
+
+    return (
+        <div className={styles.mainContainer}>
+            <Header />
+            <div className={styles.content}>
+                {renderContent()} 
             </div>
         </div>
     );
