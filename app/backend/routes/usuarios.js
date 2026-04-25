@@ -52,5 +52,29 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ mensaje: "Error al eliminar usuario" });
     }
 });
+// Login de usuario
+router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        // Buscamos al usuario por su username
+        const usuario = await Usuario.findOne({ username });
+
+        if (!usuario) {
+            return res.status(404).json({ mensaje: "Usuario no encontrado" });
+        }
+
+        // Verificamos la contraseña (por ahora texto plano, luego bcrypt)
+        if (usuario.password !== password) {
+            return res.status(401).json({ mensaje: "Contraseña incorrecta" });
+        }
+
+        // Si todo está bien, enviamos los datos (excepto password)
+        const { password: _, ...datosUsuario } = usuario._doc;
+        res.json({ mensaje: "Login exitoso", usuario: datosUsuario });
+        
+    } catch (err) {
+        res.status(500).json({ mensaje: "Error en el servidor durante el login" });
+    }
+});
 
 module.exports = router;

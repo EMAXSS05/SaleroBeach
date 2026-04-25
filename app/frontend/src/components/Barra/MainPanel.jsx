@@ -3,19 +3,20 @@ import Header from './Header';
 import PedidoCard from './PedidoCard';
 import styles from './MainPanel.module.css';
 import HistorialPedidos from './HistorialPedidos';
+import GestionUsuarios from './GestionUsuarios';
 import ConfiguracionMesas from './ConfiguracionMesas';
 
-const MainPanel = ({seccionActiva}) => {
+const MainPanel = ({ seccionActiva }) => {
     // Aquí se guardarám los pedidos que vengan de la base de datos
     const [pedidos, setPedidos] = useState([]);
     const [cargando, setCargando] = useState(true);
     const [filtroSeleccionado, setFiltroSeleccionado] = useState(null);
 
     const [historial, setHistorial] = useState([]);
-    const pedidosFiltrados = filtroSeleccionado 
-        ? pedidos.filter(p => p._id === filtroSeleccionado) 
+    const pedidosFiltrados = filtroSeleccionado
+        ? pedidos.filter(p => p._id === filtroSeleccionado)
         : pedidos;
-    
+
 
     // Función para ir a buscar los pedidos al servidor
     const obtenerPedidos = async () => {
@@ -25,11 +26,11 @@ const MainPanel = ({seccionActiva}) => {
             console.log("Datos brutos de la DB:", datos);
             console.log("Estados únicos:", [...new Set(datos.map(p => p.estadoGeneral))]);
             const pendientes = datos.filter(p => p.estadoGeneral === 'pendiente' ||
-                 p.estadoGeneral === 'preparado' ||
-                  p.estadoGeneral === 'en_curso');
-            const historico = datos.filter(p => 
-            p.estadoGeneral === 'finalizado' || p.estadoGeneral === 'cancelado'
-        );
+                p.estadoGeneral === 'preparado' ||
+                p.estadoGeneral === 'en_curso');
+            const historico = datos.filter(p =>
+                p.estadoGeneral === 'finalizado' || p.estadoGeneral === 'cancelado'
+            );
             console.log("Pendientes:", pendientes.length, "Finalizados:", historico.length);
             setPedidos(pendientes);
             setHistorial(historico)
@@ -40,7 +41,7 @@ const MainPanel = ({seccionActiva}) => {
         }
     };
 
-    
+
 
     useEffect(() => {
         obtenerPedidos();
@@ -51,47 +52,50 @@ const MainPanel = ({seccionActiva}) => {
     // Función para cambiar el estado del pedido
     const actualizarEstadoPedido = async (id, nuevoEstado) => {
         try {
-           const respuesta = await fetch(`http://localhost:5000/api/pedidos/${id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ estadoGeneral: nuevoEstado })
-        });
+            const respuesta = await fetch(`http://localhost:5000/api/pedidos/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ estadoGeneral: nuevoEstado })
+            });
 
-        if (respuesta.ok) {
-            obtenerPedidos(); 
-            if (filtroSeleccionado === id) setFiltroSeleccionado(null);
-        } else {
-            console.error("No se pudo actualizar el pedido");
-        }
-    }catch (error) {
+            if (respuesta.ok) {
+                obtenerPedidos();
+                if (filtroSeleccionado === id) setFiltroSeleccionado(null);
+            } else {
+                console.error("No se pudo actualizar el pedido");
+            }
+        } catch (error) {
             console.error("Error en la petición:", error);
         }
     };
 
     //muestra la seccion que está activa
-   const renderContent = () => {
+    const renderContent = () => {
         switch (seccionActiva) {
             case 'ORDER HISTORY':
                 return <HistorialPedidos pedidosFinalizados={historial} />;
-            
+
             case 'TABLES':
                 return <ConfiguracionMesas />;
-            
+
+            case 'USERS':
+                return <GestionUsuarios />;
+
             case 'HOME':
             default:
                 return (
                     <>
                         <h1 className={styles.title}>POS - CASH REGISTER</h1>
-                        
+
                         <div className={styles.filterBar}>
-                            <button 
+                            <button
                                 className={`${styles.filterBtn} ${!filtroSeleccionado ? styles.active : ''}`}
                                 onClick={() => setFiltroSeleccionado(null)}
                             >
                                 All
                             </button>
                             {pedidos.map(p => (
-                                <button 
+                                <button
                                     key={p._id}
                                     className={`${styles.filterBtn} ${filtroSeleccionado === p._id ? styles.active : ''}`}
                                     onClick={() => setFiltroSeleccionado(p._id)}
@@ -100,15 +104,15 @@ const MainPanel = ({seccionActiva}) => {
                                 </button>
                             ))}
                         </div>
-                        
+
                         {cargando ? (
                             <p style={{ color: '#a1a6b4' }}>Cargando comandas...</p>
                         ) : (
                             <div className={styles.ordersGrid}>
                                 {pedidosFiltrados.map((pedido) => (
-                                    <PedidoCard 
-                                        key={pedido._id} 
-                                        pedido={pedido} 
+                                    <PedidoCard
+                                        key={pedido._id}
+                                        pedido={pedido}
                                         onCobrar={() => actualizarEstadoPedido(pedido._id, 'finalizado')}
                                         onCancelar={() => actualizarEstadoPedido(pedido._id, 'cancelado')}
                                     />
@@ -124,7 +128,7 @@ const MainPanel = ({seccionActiva}) => {
         <div className={styles.mainContainer}>
             <Header />
             <div className={styles.content}>
-                {renderContent()} 
+                {renderContent()}
             </div>
         </div>
     );

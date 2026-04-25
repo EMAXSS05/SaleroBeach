@@ -8,11 +8,15 @@ const PedidoSchema = new mongoose.Schema({
         precio: Number,
         cantidad: { type: Number, default: 1 },
         nota: String, 
-        estadoItem: { type: String, default: 'pendiente' } 
+        estadoItem: { type: String, default: 'pendiente' },
+        hora_inicio_cocina: Date,  
+        hora_fin_cocina: Date 
     }],
     total: { type: Number, default: 0 },
     estadoGeneral: { type: String, default: 'en_curso' },
-    fecha: { type: Date, default: Date.now }
+    fecha: { type: Date, default: Date.now },
+    fecha_apertura: { type: Date, default: Date.now }, // 
+    fecha_cierre: Date // 
 });
 
 module.exports = mongoose.model('Pedido', PedidoSchema);

@@ -1,0 +1,104 @@
+.container {
+    padding: 2rem;
+    color: #fff;
+}
+
+.title {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+    background: #2a2d34;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.form input,
+.form select {
+    background: #1e2128;
+    border: 1px solid #3d4450;
+    color: white;
+    padding: 8px;
+    border-radius: 4px;
+    flex: 1;
+    min-width: 150px;
+}
+
+.btnAdd {
+    background: linear-gradient(to right, #FFA113, #F4350A);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #2a2d34;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 15px;
+    text-align: left;
+    background-color: #1c1f2e;
+    border-bottom: 1px solid #3d4450;
+}
+.table th{
+     background: #2d2f3e;
+}
+
+.nombreReal {
+    font-weight: 600;
+    color: #FFA113;
+}
+
+/* Badges de Roles */
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.barra {
+    background: rgba(244, 53, 10, 0.2);
+    color: #F4350A;
+    border: 1px solid #F4350A;
+}
+
+.camarero {
+    background: rgba(46, 204, 113, 0.2);
+    color: #2ecc71;
+    border: 1px solid #2ecc71;
+}
+
+.cocina {
+    background: rgba(52, 152, 219, 0.2);
+    color: #3498db;
+    border: 1px solid #3498db;
+}
+
+.btnDelete {
+    background: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btnDelete:hover {
+    background: #e74c3c;
+    color: white;
+}

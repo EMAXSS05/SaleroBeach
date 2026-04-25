@@ -1,0 +1,109 @@
+.loginContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a1c23; 
+    background-image: radial-gradient(circle at left, #d3540033, transparent 40%),
+                      radial-gradient(circle at right, #e67e2233, transparent 40%); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.loginForm {
+    background-color: transparent; 
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* El Logo 'S' con la tipografía serif de la imagen */
+.logo {
+    font-size: 5rem;
+    font-weight: 300;
+    font-family: 'Times New Roman', Times, serif; /* O una similar serif */
+    margin-bottom: 20px;
+    color: white;
+}
+
+.subtitle {
+    color: #8a8e9e;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 30px;
+    max-width: 300px;
+    line-height: 1.4;
+}
+
+.inputGroup {
+    width: 100%;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label naranja pequeño sobre el input */
+.inputGroup label {
+    color: #FFA113; /* Naranja Salero */
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-left: 12px;
+}
+
+.inputGroup input {
+    background-color: #2a2d3e; /* Fondo de input oscuro de la imagen */
+    border: 1px solid #3f445e; /* Borde sutil */
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.inputGroup input:focus {
+    outline: none;
+    border-color: #FE9315; /* Naranja en focus */
+}
+
+/* El botón con el degradado naranja/amarillo exacto */
+.loginBtn {
+    width: 100%;
+    background: linear-gradient(to right, #FFA113, #F4350A); /* Degradado exacto */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.1s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.loginBtn:active {
+    transform: scale(0.98);
+}
+
+.loginBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.errorMessage {
+    color: #ff4d4d;
+    background-color: rgba(255, 77, 77, 0.1);
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}

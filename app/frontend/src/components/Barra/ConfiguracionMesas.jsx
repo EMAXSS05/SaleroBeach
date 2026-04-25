@@ -44,7 +44,7 @@ const ConfiguracionMesas = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Gestión de Mesas</h1>
+            <h1 className={styles.title}>TABLE MANAGEMENT</h1>
 
             {/* FORMULARIO PARA AÑADIR */}
             <form className={styles.form} onSubmit={handleCrear}>
