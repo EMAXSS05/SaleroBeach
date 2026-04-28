@@ -69,7 +69,7 @@ const TerminalCamarero = () => {
     };
 
     // ENVIAR A LA DB 
-    const enviarPedidoFinalABaseDeDatos = async (numMesa) => {
+    const enviarPedidoFinalABaseDeDatos = async (numMesa,alerta) => {
         const pedido = pedidosActivos[numMesa];
         if (!pedido || pedido.items.length === 0) return;
 
@@ -81,6 +81,7 @@ const TerminalCamarero = () => {
                     mesa: numMesa,
                     camarero: "Juan",
                     items: pedido.items,
+                    alertas: alerta,
                     total: pedido.items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0),
                     estadoGeneral: 'en_curso'
                 })
@@ -147,7 +148,7 @@ const TerminalCamarero = () => {
                     pedido={pedidosActivos[mesaSeleccionada]}
                     alVolver={() => setMesaSeleccionada(null)}
                     alConfirmarPedido={(item) => confirmarPedidoFinal(mesaSeleccionada, item)}
-                    alEnviarA_Cocina={() => enviarPedidoFinalABaseDeDatos(mesaSeleccionada)}
+                    alEnviarA_Cocina={(textoAlerta) => enviarPedidoFinalABaseDeDatos(mesaSeleccionada,textoAlerta)}
                     alCobrar={() => cobrarMesa(mesaSeleccionada)}
                     alEliminarItem={(nombre, nota) => eliminarItemDelPedido(mesaSeleccionada, nombre, nota)}
                 />

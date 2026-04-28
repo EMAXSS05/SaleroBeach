@@ -3,14 +3,18 @@ import { FaHome, FaHistory, FaUsers, FaGlassMartiniAlt, FaTable } from 'react-ic
 import logoImg from '../.././assets/logoSalero.png'; 
 import styles from './Sidebar.module.css';
 
-const Sidebar = ({ seccionActiva, setSeccionActiva }) => {
-    const menuItems = [
+const Sidebar = ({ seccionActiva, setSeccionActiva, usuario }) => {
+    const todosLosItems = [
         { id: 'HOME',name: 'HOME', icon: <FaHome />, active: true },
         { id: 'ORDER HISTORY',name: 'ORDER HISTORY', icon: <FaHistory /> },
-        { id: 'TABLES',name: 'TABLES', icon: <FaTable /> },
-        { id:'USERS', name:'USERS', icon: <FaUsers /> },
-        { id:'PRODUCTS',name: 'PRODUCTS', icon: <FaGlassMartiniAlt /> },
+        { id: 'TABLES',name: 'TABLES', icon: <FaTable />,roles:['barra'] },
+        { id:'USERS', name:'USERS', icon: <FaUsers />,roles:['barra'] },
+        { id:'PRODUCTS',name: 'PRODUCTS', icon: <FaGlassMartiniAlt />,roles:['barra','cocina'] },
     ];
+
+    const menuItems= todosLosItems.filter(item=> !item.roles || item.roles.includes(usuario?.rol))
+
+    
 
     return (
         <aside className={styles.sidebar}>

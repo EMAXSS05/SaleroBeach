@@ -225,3 +225,68 @@
 .btnBorrarItem span {
     font-size: 1.2rem;
 }
+.selectorComensales {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.selectorComensales h3 {
+    font-size: 1.5rem;
+    color: #fdfdfd;
+    margin-bottom: 5px;
+}
+
+/* El área de texto para las alertas */
+.inputAlerta {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px 0;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1.1rem;
+    resize: none; 
+    outline: none;
+    transition: border-color 0.3s;
+    background-color: #fcfcfc;
+}
+
+.inputAlerta:focus {
+    border-color: #f56a23; 
+    background-color: #fff;
+}
+
+/* Contenedor de botones rápidos */
+.botonesRapidos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 25px;
+}
+
+.botonesRapidos button {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.botonesRapidos button:hover {
+    background-color: #fff5f0;
+    border-color: #f56a23;
+    transform: translateY(-2px);
+}

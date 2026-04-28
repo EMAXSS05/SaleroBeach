@@ -11,6 +11,7 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
 
     const [paso, setPaso] = useState(pedido.items.length > 0 ? 4 : 0);
     const [numComensales, setNumComensales] = useState(pedido.comensales || 1);
+    const [alertaMesa, setAlertaMesa] = useState('');
 
 
     // si se cambia de mesa el estado se actualiza.
@@ -21,9 +22,20 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
             setPaso(0); 
         }
     }, [mesa]);
+    const guardarAlertaYContinuar = async () => {
+    if (alertaMesa.trim() !== "") {
+        await fetch(`http://localhost:5000/api/mesas/${mesa}/alerta`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nuevaAlerta: alertaMesa })
+        });
+    }
+    setPaso(1);
+};
 
     // Cálculo del total acumulado
     const totalConsumido = pedido.items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+
 
     // VISTA 0: COMENSALES
     if (paso === 0) {
@@ -40,13 +52,48 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
                         <span className={styles.comensalesLarge}>{numComensales}</span>
                         <button onClick={() => setNumComensales(numComensales + 1)}>+</button>
                     </div>
-                    <button className={styles.btnSiguiente} onClick={() => setPaso(1)}>
+                    <button className={styles.btnSiguiente} onClick={() => setPaso(0.5)}>
                         Empezar Pedido
                     </button>
                 </div>
             </div>
         );
     }
+
+    // VISTA 0.5: ALERTAS DE MESA
+if (paso === 0.5) {
+    return (
+        <div className={styles.container}>
+            <header className={styles.header}>
+                <button onClick={() => setPaso(0)} className={styles.btnBack}>←</button>
+                <h2>Mesa {mesa} - Notas</h2>
+            </header>
+            <div className={styles.selectorComensales}>
+                <h3>¿Alguna alerta o necesidad?</h3>
+                <p style={{fontSize: '0.9rem', color: '#666'}}>Ej: Alergias, trona, prisa...</p>
+                
+                <textarea 
+                    className={styles.inputAlerta} // Tendrás que añadir este estilo
+                    placeholder="Escribe aquí (ej: Celiaco, 1 niño)..."
+                    value={alertaMesa}
+                    onChange={(e) => setAlertaMesa(e.target.value)}
+                    rows="4"
+                />
+
+                <div className={styles.botonesRapidos}>
+                    {/* Botones para añadir texto rápido */}
+                    <button onClick={() => setAlertaMesa("Alergia: ")}>⚠️ Alergia</button>
+                    <button onClick={() => setAlertaMesa("Mesa con prisa")}>⏱️ Prisa</button>
+                    <button onClick={() => setAlertaMesa("Trona bebé")}>👶 Bebé</button>
+                </div>
+
+                <button className={styles.btnSiguiente} onClick={guardarAlertaYContinuar}>
+                    Ir a la Carta →
+                </button>
+            </div>
+        </div>
+    );
+}
    //VISTAS DEL PASO 1 AL 3
     if (paso >= 1 && paso <= 3) {
         const titulos = ["", "Bebidas y Entradas", "Segundos Platos", "Postres"];
@@ -129,13 +176,12 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
                 <span>TOTAL:</span>
                 <span className={styles.montoTotal}>{totalConsumido.toFixed(2)}€</span>
             </div>
-            {/* BOTÓN DE BORRAR */}
                     
             <div className={styles.acciones}>
                 <button className={styles.btnAñadir} onClick={() => setPaso(1)}>
                     Añadir más
                 </button>
-                <button className={styles.btnCobrar} onClick={alCobrar} onClick={alEnviarA_Cocina}>
+                <button className={styles.btnCobrar} onClick={()=>alEnviarA_Cocina(alertaMesa)}>
                     Confirmar y Enviar
                 </button>
             </div>

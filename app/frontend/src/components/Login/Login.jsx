@@ -76,7 +76,7 @@ const Login = ({ onLoginSuccess }) => {
                 </div>
 
                 {error && <p className={styles.errorMessage}>{error}</p>}
-
+ 
                 <button type="submit" className={styles.loginBtn} disabled={cargando}>
                     {cargando ? 'Connecting...' : 'Login'}
                 </button>

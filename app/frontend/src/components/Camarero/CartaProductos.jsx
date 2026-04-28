@@ -42,12 +42,14 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
         const nuevoItem = { 
             nombre: producto.nombre, 
             precio: producto.precio,
+            sub:producto.sub,
             cantidad, 
             nota, 
             idTemporal: Date.now() 
         };
         
         // Enviamos el producto individual al TerminalCamarero
+        console.log("Enviando item con categoría:", nuevoItem.sub);
         alFinalizarPedido(nuevoItem); 
         setProductoEdicion(null);
     };

@@ -1,7 +1,8 @@
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, Navigate,useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import './App.css'
 import TerminalCamarero from './components/Camarero/TerminalCamarero'
+import TerminalCocina from './components/Cocina/TerminalCocina';
 import Sidebar from './components/Barra/Sidebar'
 import MainPanel from './components/Barra/MainPanel'
 import Login from './components/Login/Login';
@@ -9,6 +10,7 @@ import Login from './components/Login/Login';
 function App() {
   const [seccionActiva, setSeccionActiva] = useState('HOME');
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+  const navigate= useNavigate();
 
     // Esta función se llama desde el componente Login si el fetch es exitoso
     const manejarLoginExitoso = (datosUsuario) => {
@@ -17,22 +19,24 @@ function App() {
       navigate('/barra');
     } else if (datosUsuario.rol === 'camarero' || datosUsuario.rol === 'cocina') {
       navigate('/camarero');
+    }else if(datosUsuario.rol==='cocina'){
+      navigate('/cocina')
     }
   };
   
   return (
     <div className="app-container">
      <Routes>
-  {/* RUTA DE LOGIN CORREGIDA */}
   <Route 
     path="/login" 
     element={
-      usuarioLogueado ? (
-        // Si ya está logueado, redirigimos según su rol real
-        usuarioLogueado.rol === 'barra' ? <Navigate to="/barra" /> : <Navigate to="/camarero" />
-      ) : (
-        <Login onLoginSuccess={manejarLoginExitoso} />
+     usuarioLogueado ? (
+      usuarioLogueado.rol === 'barra' ? (  <Navigate to="/barra" /> ) : usuarioLogueado.rol === 'cocina' ? ( <Navigate to="/cocina" />) : (
+        <Navigate to="/camarero" />
       )
+    ) : (
+      <Login onLoginSuccess={manejarLoginExitoso} />
+    )
     } 
   />
 
@@ -64,6 +68,23 @@ function App() {
       <Navigate to="/login" />
     )
   } />
+
+  <Route path="/cocina" element={
+    usuarioLogueado && usuarioLogueado.rol === 'cocina' ? (
+        <>
+            <Sidebar 
+                seccionActiva={seccionActiva} 
+                setSeccionActiva={setSeccionActiva} 
+                usuario={usuarioLogueado} 
+            />
+            <main className="content-area">
+                <TerminalCocina /> 
+            </main>
+        </>
+    ) : (
+        <Navigate to="/login" />
+    )
+} />
 
   <Route path="/" element={<Navigate to="/login" />} />
 </Routes>

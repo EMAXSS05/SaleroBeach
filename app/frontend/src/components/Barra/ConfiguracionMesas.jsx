@@ -3,7 +3,7 @@ import styles from './ConfiguracionMesas.module.css';
 
 const ConfiguracionMesas = () => {
     const [mesas, setMesas] = useState([]);
-    const [nuevaMesa, setNuevaMesa] = useState({ numero: '', zona: 'Terraza' });
+    const [nuevaMesa, setNuevaMesa] = useState({ numero: '', zona: 'Terraza', capacidad: 4 });
 
     const obtenerMesas = async () => {
         const res = await fetch('http://localhost:5000/api/mesas');
@@ -48,20 +48,30 @@ const ConfiguracionMesas = () => {
 
             {/* FORMULARIO PARA AÑADIR */}
             <form className={styles.form} onSubmit={handleCrear}>
-                <input 
-                    type="text" 
-                    placeholder="Nº Mesa" 
+                <input
+                    type="text"
+                    placeholder="Nº Mesa"
                     value={nuevaMesa.numero}
-                    onChange={(e) => setNuevaMesa({...nuevaMesa, numero: e.target.value})}
-                    required 
+                    onChange={(e) => setNuevaMesa({ ...nuevaMesa, numero: e.target.value })}
+                    required
                 />
-                <select 
-                    value={nuevaMesa.zona} 
-                    onChange={(e) => setNuevaMesa({...nuevaMesa, zona: e.target.value})}
+                <select
+                    value={nuevaMesa.zona}
+                    onChange={(e) => setNuevaMesa({ ...nuevaMesa, zona: e.target.value })}
                 >
                     <option value="Terraza">Terraza</option>
                     <option value="Interior">Salón</option>
                 </select>
+
+                <input
+                    type="number"
+                    placeholder="Capacidad"
+                    min="1"
+                    value={nuevaMesa.capacidad}
+                    onChange={(e) => setNuevaMesa({ ...nuevaMesa, capacidad: e.target.value })}
+                    required
+                    style={{ width: '80px' }}
+                />
                 <button type="submit" className={styles.btnAdd}>+ Añadir Mesa</button>
             </form>
 
@@ -71,6 +81,7 @@ const ConfiguracionMesas = () => {
                     <tr>
                         <th>Mesa</th>
                         <th>Zona</th>
+                        <th>Capacidad</th>
                         <th>Estado Visible</th>
                         <th>Acciones</th>
                     </tr>
@@ -80,6 +91,7 @@ const ConfiguracionMesas = () => {
                         <tr key={mesa._id}>
                             <td className={styles.numeroMesa}>Mesa {mesa.numero}</td>
                             <td>{mesa.zona}</td>
+                            <td>{mesa.capacidad} pax</td>
                             <td>
                                 <span className={mesa.activa ? styles.badgeActive : styles.badgeInactive}>
                                     {mesa.activa ? 'Habilitada' : 'Deshabilitada'}
@@ -87,13 +99,13 @@ const ConfiguracionMesas = () => {
                             </td>
                             <td>
                                 <div className={styles.actions}>
-                                    <button 
-                                        className={styles.btnToggle} 
+                                    <button
+                                        className={styles.btnToggle}
                                         onClick={() => toggleActiva(mesa._id)}
                                     >
                                         {mesa.activa ? 'Desactivar' : 'Activar'}
                                     </button>
-                                    <button 
+                                    <button
                                         className={styles.btnDelete}
                                         onClick={() => eliminarMesa(mesa._id, mesa.numero)}
                                     >

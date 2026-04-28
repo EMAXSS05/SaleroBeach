@@ -7,6 +7,7 @@ const PedidoSchema = new mongoose.Schema({
         nombre: String,
         precio: Number,
         cantidad: { type: Number, default: 1 },
+        sub: String,
         nota: String, 
         estadoItem: { type: String, default: 'pendiente' },
         hora_inicio_cocina: Date,  

@@ -17,8 +17,10 @@ router.post('/', async (req, res) => {
     const mesa = new Mesa({
         numero: req.body.numero,
         zona: req.body.zona,
+        capacidad: req.body.capacidad || 4,
         activa: req.body.activa ?? true,
-        estado: 'libre' 
+        estado: 'libre',
+        alertas:[] 
     });
 
     try {
@@ -106,6 +108,43 @@ router.delete('/:id', async (req, res) => {
         res.json({ message: "Mesa eliminada con éxito" });
     } catch (err) {
         res.status(500).json({ message: err.message });
+    }
+});
+// Ruta para añadir una alerta
+router.patch('/:numero/alerta', async (req, res) => {
+    try {
+        const { numero } = req.params;
+        const { nuevaAlerta } = req.body;
+
+        const mesaActualizada = await Mesa.findOneAndUpdate(
+            { numero: numero }, 
+            { $push: { alertas: nuevaAlerta } }, 
+            { new: true }
+        );
+
+        if (!mesaActualizada) {
+            return res.status(404).json({ mensaje: "Mesa no encontrada" });
+        }
+
+        res.json(mesaActualizada);
+    } catch (error) {
+        console.error("Error en el servidor:", error); 
+        res.status(500).json({ mensaje: "Error interno al guardar la alerta" });
+    }
+});
+
+// Limpiar alertas (útil cuando la mesa se libera y se paga)
+router.patch('/:numero/limpiar-alertas', async (req, res) => {
+    try {
+        const { numero } = req.params;
+        const mesa = await Mesa.findOneAndUpdate(
+            { numero: numero },
+            { $set: { alertas: [] } }, // Vacía el array
+            { new: true }
+        );
+        res.json(mesa);
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error al limpiar alertas" });
     }
 });
 
