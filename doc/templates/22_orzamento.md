@@ -1,64 +1,65 @@
 # Presupuesto – Salero Beach
-Onde está especificado o tipo de empresa que vas crear? é relevate para determinar a inversión, xa que os gastos de constitución nalgúns casos son mais elevados do que prevees
-## 1. Inversiones y costes
 
-### Inversiones iniciales
+## Tipo de empresa
 
-| Concepto | Descripción | Coste estimado |
+El proyecto se lleva a cabo bajo la figura de **autónomo**, que es la forma jurídica más habitual para una persona que trabaja sola ofreciendo servicios de desarrollo de software. Los trámites necesarios para darse de alta son:
+
+| Trámite | Descripción | Coste |
 |---|---|---|
-| Alquiler/amortización de equipo | Coste estimado de uso de equipo informático durante el desarrollo (70h × 0,15 €/h) | 10,50 € |
-| Material fungible | Folios, bolígrafos, tóner para documentación impresa | 10,00 € |
-| Electricidad | Consumo del equipo durante el desarrollo | 15,00 € |
-| Internet | Suministro de red y conectividad | 30,00 € |
-| Mano de obra | Desarrollo integral del sistema: análisis, diseño, codificación y documentación. 70h × 14 €/h | 980,00 € |
-| **Total** | | **1.045,50 €** |
+| Alta en Hacienda (modelo 036/037) | Trámite obligatorio para iniciar la actividad como autónomo | 0,00 € |
+| Alta en la Seguridad Social (RETA) | Inscripción en el Régimen Especial de Trabajadores Autónomos | 0,00 € |
+| Cuota de autónomo mensual | Tarifa plana para nuevos autónomos (primer año) | 80,00 €/mes |
+| **Total gastos de constitución** | | **0,00 €** |
 
-> La mano de obra se calcula en base a la planificación estimada del proyecto (entre 60 y 80 horas), tomando como referencia un salario medio de 14 €/h para un programador autónomo.
-Para facer isto terás que chegar a acordos con persoal autónomo. Se contratas a este persoal tes que ter en conta o convenio colectivo do sector e planificar tendo en conta o seu salario e os custes de seguridade social
-Tes que xustificar todos os datos que proporcionas. A min dame a sensación de que os custes están moi por abaixo do que son en realidade nun caso coma este
+> Darse de alta como autónomo no tiene coste de constitución como tal: los trámites son gratuitos y se hacen online. El único gasto fijo desde el primer día es la cuota mensual a la Seguridad Social, que actualmente es de 80 €/mes para nuevos autónomos durante el primer año gracias a la tarifa plana.
+
 ---
 
-### Infraestructura y servicios en la nube
+## 1. Costes del proyecto
 
-| Servicio | Proveedor | Coste | Motivo |
-|---|---|---|---|
-| Base de datos | MongoDB Atlas | 0,00 € | Plan "M0 Sandbox" (512 MB de datos) |
-| Backend (API) | Render (Docker) | 0,00 € | Plan "Free" |
-| Frontend | Render (Static) | 0,00 € | Plan "Free" |
-| Certificado SSL | Let's Encrypt | 0,00 € | Incluido en Render |
-Non vexo por ningun lado o custe dos equipos informáticos. Cales son? onde están? se son equipos teus que cedes á empresa tes que determinar o seu valor de mercado a día de hoxe. Non o tes en conta
+A continuación se detallan todos los costes asociados al desarrollo del proyecto, justificando cada concepto:
+
+| Concepto | Descripción y justificación | Coste estimado |
+|---|---|---|
+| Material fungible | Folios, bolígrafos y tóner para la documentación impresa del proyecto | 10,00 € |
+| Mano de obra | Trabajo propio como autónomo. Según la planificación del proyecto, se estiman entre 60 y 80 horas de desarrollo. Tomando 70h como referencia y una tarifa de 25 €/h, que es la tarifa mínima realista para un programador junior autónomo en España. Esta tarifa es mayor que un salario bruto de empleado porque el autónomo tiene que asumir por su cuenta el IRPF (~15%), la cuota a la Seguridad Social y otros gastos fijos. 70h × 25 €/h | 1.750,00 € |
+| Equipo informático | Portátil de trabajo dedicado al desarrollo, valorado en 800 € en el mercado actual. Se amortiza en 4 años (vida útil estimada). La parte correspondiente a los 3 meses de duración del proyecto es: 800 € ÷ 4 años ÷ 4 trimestres | 50,00 € |
+| Alquiler del local | Local de trabajo donde se desarrolla la actividad. 200 €/mes × 3 meses de desarrollo | 600,00 € |
+| Electricidad | Consumo eléctrico del equipo durante el desarrollo. Estimado en 0,20 €/h × 70h de trabajo | 14,00 € |
+| Internet | Suministro de red necesario para el desarrollo, despliegue y pruebas. 30 €/mes × 3 meses | 90,00 € |
+| Cuota de autónomo | Cuota mensual a la Seguridad Social durante los 3 meses de desarrollo. 80 €/mes × 3 meses | 240,00 € |
+| Publicidad | No se contempla publicidad para este proyecto al tratarse de un cliente directo | 0,00 € |
+| Seguros | Seguro de responsabilidad civil para autónomos del sector tecnológico (estimación anual prorrateada a 3 meses): ~150 €/año ÷ 4 | 37,50 € |
+| Subcontrataciones | No se subcontrata ningún servicio. El desarrollo lo realiza íntegramente el propio autónomo | 0,00 € |
+| Infraestructura en la nube | MongoDB Atlas (plan gratuito M0), Render para backend y frontend (plan gratuito), SSL vía Let's Encrypt (gratuito) | 0,00 € |
+| **Total costes del proyecto** | | **2.791,50 €** |
+
 ---
 
-### Costes de mantenimiento anual estimados
+## 2. Precio de venta y resultado
 
-| Concepto | Coste anual estimado |
-|---|---|
-| Infraestructura completa (cloud) | 0,00 € |
-| Material fungible ocasional | 10,00 € |
-| **Total mantenimiento anual** | **10,00 €** |
+El precio de venta se calcula aplicando un margen del 25% sobre los costes totales, que es un margen realista y habitual para un programador junior autónomo en España. Este margen cubre la incertidumbre del proyecto, el riesgo de imprevistos y el hecho de que un autónomo no siempre tiene trabajo continuo durante todo el año:
 
-> Al usar los planes gratuitos de MongoDB Atlas y Render, el coste de infraestructura se mantiene en 0 €.
-Volvemos ao mesmo: e o custe de internet? luz? aluguer das instalacións? faltan moitos datos
----
+**2.791,50 € × 1,25 = 3.489,38 €**
 
-## 2. Ingresos y Beneficio
+El precio final se redondea a **3.490,00 €**.
 
 ### Precio de venta
 
 | Concepto | Importe |
 |---|---|
-| Venta del software al cliente (Salero Beach) | 1.098,00 € |
-| **Total ingresos** | **1.098,00 €** |
-
----Como determianas este precio? non o xustificas. E se so te pagan 800€ que? TEs que xustificar o dato que aportas
+| Total costes del proyecto | 2.791,50 € |
+| Margen aplicado (25%) | + 697,88 € |
+| **Precio de venta final** | **3.490,00 €** |
 
 ### Resultado económico
 
 | Concepto | Importe |
 |---|---|
-| Total ingresos | 1.098,00 € |
-| Total costes (inversión inicial) | 1.045,50 € | Este dato quédase curto. Estás sendo moi optimista. Faltan cousas, como expliquei arriba
-| **Beneficio** | **+ 52,50 €** |
+| Precio de venta | 3.490,00 € |
+| Total costes del proyecto | – 2.791,50 € |
+| **Resultado directo del proyecto** | **+ 698,50 €** |
+| Cuota de mantenimiento (12 meses × 20 €) | + 240,00 € |
+| **Resultado al cabo de 1 año** | **+ 938,50 €** |
 
-
-> Al tratarse de un cliente familiar, se ha aplicado el margen mínimo razonable (5% sobre costes), frente al 15% habitual en un contexto comercial estándar. En condiciones normales, el precio de mercado de este sistema rondaría los **1.150 – 1.200 €**. Más allá del beneficio económico, este proyecto supone una experiencia real de desarrollo y un caso práctico para incluir en el portafolio profesional.
+> El margen del 25% es el habitual para un programador junior autónomo, por debajo del 30-40% que manejan perfiles más senior. A diferencia de un empleado, yo como autónomo asumo riesgos como periodos sin trabajo, impagos o gastos imprevistos, por lo que el margen tiene que ser suficiente para cubrirlos. La cuota de mantenimiento de 20 €/mes garantiza además un ingreso recurrente a lo largo del año una vez entregado el proyecto.

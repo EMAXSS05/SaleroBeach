@@ -11,13 +11,14 @@ const PedidoSchema = new mongoose.Schema({
         nota: String, 
         estadoItem: { type: String, default: 'pendiente' },
         hora_inicio_cocina: Date,  
-        hora_fin_cocina: Date 
+        hora_fin_cocina: Date
     }],
     total: { type: Number, default: 0 },
     estadoGeneral: { type: String, default: 'en_curso' },
+    metodoPago: { type: String, enum: ['efectivo', 'tarjeta'], default: null },
     fecha: { type: Date, default: Date.now },
-    fecha_apertura: { type: Date, default: Date.now }, // 
-    fecha_cierre: Date // 
+    fecha_apertura: { type: Date, default: Date.now }, 
+    fecha_cierre: Date
 });
 
 module.exports = mongoose.model('Pedido', PedidoSchema);
