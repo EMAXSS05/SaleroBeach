@@ -4,12 +4,12 @@ import styles from './TerminalCocina.module.css';
 const TerminalCocina = () => {
     const [pedidos, setPedidos] = useState([]);
 
-      /**
-     * Obtiene pedidos desde el backend
-     * Filtra:
-     *  - Solo pedidos en curso
-     *  - Solo aquellos que contienen items de tipo "Food"
-     */
+    /**
+   * Obtiene pedidos desde el backend
+   * Filtra:
+   *  - Solo pedidos en curso
+   *  - Solo aquellos que contienen items de tipo "Food"
+   */
     const obtenerPedidos = async () => {
         const res = await fetch('http://localhost:5000/api/pedidos');
         const data = await res.json();
@@ -19,10 +19,10 @@ const TerminalCocina = () => {
         );
         setPedidos(soloComida);
     };
-     /**
-     * Marca un pedido completo como "preparado"
-     * Esto hace que desaparezca de la vista de cocina
-     */
+    /**
+    * Marca un pedido completo como "preparado"
+    * Esto hace que desaparezca de la vista de cocina
+    */
     const finalizarTicket = async (pedidoId) => {
         await fetch(`http://localhost:5000/api/pedidos/${pedidoId}`, {
             method: 'PATCH',
@@ -33,7 +33,7 @@ const TerminalCocina = () => {
         obtenerPedidos();
     };
 
-     
+
     const actualizarEstadoItem = async (pedidoId, itemId, nuevoEstado) => {
         try {
             await fetch(`http://localhost:5000/api/pedidos/${pedidoId}/item/${itemId}`, {
@@ -69,7 +69,7 @@ const TerminalCocina = () => {
                         </div>
                         {pedido.alertas && pedido.alertas.length > 0 && (
                             <div className={styles.alertaMesa}>
-                                {pedido.alertas.map((alerta, idx) => (
+                                {[...new Set(pedido.alertas)].map((alerta, idx) => (
                                     <span key={idx} className={styles.alertaBadge}>
                                         ⚠️ {alerta}
                                     </span>
