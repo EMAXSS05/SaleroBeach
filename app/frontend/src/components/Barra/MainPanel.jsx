@@ -55,7 +55,7 @@ const MainPanel = ({ seccionActiva }) => {
             const respuesta = await fetch(`http://localhost:5000/api/pedidos/${id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ estadoGeneral: nuevoEstado })
+                body: JSON.stringify({ estadoGeneral: nuevoEstado, metodoPago })
             });
 
             if (respuesta.ok) {
@@ -113,7 +113,7 @@ const MainPanel = ({ seccionActiva }) => {
                                     <PedidoCard
                                         key={pedido._id}
                                         pedido={pedido}
-                                        onCobrar={() => actualizarEstadoPedido(pedido._id, 'finalizado')}
+                                        onCobrar={() => actualizarEstadoPedido(pedido._id, 'finalizado',metodoPago)}
                                         onCancelar={() => actualizarEstadoPedido(pedido._id, 'cancelado')}
                                     />
                                 ))}

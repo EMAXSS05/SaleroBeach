@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FaExclamationCircle, FaClock } from 'react-icons/fa';
 import styles from './PedidoCard.module.css';
 import { formatDistanceToNow } from 'date-fns';
+import iconoTarjeta from '../../assets/iconos/tarjetaBancaria.png'
+import iconoEfectivo from '../../assets/iconos/dineroEfectivo.png'
 import { es } from 'date-fns/locale/es';
 
 const PedidoCard = ({ pedido, onCobrar, onCancelar }) => {
@@ -15,6 +17,7 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar }) => {
     }, []);
 
 const fechaPedido = pedido.fecha ? new Date(pedido.fecha) : null;
+const [mostrarModalCobro, setMostrarModalCobro] = useState(false);
 
 const itemsAgrupados = pedido.items.reduce((acc, item) => {
         // Buscamos si el producto ya está en nuestro acumulador
@@ -87,15 +90,41 @@ const itemsAgrupados = pedido.items.reduce((acc, item) => {
                     CANCELAR
                 </button>
                 <button
-                    className={styles.btnCobrar}
-                    onClick={() => {
-                        if (window.confirm(`¿Confirmas que has cobrado ${pedido.total}€ a la mesa ${pedido.mesa}?`)) {
-                            onCobrar();
-                        }
-                    }}
+    className={styles.btnCobrar}
+    onClick={() => setMostrarModalCobro(true)}
+>
+    COBRAR
+</button>
+
+{mostrarModalCobro && (
+    <div className={styles.modalOverlay}>
+        <div className={styles.modal}>
+            <h3>Total a cobrar</h3>
+            <span className={styles.modalTotal}>{pedido.total?.toFixed(2)}€</span>
+            <p>¿Cómo paga el cliente?</p>
+            <div className={styles.modalBotones}>
+                <button
+                    className={styles.btnEfectivo}
+                    onClick={() => { onCobrar('efectivo'); setMostrarModalCobro(false); }}
                 >
-                    COBRAR
+                    <img src={iconoEfectivo} alt="efectivo" width={35} />Efectivo
                 </button>
+                <button
+                    className={styles.btnTarjeta}
+                    onClick={() => { onCobrar('tarjeta'); setMostrarModalCobro(false); }}
+                >
+                    <img src={iconoTarjeta} alt="tarjeta" width={38} />Tarjeta
+                </button>
+            </div>
+            <button
+                className={styles.btnCancelarModal}
+                onClick={() => setMostrarModalCobro(false)}
+            >
+                Cancelar
+            </button>
+        </div>
+    </div>
+)}
             </div>
         </div>
     );
