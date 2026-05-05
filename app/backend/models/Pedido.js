@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 //tabla de pedidos
 const PedidoSchema = new mongoose.Schema({
-    mesa: { type: String, required: true },
+    mesas: [{ type: String, required: true }],
     camarero: { type: String, required: true }, 
     items: [{
         nombre: String,

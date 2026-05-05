@@ -29,7 +29,7 @@ const MainPanel = ({ seccionActiva }) => {
                 p.estadoGeneral === 'preparado' ||
                 p.estadoGeneral === 'en_curso');
             const historico = datos.filter(p =>
-                p.estadoGeneral === 'finalizado' || p.estadoGeneral === 'cancelado'
+                p.estadoGeneral === 'pagado' || p.estadoGeneral === 'cancelado'
             );
             console.log("Pendientes:", pendientes.length, "Finalizados:", historico.length);
             setPedidos(pendientes);
@@ -113,7 +113,7 @@ const MainPanel = ({ seccionActiva }) => {
                                     <PedidoCard
                                         key={pedido._id}
                                         pedido={pedido}
-                                        onCobrar={() => actualizarEstadoPedido(pedido._id, 'finalizado')}
+                                        onCobrar={() => actualizarEstadoPedido(pedido._id, 'pagado')}
                                         onCancelar={() => actualizarEstadoPedido(pedido._id, 'cancelado')}
                                     />
                                 ))}

@@ -1,32 +1,73 @@
 const express = require('express');
 const router = express.Router();
 const Pedido = require('../models/Pedido');
-const Mesa = require('../models/Mesa'); 
+const Mesa = require('../models/Mesa');
 
-// Obtiene todos los pedidos (para barra/cocina e historial)
+// GET Pedidos con alertas de mesa
 router.get('/', async (req, res) => {
     try {
-        const pedidos = await Pedido.find();
-        res.json(pedidos);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+        const pedidos = await Pedido.find().lean();
+        const mesas = await Mesa.find().lean();
+
+        const pedidosConAlertas = pedidos.map(pedido => {
+            const alertasDeMesa = (pedido.mesas || [])
+                .map(numMesa => mesas.find(m => m.numero === numMesa))
+                .filter(Boolean)
+                .flatMap(m => m.alertas || []);
+            return {
+                ...pedido,
+                alertas: alertasDeMesa
+            };
+        });
+
+        res.json(pedidosConAlertas);
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error al obtener pedidos" });
     }
 });
 
-// Crea un nuevo pedido verificando si la mesa está libre u ocupada.
-router.post('/', async (req, res) => {
-   try {
-        const { mesa, items, camarero } = req.body;
+// PATCH para el ítem individual (Tiempos de cocina)
+router.patch('/:pedidoId/item/:itemId', async (req, res) => {
+    try {
+        const { pedidoId, itemId } = req.params;
+        const { nuevoEstado } = req.body;
+        
+        const updateData = { "items.$.estadoItem": nuevoEstado };
+        
+        if (nuevoEstado === 'en preparación') {
+            updateData["items.$.hora_inicio_cocina"] = new Date();
+        } 
+        else if (nuevoEstado === 'listo') {
+            updateData["items.$.hora_fin_cocina"] = new Date();
+        }
 
-        //Buscamos si ya existe un pedido abierto para esa mesa
+        const pedido = await Pedido.findOneAndUpdate(
+            { _id: pedidoId, "items._id": itemId },
+            { $set: updateData },
+            { new: true }
+        );
+
+        if (!pedido) return res.status(404).json({ message: "Ítem o pedido no encontrado" });
+        res.json(pedido);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
+
+
+// CREAR O ACTUALIZAR PEDIDO
+router.post('/', async (req, res) => {
+    try {
+        const { mesas, items, camarero } = req.body;
+        
+        // Buscamos si ya hay un pedido abierto para esa mesa
         let pedidoExistente = await Pedido.findOne({ 
-            mesa: mesa, 
-            estadoGeneral: { $in: ['pendiente', 'en_curso', 'preparado'] } 
+            mesas: { $in: mesas },
+            estadoGeneral: { $in: ['en_curso', 'preparado'] } 
         });
 
         if (pedidoExistente) {
             items.forEach(nuevoItem => {
-                // Buscamos si el producto ya estaba en el pedido
                 const itemEnPedido = pedidoExistente.items.find(i => i.nombre === nuevoItem.nombre);
                 if (itemEnPedido) {
                     itemEnPedido.cantidad += nuevoItem.cantidad;
@@ -35,7 +76,7 @@ router.post('/', async (req, res) => {
                 }
             });
 
-            // Recalculamos el total del pedido existente
+           
             pedidoExistente.total = pedidoExistente.items.reduce((acc, item) => {
                 return acc + (item.precio * (item.cantidad || 1));
             }, 0);
@@ -44,11 +85,18 @@ router.post('/', async (req, res) => {
             return res.status(200).json(pedidoActualizado);
         }
 
+        // Si no existe, crear uno nuevo
         const totalCalculado = items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-        const nuevoPedido = new Pedido({ ...req.body, total: totalCalculado });
+        const nuevoPedido = new Pedido({ 
+            ...req.body, 
+            total: totalCalculado,
+            estadoGeneral: 'en_curso' 
+        });
         
         await nuevoPedido.save();
-        await Mesa.findOneAndUpdate({ numero: mesa }, { estado: 'ocupada' });
+        
+        // Cambiar estado de la mesa a ocupada
+        await Mesa.findOneAndUpdate({ numero: { $in: mesas } }, { estado: 'ocupada' });
 
         res.status(201).json(nuevoPedido);
     } catch (err) {
@@ -56,7 +104,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Actualizar pedido (Para el cierre/cobro)
 router.patch('/:id', async (req, res) => {
     try {
         const pedidoActualizado = await Pedido.findByIdAndUpdate(
@@ -64,16 +111,12 @@ router.patch('/:id', async (req, res) => {
             req.body, 
             { new: true }
         );
-        
-        if (!pedidoActualizado) {
-            return res.status(404).json({ message: "Pedido no encontrado" });
-        }
 
-        // Si el pedido se marca como 'pagado' o 'finalizado', liberamos la mesa
-        if (req.body.estadoGeneral === 'finalizado') {
+        if (req.body.estadoGeneral === 'pagado') { 
+            console.log("Liberando mesa..."); 
             await Mesa.findOneAndUpdate(
-                { numero: pedidoActualizado.mesa },
-                { estado: 'libre' }
+                { numero: { $in: pedidoActualizado.mesas }},
+                { estado: 'libre', alertas: "" } 
             );
         }
         

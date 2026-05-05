@@ -22,9 +22,9 @@ const ConfiguracionMesas = () => {
             body: JSON.stringify(nuevaMesa)
         });
         if (res.ok) {
-            setNuevaMesa({ numero: '', zona: 'Terraza' });
-            obtenerMesas();
-        }
+        setNuevaMesa({ numero: '', zona: 'Terraza', capacidad: 4 }); 
+        obtenerMesas();
+    }
     };
 
     //Toggle Activa/Desactivada

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CartaProductos from './CartaProductos';
 import styles from './DetalleMesa.module.css';
 
-const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEnviarA_Cocina,alEliminarItem }) => {
+const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocina,alEliminarItem }) => {
     // Si el pedido no existe volvemos atrás
     if (!pedido) {
         setTimeout(() => alVolver(), 0);
@@ -24,11 +24,20 @@ const DetalleMesa = ({ mesa, pedido, alCobrar, alVolver, alConfirmarPedido, alEn
     }, [mesa]);
     const guardarAlertaYContinuar = async () => {
     if (alertaMesa.trim() !== "") {
-        await fetch(`http://localhost:5000/api/mesas/${mesa}/alerta`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nuevaAlerta: alertaMesa })
-        });
+        const arrayMesas = String(mesa).includes('+')
+            ? mesa.split('+')
+            : [String(mesa)];
+
+        // Envía la alerta a cada mesa por separado
+        await Promise.all(
+            arrayMesas.map(numMesa =>
+                fetch(`http://localhost:5000/api/mesas/${numMesa}/alerta`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nuevaAlerta: alertaMesa })
+                })
+            )
+        );
     }
     setPaso(1);
 };
@@ -73,9 +82,9 @@ if (paso === 0.5) {
                 <p style={{fontSize: '0.9rem', color: '#666'}}>Ej: Alergias, trona, prisa...</p>
                 
                 <textarea 
-                    className={styles.inputAlerta} // Tendrás que añadir este estilo
+                    className={styles.inputAlerta} 
                     placeholder="Escribe aquí (ej: Celiaco, 1 niño)..."
-                    value={alertaMesa}
+                    value={alertaMesa || ''}
                     onChange={(e) => setAlertaMesa(e.target.value)}
                     rows="4"
                 />

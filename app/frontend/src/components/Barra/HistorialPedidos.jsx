@@ -13,18 +13,18 @@ const HistorialPedidos = ({ pedidosFinalizados }) => {
             resultado = resultado.filter(p => p.fecha.includes(filtroFecha));
         }
         if (filtroMesa) {
-            resultado = resultado.filter(p => p.mesa === filtroMesa);
+            resultado = resultado.filter(p => p.mesas === filtroMesa);
         }
 
         setPedidosFiltrados(resultado);
     }, [filtroFecha, filtroMesa, pedidosFinalizados]);
 
-   const calcularRecaudacionTotal = () => {
-    return pedidosFiltrados
-        .filter(p => p.estadoGeneral === 'finalizado') 
-        .reduce((acc, p) => acc + p.total, 0)
-        .toFixed(2);
-};
+    const calcularRecaudacionTotal = () => {
+        return pedidosFiltrados
+            .filter(p => p.estadoGeneral === 'pagado')
+            .reduce((acc, p) => acc + p.total, 0)
+            .toFixed(2);
+    };
 
     return (
         <div className={styles.container}>
@@ -78,21 +78,21 @@ const HistorialPedidos = ({ pedidosFinalizados }) => {
                             <tr key={pedido._id}>
                                 <td className={styles.idText}>#{pedido._id.slice(-5)}</td>
                                 <td>{new Date(pedido.fecha).toLocaleString('es-ES')}</td>
-                                <td><span className={styles.mesaBadge}>{pedido.mesa}</span></td>
+                                <td><span className={styles.mesaBadge}>{pedido.mesas.join(', ')}</span></td>
                                 <td>{pedido.camarero}</td>
                                 <td>
-            <span style={{
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: '12px',
-                fontWeight: 'bold',
-                backgroundColor: pedido.estadoGeneral === 'finalizado' ? 'rgba(0, 255, 0, 0.1)' : 'rgba(255, 0, 0, 0.1)',
-                color: pedido.estadoGeneral === 'finalizado' ? '#2ecc71' : '#e74c3c',
-                border: `1px solid ${pedido.estadoGeneral === 'finalizado' ? '#2ecc71' : '#e74c3c'}`
-            }}>
-                {pedido.estadoGeneral === 'finalizado' ? 'COMPLETADO' : 'CANCELADO'}
-            </span>
-        </td>
+                                    <span style={{
+                                        padding: '4px 8px',
+                                        borderRadius: '4px',
+                                        fontSize: '12px',
+                                        fontWeight: 'bold',
+                                        backgroundColor: pedido.estadoGeneral === 'pagado' ? 'rgba(0, 255, 0, 0.1)' : 'rgba(255, 0, 0, 0.1)',
+                                        color: pedido.estadoGeneral === 'pagado' ? '#2ecc71' : '#e74c3c',
+                                        border: `1px solid ${pedido.estadoGeneral === 'pagado' ? '#2ecc71' : '#e74c3c'}`
+                                    }}>
+                                        {pedido.estadoGeneral === 'pagado' ? 'COMPLETADO' : 'CANCELADO'}
+                                    </span>
+                                </td>
                                 <td>
                                     <div className={styles.itemsResumen}>
                                         {pedido.items.length} productos

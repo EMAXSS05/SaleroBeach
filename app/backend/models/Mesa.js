@@ -6,7 +6,7 @@ const MesaSchema = new mongoose.Schema({
     activa: { type: Boolean, default: true },
     capacidad:{type:Number},
     estado: { type: String, default: 'libre' },
-    alertas:{type:Array}
+    alertas: { type: Array, default: [] }
 });
 
 module.exports = mongoose.model('Mesa', MesaSchema);

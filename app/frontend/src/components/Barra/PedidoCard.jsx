@@ -71,7 +71,7 @@ const itemsAgrupados = pedido.items.reduce((acc, item) => {
                     <span className={styles.totalAmount}>{pedido.total?.toFixed(2)}€</span>
                 </div>
                 <div className={styles.tableBadge}>
-                    MESA {pedido.mesa}
+                    MESA {pedido.mesas ? pedido.mesas.join(' + ') : 'S/N'}
                 </div>
             </div>
 
@@ -79,7 +79,7 @@ const itemsAgrupados = pedido.items.reduce((acc, item) => {
                 <button
                     className={styles.btnCancelar}
                     onClick={() => {
-                        if (window.confirm(`¿Estás seguro de que quieres CANCELAR el pedido de la mesa ${pedido.mesa}?`)) {
+                        if (window.confirm(`¿Estás seguro de que quieres CANCELAR el pedido de la mesa ${pedido.mesas?.join(' + ')}?`)) {
                             onCancelar();
                         }
                     }}

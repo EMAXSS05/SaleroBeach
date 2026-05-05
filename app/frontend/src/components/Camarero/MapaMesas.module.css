@@ -247,6 +247,24 @@
     width: 24px;
     height: 24px;
 }
+.seleccionadaUnion {
+    border: 3px solid #007bff; 
+    background-color: rgba(0, 123, 255, 0.1); 
+    transform: scale(1.05); 
+}
+
+.lista {
+    background-color: #2ecc71;
+    animation: pulse 1.5s infinite;
+    border: 2px solid #27ae60;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.5); }
+    50% { transform: scale(1.03); box-shadow: 0 0 12px 4px rgba(46, 204, 113, 0.3); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
 
 
 /* vista para tablet y pc */

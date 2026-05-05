@@ -6,6 +6,7 @@ import TerminalCocina from './components/Cocina/TerminalCocina';
 import Sidebar from './components/Barra/Sidebar'
 import MainPanel from './components/Barra/MainPanel'
 import Login from './components/Login/Login';
+import Header from './components/Barra/Header';
 
 function App() {
   const [seccionActiva, setSeccionActiva] = useState('HOME');
