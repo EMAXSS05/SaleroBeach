@@ -1,21 +1,11 @@
 services:
-  database: 
-    image: mongo:latest
-    container_name: mdb-salero-beach
-    ports:
-      - "27018:27017"
-    volumes:
-      - ./data/db:/data/db
-
   api_rest: 
     build: ./backend
     container_name: backend-salero-beach 
     ports:
       - "5000:5000"
-    depends_on:
-      - database
     environment:
-      - MONGO_URI=mongodb://database:27017/salero_beach
+      - MONGO_URI=mongodb+srv://emaxss05:promopush_2023@cluster0.pdg5oqs.mongodb.net/salero_beach?appName=Cluster0
 
   web-app: 
     build: ./frontend
