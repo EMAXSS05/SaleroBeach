@@ -19,6 +19,7 @@ app.use('/api/productos', require('./routes/productos'));
 app.use('/api/pedidos', require('./routes/pedidos'));
 app.use('/api/mesas', require('./routes/mesas'));
 app.use('/api/usuarios', require('./routes/usuarios'));
+app.use('/imgMenu', express.static('uploads/imgMenu'));
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);

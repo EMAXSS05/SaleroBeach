@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './CartaProductos.module.css';
-import DetalleProducto from './DetalleProductos'; 
+import DetalleProducto from './DetalleProductos';
 
-const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => { 
+const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
     const [productos, setProductos] = useState([]);
     const [filtro, setFiltro] = useState('');
     const [cargando, setCargando] = useState(true);
@@ -40,30 +40,30 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
 
     // Ahora, al añadir un producto, avisamos directamente al padre
     const añadirAlPedido = (producto, cantidad, nota) => {
-        const nuevoItem = { 
-            nombre: producto.nombre, 
+        const nuevoItem = {
+            nombre: producto.nombre,
             precio: producto.precio,
-            sub:producto.sub,
-            cantidad, 
-            nota, 
-            idTemporal: Date.now() 
+            sub: producto.sub,
+            cantidad,
+            nota,
+            idTemporal: Date.now()
         };
-        
+
         // Enviamos el producto individual al TerminalCamarero
         console.log("Enviando item con categoría:", nuevoItem.sub);
-        alFinalizarPedido(nuevoItem); 
+        alFinalizarPedido(nuevoItem);
         setProductoEdicion(null);
     };
 
     if (cargando) return <div className={styles.loader}>Cargando carta...</div>;
 
     return (
-       <div className={styles.container}>
+        <div className={styles.container}>
             <div className={styles.searchBox}>
                 <span className="material-icons">search</span>
-                <input 
-                    type="text" 
-                    placeholder="Buscar producto..." 
+                <input
+                    type="text"
+                    placeholder="Buscar producto..."
                     value={filtro}
                     onChange={(e) => setFiltro(e.target.value)}
                 />
@@ -72,11 +72,11 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
             <div className={styles.grid}>
                 {productosFiltrados.map(p => (
                     <div key={p._id} className={styles.card} onClick={() => {
-                            setProductoEdicion(p);
+                        setProductoEdicion(p);
                     }}>
                         <div className={styles.imgContainer}>
                             {p.imagen && p.imagen !== "ejemplo" ? (
-                               <img src={`/imgMenu/${p.imagen}`} alt={p.nombre} />
+                                <img src={`http://localhost:5000/imgMenu/${p.imagen}`} alt={p.nombre} />
                             ) : (
                                 <span className="material-icons">restaurant</span>
                             )}
@@ -90,14 +90,14 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
             </div>
 
             {productoEdicion && (
-                <DetalleProducto 
-                    producto={productoEdicion} 
+                <DetalleProducto
+                    producto={productoEdicion}
                     alConfirmar={(prod, cant, nota) => añadirAlPedido(prod, cant, nota)}
                     alCerrar={() => setProductoEdicion(null)}
                 />
             )}
-            
-            
+
+
         </div>
     );
 };

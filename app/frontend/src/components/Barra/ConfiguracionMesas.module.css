@@ -12,7 +12,7 @@
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
-    background: #2a2d34;
+    background: #1c1e2d;
     padding: 15px;
     border-radius: 8px;
 }
@@ -27,7 +27,7 @@
 }
 
 .btnAdd {
-    background: #2ecc71;
+    background: linear-gradient(45deg, #FFA113, #F4350A);
     color: white;
     border: none;
     padding: 8px 15px;

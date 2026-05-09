@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Producto = require('../models/Producto');
+const multer = require('multer');
+const path = require('path');
 
 // Obtiene todos los productos
 router.get('/', async (req, res) => {
@@ -14,8 +16,13 @@ router.get('/', async (req, res) => {
 
 // Crea un producto
 router.post('/', async (req, res) => {
-    const producto = new Producto(req.body);
-    try {
+      try {
+        // Genera el id automáticamente si no viene
+        if (!req.body.id) {
+            const count = await Producto.countDocuments();
+            req.body.id = `p${count + 1}`;
+        }
+        const producto = new Producto(req.body);
         const nuevoProducto = await producto.save();
         res.status(201).json(nuevoProducto);
     } catch (err) {
@@ -45,6 +52,24 @@ router.delete('/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json({ mensaje: "Error al eliminar producto" });
     }
+});
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/imgMenu/'); // carpeta donde se guardan
+    },
+    filename: (req, file, cb) => {
+        const nombre = Date.now() + path.extname(file.originalname);
+        cb(null, nombre);
+    }
+});
+
+const upload = multer({ storage });
+
+// Ruta para subir imagen
+router.post('/upload-imagen', upload.single('imagen'), (req, res) => {
+    if (!req.file) return res.status(400).json({ mensaje: "No se subió ningún archivo" });
+    res.json({ nombreArchivo: req.file.filename });
 });
 
 module.exports = router;

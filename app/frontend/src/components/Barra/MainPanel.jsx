@@ -5,6 +5,7 @@ import styles from './MainPanel.module.css';
 import HistorialPedidos from './HistorialPedidos';
 import GestionUsuarios from './GestionUsuarios';
 import ConfiguracionMesas from './ConfiguracionMesas';
+import GestionProductos from './GestionProductos';
 
 const MainPanel = ({ seccionActiva }) => {
     // Aquí se guardarám los pedidos que vengan de la base de datos
@@ -80,7 +81,8 @@ const MainPanel = ({ seccionActiva }) => {
 
             case 'USERS':
                 return <GestionUsuarios />;
-
+            case 'PRODUCTS':
+                return <GestionProductos/>;
             case 'HOME':
             default:
                 return (
