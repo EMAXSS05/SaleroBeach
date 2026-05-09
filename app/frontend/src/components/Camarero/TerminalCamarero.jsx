@@ -3,7 +3,8 @@ import MapaMesas from './MapaMesas';
 import DetalleMesa from './DetalleMesa';
 import styles from './TerminalCamarero.module.css';
 
-const TerminalCamarero = () => {
+const TerminalCamarero = ({usuario}) => {
+    console.log("Usuario recibido en TerminalCamarero:", usuario);
     const [mesaSeleccionada, setMesaSeleccionada] = useState(null);
     const [pedidosActivos, setPedidosActivos] = useState({});
     const [modoUnion, setModoUnion] = useState(false);
@@ -41,11 +42,9 @@ const TerminalCamarero = () => {
                 setPedidosActivos(prev => {
                     if (mesaSeleccionada) {
                         const mesaLocal = prev[mesaSeleccionada];
-                        // Solo preserva si es un pedido nuevo (sin dbId = no está en BD todavía)
-                        const esNuevo = mesaLocal && !mesaLocal.dbId;
                         return {
                             ...nuevoEstadoMesas,
-                            ...(esNuevo ? { [mesaSeleccionada]: mesaLocal } : {})
+                            ...(mesaLocal ? { [mesaSeleccionada]: mesaLocal } : {})
                         };
                     }
                     return nuevoEstadoMesas;
@@ -79,6 +78,7 @@ const TerminalCamarero = () => {
     // ENVIAR A LA DB 
     const enviarPedidoFinalABaseDeDatos = async (numMesa, alerta) => {
         const pedido = pedidosActivos[numMesa];
+        console.log("dbId del pedido:", pedido?.dbId);
         if (!pedido || pedido.items.length === 0) return;
 
         const arrayMesas = String(numMesa).includes('+')
@@ -86,20 +86,34 @@ const TerminalCamarero = () => {
             : [String(numMesa)];
 
         const total = pedido.items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
-
+        
         try {
-            const res = await fetch('http://localhost:5000/api/pedidos', {
+            let res;
+            if (pedido.dbId) {
+            res = await fetch(`http://localhost:5000/api/pedidos/${pedido.dbId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    items: pedido.items,
+                    total,
+                    estadoGeneral: 'en_curso'
+                })
+            });
+        } else{
+              res = await fetch('http://localhost:5000/api/pedidos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     mesas: arrayMesas,
-                    camarero: "Juan",
+                    camarero: usuario?.nombreReal?.trim() || usuario?.username || "Camarero",
                     items: pedido.items,
                     alertas: alerta,
                     total,
                     estadoGeneral: 'en_curso'
                 })
             });
+        }
+        
 
             if (res.ok) {
                 setPedidosActivos(prev => {
@@ -195,6 +209,7 @@ const TerminalCamarero = () => {
                         alSeleccionarMesa={manejarSeleccionMesa}
                         pedidos={pedidosActivos}
                         mesasSeleccionadasParaUnion={mesasParaJuntar}
+                        usuario={usuario}
                         mesasListas={mesasListas}
                         botonesUnion={
                             <div className={styles.unionControls}>

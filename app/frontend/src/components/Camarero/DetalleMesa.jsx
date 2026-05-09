@@ -9,7 +9,7 @@ const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocin
         return null;
     }
 
-    const [paso, setPaso] = useState(pedido.items.length > 0 ? 4 : 0);
+    const [paso, setPaso] = useState(pedido.items.length > 0 ? 5 : 0);
     const [numComensales, setNumComensales] = useState(pedido.comensales || 1);
     const [alertaMesa, setAlertaMesa] = useState('');
 
@@ -17,7 +17,7 @@ const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocin
     // si se cambia de mesa el estado se actualiza.
     useEffect(() => {
         if (pedido.items.length > 0) {
-            setPaso(4);
+            setPaso(5);
         } else {
             setPaso(0); 
         }
@@ -104,8 +104,8 @@ if (paso === 0.5) {
     );
 }
    //VISTAS DEL PASO 1 AL 3
-    if (paso >= 1 && paso <= 3) {
-        const titulos = ["", "Bebidas y Entradas", "Segundos Platos", "Postres"];
+    if (paso >= 1 && paso <= 4) {
+        const titulos = ["", "Bebidas","Entrantes","Segundos", "Postres"];
         return (
             <div className={styles.container}>
                 <header className={styles.header}>
@@ -115,7 +115,7 @@ if (paso === 0.5) {
 
                 <div className={styles.infoPasos}>
                     <p style={{ color: '#f56a23', margin: '5px 0' }}>{titulos[paso]}</p>
-                    <span style={{ color: '#888', fontSize: '0.8rem' }}>Paso {paso} de 3</span>
+                    <span style={{ color: '#888', fontSize: '0.8rem' }}>Paso {paso} de 4</span>
                 </div>
 
                 <div className={styles.zonaScrollCarta}>
@@ -132,7 +132,7 @@ if (paso === 0.5) {
 
                 <div className={styles.accionesFlujo}>
                     <button className={styles.btnSaltar} onClick={() => setPaso(paso + 1)}>
-                        {paso === 3 ? "FINALIZAR Y VER RESUMEN" : "SIGUIENTE PASO →"}
+                        {paso === 4 ? "FINALIZAR Y VER RESUMEN" : "SIGUIENTE PASO →"}
                     </button>
                 </div>
             </div>
@@ -154,7 +154,7 @@ if (paso === 0.5) {
     return (
         <div className={styles.container}>
             <header className={styles.header}>
-                <button onClick={() => setPaso(3)} className={styles.btnBack}>←</button>
+                <button onClick={alVolver} className={styles.btnBack}>←</button>
                 <h2>Mesa {mesa} (Resumen)</h2>
             </header>
 

@@ -3,7 +3,8 @@ import styles from './MapaMesas.module.css';
 import iconoInterior from '../../assets/iconos/interior.png';
 import iconoTerraza from '../../assets/iconos/terraza.png';
 
-const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [], botonesUnion, mesasListas = [] }) => {
+const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [], botonesUnion, mesasListas = [],usuario}) => {
+     console.log("Usuario recibido en MapaMesas:", usuario);
     const [mesas, setMesas] = useState([]);
     const [terrazaAbierta, setTerrazaAbierta] = useState(true);
     const [interiorAbierto, setInteriorAbierto] = useState(true);
@@ -26,7 +27,7 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [
         obtenerMesas();
     }, []);
     // Filtra las mesas según su estado activo y su zona para mostrarlas en secciones separadas
-    const mesasActivas = mesas.filter(m => m.activa !== false);
+    const mesasActivas = mesas.filter(m => m.activa !== false).sort((a, b) => Number(a.numero) - Number(b.numero));
     const mesasTerraza = mesasActivas.filter(m => m.zona === 'Terraza');
     const mesasInterior = mesasActivas.filter(m => m.zona === 'Interior');
     const [menuAbierto, setMenuAbierto] = useState(false);
@@ -53,15 +54,15 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [
                                 className={styles.userAvatar}
                                 onClick={() => setMenuAbierto(!menuAbierto)}
                             >
-                                J
+                               {(usuario?.nombreReal || usuario?.username)?.charAt(0).toUpperCase() || 'U'}
                             </div>
 
                             {/* El menú desplegable */}
                             {menuAbierto && (
                                 <div className={styles.dropdownMenu}>
                                     <div className={styles.userInfo}>
-                                        <span className={styles.userName}>Juan Pérez</span>
-                                        <span className={styles.userRole}>Camarero</span>
+                                        <span className={styles.userName}> {usuario?.nombreReal || usuario?.username || 'Usuario'}</span>
+                                        <span className={styles.userRole}>{usuario?.rol || 'Camarero'}</span>
                                     </div>
                                     <hr className={styles.divider} />
                                     <button className={styles.logoutBtn} onClick={cerrarSesion}>

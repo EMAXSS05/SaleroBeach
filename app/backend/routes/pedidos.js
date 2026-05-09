@@ -125,5 +125,25 @@ router.patch('/:id', async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 });
+// Elimina un item de un pedido
+router.delete('/:pedidoId/item/:itemId', async (req, res) => {
+    try {
+        const { pedidoId, itemId } = req.params;
+
+        const pedido = await Pedido.findByIdAndUpdate(
+            pedidoId,
+            { $pull: { items: { _id: itemId } } },
+            { new: true }
+        );
+
+        if (!pedido) return res.status(404).json({ mensaje: "Pedido no encontrado" });
+        pedido.total = pedido.items.reduce((acc, item) => acc + (item.precio * (item.cantidad || 1)), 0);
+        await pedido.save();
+
+        res.json(pedido);
+    } catch (err) {
+        res.status(500).json({ mensaje: err.message });
+    }
+});
 
 module.exports = router;

@@ -50,7 +50,7 @@ const MainPanel = ({ seccionActiva }) => {
     }, []);
 
     // Función para cambiar el estado del pedido
-    const actualizarEstadoPedido = async (id, nuevoEstado,metodoPago = null) => {
+    const actualizarEstadoPedido = async (id, nuevoEstado, metodoPago = null) => {
         try {
             const respuesta = await fetch(`http://localhost:5000/api/pedidos/${id}`, {
                 method: 'PATCH',
@@ -113,8 +113,14 @@ const MainPanel = ({ seccionActiva }) => {
                                     <PedidoCard
                                         key={pedido._id}
                                         pedido={pedido}
-                                        onCobrar={(metodoPago) => actualizarEstadoPedido(pedido._id, 'pagado',metodoPago)}
+                                        onCobrar={(metodoPago) => actualizarEstadoPedido(pedido._id, 'pagado', metodoPago)}
                                         onCancelar={() => actualizarEstadoPedido(pedido._id, 'cancelado')}
+                                        onEliminarItem={async (pedidoId, itemId) => {
+                                            await fetch(`http://localhost:5000/api/pedidos/${pedidoId}/item/${itemId}`, {
+                                                method: 'DELETE'
+                                            });
+                                             obtenerPedidos();
+                                        }}
                                     />
                                 ))}
                             </div>

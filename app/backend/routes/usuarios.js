@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
 
 //Crear un nuevo usuario
 router.post('/', async (req, res) => {
-    const usuario = new Usuario(req.body);
     try {
         const { password, ...resto } = req.body;
         const passwordEncriptada = await bcrypt.hash(password, 10);
@@ -37,7 +36,7 @@ router.patch('/:id', async (req, res) => {
         // Si en el body viene una password, se actualizará directamente
         const usuarioActualizado = await Usuario.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            datos,
             { new: true }
         ).select('-password');
 

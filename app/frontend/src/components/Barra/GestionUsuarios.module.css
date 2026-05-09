@@ -102,3 +102,52 @@
     background: #e74c3c;
     color: white;
 }
+
+
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.inputPassword {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background: #2a2d3e;
+    color: white;
+    font-size: 0.85rem;
+    width: 140px;
+}
+
+.btnEdit {
+    background: #2f566f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btnSave {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.btnCancel {
+    background: transparent;
+    color: #a1a6b4;
+    border: 1px solid #444;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}

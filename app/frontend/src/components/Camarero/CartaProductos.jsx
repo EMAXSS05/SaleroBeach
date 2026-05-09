@@ -31,9 +31,10 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
         const pasoActual = Number(pasoInterior);
         const sub = p.sub ? p.sub : "";
 
-        if (pasoActual === 1) return sub === 'Drinks' || sub === 'Salads' || sub === 'Starters';
-        if (pasoActual === 2) return sub === 'Food' || sub === 'Main';
-        if (pasoActual === 3) return sub === 'Desserts' || sub === 'Coffee';
+        if (pasoActual === 1) return sub === 'Drinks'
+        if (pasoActual === 2) return sub === 'Starters';
+        if (pasoActual === 3) return sub === 'Food';
+        if (pasoActual === 4) return sub === 'Desserts';
         return true;
     });
 
@@ -75,7 +76,7 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
                     }}>
                         <div className={styles.imgContainer}>
                             {p.imagen && p.imagen !== "ejemplo" ? (
-                                <img src={`http://localhost:5000/uploads/${p.imagen}`} alt={p.nombre} />
+                               <img src={`/imgMenu/${p.imagen}`} alt={p.nombre} />
                             ) : (
                                 <span className="material-icons">restaurant</span>
                             )}

@@ -9,6 +9,9 @@ const GestionUsuarios = () => {
         nombreReal: '',
         rol: 'camarero'
     });
+    // Estado para controlar qué usuario está siendo editado y la nueva contraseña
+    const [editandoId, setEditandoId] = useState(null);
+    const [nuevaPassword, setNuevaPassword] = useState('');
 
     const obtenerUsuarios = async () => {
         try {
@@ -21,7 +24,7 @@ const GestionUsuarios = () => {
     };
 
     useEffect(() => { obtenerUsuarios(); }, []);
-
+   // Cuando el formulario se envía, mando los datos del nuevo usuario al backend
     const handleCrear = async (e) => {
         e.preventDefault();
         try {
@@ -47,6 +50,27 @@ const GestionUsuarios = () => {
             obtenerUsuarios();
         }
     };
+     // Aquí se envia la nueva contraseña al backend, que se encargará de encriptarla con bcrypt
+    const cambiarPassword = async (id) => {
+        if (!nuevaPassword.trim()) return alert("Escribe una contraseña nueva");
+        try {
+            const res = await fetch(`http://localhost:5000/api/usuarios/${id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: nuevaPassword })
+            });
+            if (res.ok) {
+                setEditandoId(null);
+                setNuevaPassword('');
+                alert("Contraseña actualizada correctamente");
+            } else {
+                alert("Error al actualizar la contraseña");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
 
     return (
         <div className={styles.container}>
@@ -92,6 +116,7 @@ const GestionUsuarios = () => {
                         <th>Nombre</th>
                         <th>Username</th>
                         <th>Rol</th>
+                        <th>Fecha Alta</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -105,13 +130,49 @@ const GestionUsuarios = () => {
                                     {u.rol.toUpperCase()}
                                 </span>
                             </td>
+                            {/* Muestra la fecha de alta formateada en español */}
+                            <td>{new Date(u.fechaAlta).toLocaleDateString('es-ES')}</td>
                             <td>
-                                <button 
-                                    className={styles.btnDelete}
-                                    onClick={() => eliminarUsuario(u._id, u.username)}
-                                >
-                                    Eliminar
-                                </button>
+                                <div className={styles.actions}>
+                                    {/* Si estoy editando este usuario muestro el input de nueva contraseña */}
+                                    {editandoId === u._id ? (
+                                        <>
+                                            <input
+                                                type="password"
+                                                placeholder="Nueva contraseña"
+                                                value={nuevaPassword}
+                                                onChange={(e) => setNuevaPassword(e.target.value)}
+                                                className={styles.inputPassword}
+                                            />
+                                            <button
+                                                className={styles.btnSave}
+                                                onClick={() => cambiarPassword(u._id)}
+                                            >
+                                                Guardar
+                                            </button>
+                                            <button
+                                                className={styles.btnCancel}
+                                                onClick={() => { setEditandoId(null); setNuevaPassword(''); }}
+                                            >
+                                                Cancelar
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button
+                                                className={styles.btnEdit}
+                                                onClick={() => setEditandoId(u._id)}
+                                            >
+                                                🔑 Contraseña
+                                            </button>
+                                            <button
+                                                className={styles.btnDelete}
+                                                onClick={() => eliminarUsuario(u._id, u.username)}
+                                            >
+                                                Eliminar
+                                            </button>
+                                        </>)}
+                                </div>
                             </td>
                         </tr>
                     ))}
