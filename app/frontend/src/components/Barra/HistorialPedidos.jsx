@@ -63,7 +63,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja }) => {
 
      const cerrarCaja = async () => {
         try {
-            await fetch('http://localhost:5000/api/caja/cerrar', { method: 'POST' });
+            await fetch(`${import.meta.env.VITE_API_URL}/api/caja/cerrar`, { method: 'POST' });
             setSesionCaja(null);
             setMostrarZ(false);
         } catch (err) {
@@ -82,7 +82,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja }) => {
     return (
         <div className={styles.container}>
             <header className={styles.header}>
-                <h2>SALES HISTORY</h2>
+                <h2>HISTORIAL DE VENTAS</h2>
                 <div className={styles.statsCard}>
                     <span>Recaudación en vista:</span>
                     <span className={styles.totalAmount}>{calcularRecaudacionTotal()}€</span>

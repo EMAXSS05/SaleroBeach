@@ -31,7 +31,7 @@ const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocin
         // Envía la alerta a cada mesa por separado
         await Promise.all(
             arrayMesas.map(numMesa =>
-                fetch(`http://localhost:5000/api/mesas/${numMesa}/alerta`, {
+                fetch(`${import.meta.env.VITE_API_URL}/api/mesas/${numMesa}/alerta`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nuevaAlerta: alertaMesa })

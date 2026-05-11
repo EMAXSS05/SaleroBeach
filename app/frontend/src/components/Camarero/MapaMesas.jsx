@@ -17,7 +17,7 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [
     useEffect(() => {
         const obtenerMesas = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/mesas');
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/mesas`);
                 const datos = await res.json();
                 setMesas(datos);
             } catch (error) {

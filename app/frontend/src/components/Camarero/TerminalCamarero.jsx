@@ -14,7 +14,7 @@ const TerminalCamarero = ({usuario}) => {
     useEffect(() => {
         const sincronizarMesas = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/pedidos');
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos`);
                 const pedidosDB = await res.json();
 
                 const pedidosSoloActivos = pedidosDB.filter(p => p.estadoGeneral === 'en_curso' || p.estadoGeneral === 'preparado');
@@ -90,7 +90,7 @@ const TerminalCamarero = ({usuario}) => {
         try {
             let res;
             if (pedido.dbId) {
-            res = await fetch(`http://localhost:5000/api/pedidos/${pedido.dbId}`, {
+            res = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos/${pedido.dbId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -100,7 +100,7 @@ const TerminalCamarero = ({usuario}) => {
                 })
             });
         } else{
-              res = await fetch('http://localhost:5000/api/pedidos', {
+              res = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

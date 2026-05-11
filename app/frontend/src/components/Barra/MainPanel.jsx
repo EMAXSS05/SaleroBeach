@@ -22,7 +22,7 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
     // Función para ir a buscar los pedidos al servidor
     const obtenerPedidos = async () => {
         try {
-            const respuesta = await fetch('http://localhost:5000/api/pedidos');
+            const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos`);
             const datos = await respuesta.json();
             console.log("Datos brutos de la DB:", datos);
             console.log("Estados únicos:", [...new Set(datos.map(p => p.estadoGeneral))]);
@@ -53,7 +53,7 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
     // Función para cambiar el estado del pedido
     const actualizarEstadoPedido = async (id, nuevoEstado, metodoPago = null) => {
         try {
-            const respuesta = await fetch(`http://localhost:5000/api/pedidos/${id}`, {
+            const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos/${id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ estadoGeneral: nuevoEstado, metodoPago })
@@ -73,24 +73,24 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
     //muestra la seccion que está activa
     const renderContent = () => {
         switch (seccionActiva) {
-            case 'ORDER HISTORY':
+            case 'HISTORIAL':
                 return <HistorialPedidos pedidosFinalizados={historial}
                  sesionCaja={sesionCaja}
                 setSesionCaja={setSesionCaja}
                 />;
 
-            case 'TABLES':
+            case 'MESAS':
                 return <ConfiguracionMesas />;
 
-            case 'USERS':
+            case 'USUARIOS':
                 return <GestionUsuarios />;
-            case 'PRODUCTS':
+            case 'PRODUCTOS':
                 return <GestionProductos/>;
-            case 'HOME':
+            case 'INICIO':
             default:
                 return (
                     <>
-                        <h1 className={styles.title}>POS - CASH REGISTER</h1>
+                        <h1 className={styles.title}>TPV - CAJA REGISTRADORA</h1>
 
                         <div className={styles.filterBar}>
                             <button
@@ -121,7 +121,7 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
                                         onCobrar={(metodoPago) => actualizarEstadoPedido(pedido._id, 'pagado', metodoPago)}
                                         onCancelar={() => actualizarEstadoPedido(pedido._id, 'cancelado')}
                                         onEliminarItem={async (pedidoId, itemId) => {
-                                            await fetch(`http://localhost:5000/api/pedidos/${pedidoId}/item/${itemId}`, {
+                                            await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos/${pedidoId}/item/${itemId}`, {
                                                 method: 'DELETE'
                                             });
                                              obtenerPedidos();

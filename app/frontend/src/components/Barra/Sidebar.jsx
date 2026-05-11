@@ -5,11 +5,11 @@ import styles from './Sidebar.module.css';
 
 const Sidebar = ({ seccionActiva, setSeccionActiva, usuario }) => {
     const todosLosItems = [
-        { id: 'HOME',name: 'HOME', icon: <FaHome />, active: true },
-        { id: 'ORDER HISTORY',name: 'ORDER HISTORY', icon: <FaHistory /> },
-        { id: 'TABLES',name: 'TABLES', icon: <FaTable />,roles:['barra'] },
-        { id:'USERS', name:'USERS', icon: <FaUsers />,roles:['barra'] },
-        { id:'PRODUCTS',name: 'PRODUCTS', icon: <FaGlassMartiniAlt />,roles:['barra','cocina'] },
+        { id: 'INICIO',name: 'INICIO', icon: <FaHome />, active: true },
+        { id: 'HISTORIAL',name: 'HISTORIAL', icon: <FaHistory /> },
+        { id: 'MESAS',name: 'MESAS', icon: <FaTable />,roles:['barra'] },
+        { id:'USERS', name:'USUARIOS', icon: <FaUsers />,roles:['barra'] },
+        { id:'PRODUCTOS',name: 'PRODUCTOS', icon: <FaGlassMartiniAlt />,roles:['barra','cocina'] },
     ];
 
     const menuItems= todosLosItems.filter(item=> !item.roles || item.roles.includes(usuario?.rol))

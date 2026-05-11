@@ -24,7 +24,7 @@ const GestionProductos = () => {
     //función para cambiar Precio
     const cambiarPrecio = async (id) => {
         if (!nuevoPrecio || isNaN(nuevoPrecio)) return;
-        await fetch(`http://localhost:5000/api/productos/${id}`, {
+        await fetch(`${import.meta.env.VITE_API_URL}/api/productos/${id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ precio: parseFloat(nuevoPrecio) })
@@ -37,7 +37,7 @@ const GestionProductos = () => {
     // Obtiene todos los productos de la BD
     const obtenerProductos = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/productos');
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/productos`);
             const data = await res.json();
             setProductos(data.sort((a, b) => a.nombre.localeCompare(b.nombre)));
             setCargando(false);
@@ -52,7 +52,7 @@ const GestionProductos = () => {
     const handleCrear = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:5000/api/productos', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/productos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -74,7 +74,7 @@ const GestionProductos = () => {
     // Activa o desactiva un producto
     const toggleDisponible = async (producto) => {
         try {
-            await fetch(`http://localhost:5000/api/productos/${producto._id}`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/api/productos/${producto._id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ disponible: !producto.disponible })
@@ -88,7 +88,7 @@ const GestionProductos = () => {
     // Cambia la imagen de un producto
     const cambiarImagen = async (id, nuevaImagen) => {
         try {
-            await fetch(`http://localhost:5000/api/productos/${id}`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/api/productos/${id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ imagen: nuevaImagen })
@@ -102,7 +102,7 @@ const GestionProductos = () => {
     // Elimina un producto
     const eliminarProducto = async (id, nombre) => {
         if (window.confirm(`¿Seguro que quieres eliminar ${nombre}?`)) {
-            await fetch(`http://localhost:5000/api/productos/${id}`, { method: 'DELETE' });
+            await fetch(`${import.meta.env.VITE_API_URL}/api/productos/${id}`, { method: 'DELETE' });
             obtenerProductos();
         }
     };
@@ -110,7 +110,7 @@ const GestionProductos = () => {
     const subirImagen = async (archivo) => {
         const formData = new FormData();
         formData.append('imagen', archivo);
-        const res = await fetch('http://localhost:5000/api/productos/upload-imagen', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/productos/upload-imagen`, {
             method: 'POST',
             body: formData
         });
@@ -120,7 +120,7 @@ const GestionProductos = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>PRODUCT MANAGEMENT</h1>
+            <h1 className={styles.title}>GESTIÓN DE PRODUCTOS</h1>
 
             {/* Formulario para añadir nuevo producto */}
             <form className={styles.form} onSubmit={handleCrear}>
@@ -203,7 +203,7 @@ const GestionProductos = () => {
                             <tr key={p._id} className={!p.disponible ? styles.rowDesactivada : ''}>
                                 <td>
                                     {p.imagen ? (
-                                        <img src={`http://localhost:5000/imgMenu/${p.imagen}`} alt={p.nombre} className={styles.imgProducto} />
+                                        <img src={`${import.meta.env.VITE_API_URL}/imgMenu/${p.imagen}`} alt={p.nombre} className={styles.imgProducto} />
                                     ) : (
                                         <span className="material-icons">restaurant</span>
                                     )}

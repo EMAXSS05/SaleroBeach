@@ -11,7 +11,7 @@ const TerminalCocina = () => {
    *  - Solo aquellos que contienen items de tipo "Food"
    */
     const obtenerPedidos = async () => {
-        const res = await fetch('http://localhost:5000/api/pedidos');
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos`);
         const data = await res.json();
         const soloComida = data.filter(p =>
             p.estadoGeneral === 'en_curso' &&
@@ -24,7 +24,7 @@ const TerminalCocina = () => {
     * Esto hace que desaparezca de la vista de cocina
     */
     const finalizarTicket = async (pedidoId) => {
-        await fetch(`http://localhost:5000/api/pedidos/${pedidoId}`, {
+        await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos/${pedidoId}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ estadoGeneral: 'preparado' })
@@ -36,7 +36,7 @@ const TerminalCocina = () => {
 
     const actualizarEstadoItem = async (pedidoId, itemId, nuevoEstado) => {
         try {
-            await fetch(`http://localhost:5000/api/pedidos/${pedidoId}/item/${itemId}`, {
+            await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos/${pedidoId}/item/${itemId}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ nuevoEstado })
@@ -55,7 +55,7 @@ const TerminalCocina = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>KITCHEN COMMANDS</h1>
+            <h1 className={styles.title}>COMANDAS DE COCINA</h1>
             <div className={styles.grid}>
                 {pedidos.map((pedido) => (
                     <div key={pedido._id} className={styles.ticket}>

@@ -15,7 +15,7 @@ const GestionUsuarios = () => {
 
     const obtenerUsuarios = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/usuarios');
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios`);
             const data = await res.json();
             setUsuarios(data);
         } catch (error) {
@@ -28,7 +28,7 @@ const GestionUsuarios = () => {
     const handleCrear = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:5000/api/usuarios', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(nuevoUsuario)
@@ -46,7 +46,7 @@ const GestionUsuarios = () => {
 
     const eliminarUsuario = async (id, nombre) => {
         if (window.confirm(`¿Seguro que quieres eliminar a ${nombre}?`)) {
-            await fetch(`http://localhost:5000/api/usuarios/${id}`, { method: 'DELETE' });
+            await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/${id}`, { method: 'DELETE' });
             obtenerUsuarios();
         }
     };
@@ -54,7 +54,7 @@ const GestionUsuarios = () => {
     const cambiarPassword = async (id) => {
         if (!nuevaPassword.trim()) return alert("Escribe una contraseña nueva");
         try {
-            const res = await fetch(`http://localhost:5000/api/usuarios/${id}`, {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/${id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password: nuevaPassword })
@@ -74,7 +74,7 @@ const GestionUsuarios = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>PERSONNEL MANAGEMENT</h1>
+            <h1 className={styles.title}>GESTIÓN DE PERSONAL</h1>
 
             {/* FORMULARIO SUPERIOR */}
             <form className={styles.form} onSubmit={handleCrear}>

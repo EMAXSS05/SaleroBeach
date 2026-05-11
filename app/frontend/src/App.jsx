@@ -21,7 +21,7 @@ function App() {
     setUsuarioLogueado(datosUsuario);
     if (datosUsuario.rol === 'barra') {
        try {
-        const respuesta = await fetch('http://localhost:5000/api/caja/estado');
+        const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/caja/estado`);
         const datos = await respuesta.json();
 
         if (datos.abierta) {

@@ -6,7 +6,7 @@ const ConfiguracionMesas = () => {
     const [nuevaMesa, setNuevaMesa] = useState({ numero: '', zona: 'Terraza', capacidad: 4 });
 
     const obtenerMesas = async () => {
-        const res = await fetch('http://localhost:5000/api/mesas');
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/mesas`);
         const data = await res.json();
         setMesas(data);
     };
@@ -16,7 +16,7 @@ const ConfiguracionMesas = () => {
     //Crear mesa
     const handleCrear = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:5000/api/mesas', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/mesas`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(nuevaMesa)
@@ -29,14 +29,14 @@ const ConfiguracionMesas = () => {
 
     //Toggle Activa/Desactivada
     const toggleActiva = async (id) => {
-        await fetch(`http://localhost:5000/api/mesas/${id}/activa`, { method: 'PATCH' });
+        await fetch(`${import.meta.env.VITE_API_URL}/api/mesas/${id}/activa`, { method: 'PATCH' });
         obtenerMesas();
     };
 
     // Eliminar
     const eliminarMesa = async (id, numero) => {
         if (window.confirm(`¿Seguro que quieres eliminar la Mesa ${numero}?`)) {
-            const res = await fetch(`http://localhost:5000/api/mesas/${id}`, { method: 'DELETE' });
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/mesas/${id}`, { method: 'DELETE' });
             if (res.ok) obtenerMesas();
             else alert("No se pudo eliminar (quizás está ocupada)");
         }
@@ -44,7 +44,7 @@ const ConfiguracionMesas = () => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>TABLE MANAGEMENT</h1>
+            <h1 className={styles.title}>GESTIÓN DE MESAS</h1>
 
             {/* FORMULARIO PARA AÑADIR */}
             <form className={styles.form} onSubmit={handleCrear}>

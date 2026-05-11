@@ -20,7 +20,7 @@ const Login = ({ onLoginSuccess }) => {
         setCargando(true);
 
         try {
-            const respuesta = await fetch('http://localhost:5000/api/usuarios/login', {
+            const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/usuarios/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credenciales)
@@ -49,7 +49,7 @@ const Login = ({ onLoginSuccess }) => {
                 {/* El Logo 'S' de Salero Beach */}
                 <div className={styles.logo}>S</div>
                 
-                <p className={styles.subtitle}>Use the details provided by your account administrator.</p>
+                <p className={styles.subtitle}>Utilice los datos proporcionados por el administrador de su cuenta.</p>
 
                 <div className={styles.inputGroup}>
                     <label htmlFor="username">Username</label>
@@ -78,7 +78,7 @@ const Login = ({ onLoginSuccess }) => {
                 {error && <p className={styles.errorMessage}>{error}</p>}
  
                 <button type="submit" className={styles.loginBtn} disabled={cargando}>
-                    {cargando ? 'Connecting...' : 'Login'}
+                    {cargando ? 'Connecting...' : 'Iniciar sesión'}
                 </button>
             </form>
         </div>

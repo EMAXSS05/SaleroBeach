@@ -11,7 +11,7 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
     useEffect(() => {
         const obtenerProductos = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/productos');
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/productos`);
                 const datos = await res.json();
                 setProductos(datos);
             } catch (error) {
@@ -76,7 +76,7 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
                     }}>
                         <div className={styles.imgContainer}>
                             {p.imagen && p.imagen !== "ejemplo" ? (
-                                <img src={`http://localhost:5000/imgMenu/${p.imagen}`} alt={p.nombre} />
+                                <img src={`${import.meta.env.VITE_API_URL}/imgMenu/${p.imagen}`} alt={p.nombre} />
                             ) : (
                                 <span className="material-icons">restaurant</span>
                             )}

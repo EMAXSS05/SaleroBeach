@@ -18,7 +18,7 @@ const ModalAperturaCaja = ({ onCajaAbierta }) => {
         setError('');
 
         try {
-            const respuesta = await fetch('http://localhost:5000/api/caja/abrir', {
+            const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/caja/abrir`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ saldoInicial: saldo })

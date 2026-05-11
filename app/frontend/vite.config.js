@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true, // <--- ESTO ES LO MÁS IMPORTANTE
+    host: true, 
     port: 5173,
     watch: {
       usePolling: true, // Esto ayuda a que detecte cambios en Windows
