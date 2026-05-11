@@ -1,0 +1,138 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modal {
+    background: #1F1D2B;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+}
+
+.iconoCaja {
+    font-size: 48px;
+    line-height: 1;
+}
+
+.titulo {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.subtitulo {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.inputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.inputWrapper {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.inputWrapper:focus-within {
+    border-color: rgba(100, 200, 150, 0.6);
+}
+
+.euro {
+    padding: 0 14px;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 300;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.input {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 14px 16px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    width: 100%;
+    font-family: monospace;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+/* Quitar flechas del input number */
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.error {
+    margin: 0;
+    font-size: 13px;
+    color: #e74c3c;
+    text-align: center;
+}
+
+.btnAbrir {
+    margin-top: 8px;
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.btnAbrir:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btnAbrir:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

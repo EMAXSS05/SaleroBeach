@@ -124,3 +124,73 @@
 .btnReset:active {
     transform: translateY(0);
 }
+.btnZ {
+    padding: 8px 16px;
+    background: linear-gradient(45deg, #FFA113, #F4350A);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    height: 38px;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalZ {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 480px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.zContent {
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #1a1a1a;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+.modalAcciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: center;
+}
+
+.btnImprimir {
+    padding: 10px 24px;
+    background: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btnCerrarZ {
+    padding: 10px 24px;
+    background: transparent;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}

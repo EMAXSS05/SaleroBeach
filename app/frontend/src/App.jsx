@@ -7,16 +7,31 @@ import Sidebar from './components/Barra/Sidebar'
 import MainPanel from './components/Barra/MainPanel'
 import Login from './components/Login/Login';
 import Header from './components/Barra/Header';
+import ModalAperturaCaja from './components/Barra/ModalAperturaCaja';
 
 function App() {
   const [seccionActiva, setSeccionActiva] = useState('HOME');
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
+  const [sesionCaja, setSesionCaja] = useState(null); 
+  const [mostrarModalCaja, setMostrarModalCaja] = useState(false);
   const navigate = useNavigate();
 
   // Esta función se llama desde el componente Login si el fetch es exitoso
-  const manejarLoginExitoso = (datosUsuario) => {
+  const manejarLoginExitoso = async (datosUsuario) => {
     setUsuarioLogueado(datosUsuario);
     if (datosUsuario.rol === 'barra') {
+       try {
+        const respuesta = await fetch('http://localhost:5000/api/caja/estado');
+        const datos = await respuesta.json();
+
+        if (datos.abierta) {
+          setSesionCaja(datos.sesion);
+        } else {
+          setMostrarModalCaja(true);
+        }
+      } catch (err) {
+        console.error('Error al comprobar estado de caja:', err);
+      }
       navigate('/barra');
     } else if (datosUsuario.rol === 'camarero') {
       navigate('/camarero');
@@ -24,9 +39,17 @@ function App() {
       navigate('/cocina')
     }
   };
+  const manejarCajaAbierta = (nuevaSesion) => {
+    setSesionCaja(nuevaSesion);
+    setMostrarModalCaja(false);
+  };
 
   return (
     <div className="app-container">
+     {/* Modal de apertura de caja */}
+          {mostrarModalCaja && (
+            <ModalAperturaCaja onCajaAbierta={manejarCajaAbierta} />
+          )}
       <Routes>
         <Route
           path="/login"
@@ -51,7 +74,10 @@ function App() {
                 usuario={usuarioLogueado}
               />
               <main className="content-area">
-                <MainPanel seccionActiva={seccionActiva} />
+                <MainPanel seccionActiva={seccionActiva}
+                sesionCaja={sesionCaja}
+                setSesionCaja={setSesionCaja}
+                />
               </main>
             </>
           ) : (
@@ -59,7 +85,7 @@ function App() {
           )
         } />
 
-        {/* RUTA CAMARERO (Para camarero, cocina o incluso barra si quiere ver el mapa) */}
+        {/* RUTA CAMARERO */}
         <Route path="/camarero" element={
           usuarioLogueado ? (
             <div className="full-screen-view">

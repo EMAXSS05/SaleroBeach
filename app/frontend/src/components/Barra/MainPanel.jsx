@@ -7,7 +7,7 @@ import GestionUsuarios from './GestionUsuarios';
 import ConfiguracionMesas from './ConfiguracionMesas';
 import GestionProductos from './GestionProductos';
 
-const MainPanel = ({ seccionActiva }) => {
+const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
     // Aquí se guardarám los pedidos que vengan de la base de datos
     const [pedidos, setPedidos] = useState([]);
     const [cargando, setCargando] = useState(true);
@@ -74,7 +74,10 @@ const MainPanel = ({ seccionActiva }) => {
     const renderContent = () => {
         switch (seccionActiva) {
             case 'ORDER HISTORY':
-                return <HistorialPedidos pedidosFinalizados={historial} />;
+                return <HistorialPedidos pedidosFinalizados={historial}
+                 sesionCaja={sesionCaja}
+                setSesionCaja={setSesionCaja}
+                />;
 
             case 'TABLES':
                 return <ConfiguracionMesas />;
