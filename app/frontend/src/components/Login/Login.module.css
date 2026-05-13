@@ -22,11 +22,10 @@
     align-items: center;
 }
 
-/* El Logo 'S' con la tipografía serif de la imagen */
 .logo {
     font-size: 5rem;
     font-weight: 300;
-    font-family: 'Times New Roman', Times, serif; /* O una similar serif */
+    font-family: 'Times New Roman', Times, serif; 
     margin-bottom: 20px;
     color: white;
 }
@@ -57,8 +56,8 @@
 }
 
 .inputGroup input {
-    background-color: #2a2d3e; /* Fondo de input oscuro de la imagen */
-    border: 1px solid #3f445e; /* Borde sutil */
+    background-color: #2a2d3e; 
+    border: 1px solid #3f445e; 
     border-radius: 8px;
     color: #fff;
     padding: 12px 15px;
@@ -68,13 +67,13 @@
 
 .inputGroup input:focus {
     outline: none;
-    border-color: #FE9315; /* Naranja en focus */
+    border-color: #FE9315; 
 }
 
-/* El botón con el degradado naranja/amarillo exacto */
+
 .loginBtn {
     width: 100%;
-    background: linear-gradient(to right, #FFA113, #F4350A); /* Degradado exacto */
+    background: linear-gradient(to right, #FFA113, #F4350A); 
     color: white;
     border: none;
     padding: 12px;
@@ -106,4 +105,34 @@
     width: 100%;
     text-align: center;
     margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+    .loginForm {
+        padding: 20px 28px;
+    }
+
+    .logo {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 16px;
+    }
+
+    .inputGroup {
+        margin-bottom: 10px;
+    }
+
+    .inputGroup input {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .loginBtn {
+        margin-top: 12px;
+        padding: 11px;
+    }
 }

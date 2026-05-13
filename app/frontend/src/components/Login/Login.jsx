@@ -16,6 +16,7 @@ const Login = ({ onLoginSuccess }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+         console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
         setError('');
         setCargando(true);
 
@@ -25,6 +26,7 @@ const Login = ({ onLoginSuccess }) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credenciales)
             });
+            console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
 
             const datos = await respuesta.json();
 
@@ -52,7 +54,7 @@ const Login = ({ onLoginSuccess }) => {
                 <p className={styles.subtitle}>Utilice los datos proporcionados por el administrador de su cuenta.</p>
 
                 <div className={styles.inputGroup}>
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="username">Nombre Usuario</label>
                     <input 
                         type="text" 
                         id="username"
@@ -64,7 +66,7 @@ const Login = ({ onLoginSuccess }) => {
                 </div>
 
                 <div className={styles.inputGroup}>
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Contraseña</label>
                     <input 
                         type="password" 
                         id="password"
@@ -78,7 +80,7 @@ const Login = ({ onLoginSuccess }) => {
                 {error && <p className={styles.errorMessage}>{error}</p>}
  
                 <button type="submit" className={styles.loginBtn} disabled={cargando}>
-                    {cargando ? 'Connecting...' : 'Iniciar sesión'}
+                    {cargando ? 'Conectando...' : 'Iniciar sesión'}
                 </button>
             </form>
         </div>

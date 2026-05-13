@@ -8,7 +8,7 @@ const Sidebar = ({ seccionActiva, setSeccionActiva, usuario }) => {
         { id: 'INICIO',name: 'INICIO', icon: <FaHome />, active: true },
         { id: 'HISTORIAL',name: 'HISTORIAL', icon: <FaHistory /> },
         { id: 'MESAS',name: 'MESAS', icon: <FaTable />,roles:['barra'] },
-        { id:'USERS', name:'USUARIOS', icon: <FaUsers />,roles:['barra'] },
+        { id:'USUARIOS', name:'USUARIOS', icon: <FaUsers />,roles:['barra'] },
         { id:'PRODUCTOS',name: 'PRODUCTOS', icon: <FaGlassMartiniAlt />,roles:['barra','cocina'] },
     ];
 

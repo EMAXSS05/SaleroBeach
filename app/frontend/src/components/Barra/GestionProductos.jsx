@@ -150,10 +150,10 @@ const GestionProductos = () => {
                     value={nuevoProducto.sub}
                     onChange={(e) => setNuevoProducto({ ...nuevoProducto, sub: e.target.value })}
                 >
-                    <option value="Starters">Entrantes</option>
-                    <option value="Food">Segundos</option>
-                    <option value="Drinks">Bebidas</option>
-                    <option value="Desserts">Postres</option>
+                    <option value="Entrantes">Entrantes</option>
+                    <option value="Segundos">Segundos</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Postres">Postres</option>
                 </select>
                 <label className={styles.labelFile}>
                     {nuevoProducto.imagen ? '✓ Imagen seleccionada' : 'Seleccionar imagen'}

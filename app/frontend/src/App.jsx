@@ -105,7 +105,12 @@ function App() {
                 usuario={usuarioLogueado}
               />
               <main className="content-area">
-                <TerminalCocina />
+                <MainPanel 
+                    seccionActiva={seccionActiva}
+                    sesionCaja={sesionCaja}
+                    setSesionCaja={setSesionCaja}
+                    usuario={usuarioLogueado}
+                />
               </main>
             </>
           ) : (

@@ -8,14 +8,14 @@ const TerminalCocina = () => {
    * Obtiene pedidos desde el backend
    * Filtra:
    *  - Solo pedidos en curso
-   *  - Solo aquellos que contienen items de tipo "Food"
+   *  - Solo aquellos que contienen items de tipo "Segundos y Entrantes"
    */
     const obtenerPedidos = async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos`);
         const data = await res.json();
         const soloComida = data.filter(p =>
             p.estadoGeneral === 'en_curso' &&
-            p.items.some(item => item.sub === 'Food')
+            p.items.some(item => item.sub === 'Entrantes' || item.sub==='Segundos')
         );
         setPedidos(soloComida);
     };
@@ -78,7 +78,7 @@ const TerminalCocina = () => {
                         )}
 
                         <div className={styles.itemsList}>
-                            {pedido.items.filter(i => i.sub === 'Food').map((item, idx) => (
+                            {pedido.items.filter(i => i.sub === 'Entrantes' || i.sub==='Segundos').map((item, idx) => (
                                 <div key={item._id || idx} className={styles.itemRow}>
                                     <div className={styles.itemMain}>
                                         <span className={styles.cantidad}>{item.cantidad}x</span>
@@ -115,8 +115,8 @@ const TerminalCocina = () => {
                         <button
                             className={styles.btnNotificar}
                             onClick={() => finalizarTicket(pedido._id)}
-                            // Si algún ítem de comida NO está 'listo', deshabilitamos el aviso
-                            disabled={pedido.items.filter(i => i.sub === 'Food').some(i => i.estadoItem !== 'listo')}
+                            // Si algún ítem de comida como entrantes o segundos, se deshabilita el aviso
+                            disabled={pedido.items.filter(i => i.sub === 'Entrantes'|| i.sub==='Segundos').some(i => i.estadoItem !== 'listo')}
                         >
                             AVISAR CAMARERO
                         </button>

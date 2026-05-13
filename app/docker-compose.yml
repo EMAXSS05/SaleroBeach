@@ -14,6 +14,8 @@ services:
     container_name: react-salero-beach
     ports:
       - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000
     volumes:
       - ./frontend:/app          
       - /app/node_modules

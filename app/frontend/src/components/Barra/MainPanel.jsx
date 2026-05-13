@@ -6,8 +6,9 @@ import HistorialPedidos from './HistorialPedidos';
 import GestionUsuarios from './GestionUsuarios';
 import ConfiguracionMesas from './ConfiguracionMesas';
 import GestionProductos from './GestionProductos';
+import TerminalCocina from '../Cocina/TerminalCocina';
 
-const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
+const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario }) => {
     // Aquí se guardarám los pedidos que vengan de la base de datos
     const [pedidos, setPedidos] = useState([]);
     const [cargando, setCargando] = useState(true);
@@ -75,8 +76,8 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
         switch (seccionActiva) {
             case 'HISTORIAL':
                 return <HistorialPedidos pedidosFinalizados={historial}
-                 sesionCaja={sesionCaja}
-                setSesionCaja={setSesionCaja}
+                    sesionCaja={sesionCaja}
+                    setSesionCaja={setSesionCaja}
                 />;
 
             case 'MESAS':
@@ -85,9 +86,12 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
             case 'USUARIOS':
                 return <GestionUsuarios />;
             case 'PRODUCTOS':
-                return <GestionProductos/>;
+                return <GestionProductos />;
             case 'INICIO':
             default:
+                if (usuario?.rol === 'cocina') {
+                    return <TerminalCocina />;
+                }
                 return (
                     <>
                         <h1 className={styles.title}>TPV - CAJA REGISTRADORA</h1>
@@ -97,7 +101,7 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
                                 className={`${styles.filterBtn} ${!filtroSeleccionado ? styles.active : ''}`}
                                 onClick={() => setFiltroSeleccionado(null)}
                             >
-                                All
+                                Todo
                             </button>
                             {pedidos.map(p => (
                                 <button
@@ -124,7 +128,7 @@ const MainPanel = ({ seccionActiva,sesionCaja,setSesionCaja }) => {
                                             await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos/${pedidoId}/item/${itemId}`, {
                                                 method: 'DELETE'
                                             });
-                                             obtenerPedidos();
+                                            obtenerPedidos();
                                         }}
                                     />
                                 ))}

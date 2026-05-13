@@ -1,18 +1,21 @@
 .container {
-    background-color:#1F1D2B ; 
-    min-height: 100vh;
-    padding: 30px;
+    background-color: #1F1D2B;
+    padding: 20px 30px;
     display: flex; 
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .title {
     color: #ffffff;
+    font-size: 1.2rem;
     font-weight: 800;
     letter-spacing: 2px;
     border-bottom: 2px solid #f56a23; 
     display: inline-block;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding-bottom: 6px;
 }
 
 

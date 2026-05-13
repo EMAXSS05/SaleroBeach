@@ -31,10 +31,10 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
         const pasoActual = Number(pasoInterior);
         const sub = p.sub ? p.sub : "";
 
-        if (pasoActual === 1) return sub === 'Drinks'
-        if (pasoActual === 2) return sub === 'Starters';
-        if (pasoActual === 3) return sub === 'Food';
-        if (pasoActual === 4) return sub === 'Desserts';
+        if (pasoActual === 1) return sub === 'Bebidas'
+        if (pasoActual === 2) return sub === 'Entrantes';
+        if (pasoActual === 3) return sub === 'Segundos';
+        if (pasoActual === 4) return sub === 'Postres';
         return true;
     });
 
