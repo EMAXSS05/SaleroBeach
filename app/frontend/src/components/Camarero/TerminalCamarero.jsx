@@ -60,16 +60,22 @@ const TerminalCamarero = ({usuario}) => {
     }, [mesaSeleccionada]);
 
      /**
-     * Añade un item al pedido de una mesa
+     * Añade items al pedido
      */
     const confirmarPedidoFinal = (mesa, nuevoItem) => {
-        setPedidosActivos(prev => {
+         setPedidosActivos(prev => {
             const pedidoPrevio = prev[mesa] || { items: [], comensales: 1 };
+ 
+            const itemsExpandidos = Array.from({ length: nuevoItem.cantidad }, () => ({
+                ...nuevoItem,
+                cantidad: 1
+            }));
+ 
             return {
                 ...prev,
                 [mesa]: {
                     ...pedidoPrevio,
-                    items: [...pedidoPrevio.items, nuevoItem]
+                    items: [...pedidoPrevio.items, ...itemsExpandidos]
                 }
             };
         });

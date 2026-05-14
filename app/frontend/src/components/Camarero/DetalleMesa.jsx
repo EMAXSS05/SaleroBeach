@@ -79,7 +79,7 @@ if (paso === 0.5) {
             </header>
             <div className={styles.selectorComensales}>
                 <h3>¿Alguna alerta o necesidad?</h3>
-                <p style={{fontSize: '0.9rem', color: '#666'}}>Ej: Alergias, trona, prisa...</p>
+                <p style={{fontSize: '0.9rem', color: '#666'}}>Ej: Alergias, bebés/niños, prisa...</p>
                 
                 <textarea 
                     className={styles.inputAlerta} 
@@ -93,7 +93,7 @@ if (paso === 0.5) {
                     {/* Botones para añadir texto rápido */}
                     <button onClick={() => setAlertaMesa("Alergia: ")}>⚠️ Alergia</button>
                     <button onClick={() => setAlertaMesa("Mesa con prisa")}>⏱️ Prisa</button>
-                    <button onClick={() => setAlertaMesa("Trona bebé")}>👶 Bebé</button>
+                    <button onClick={() => setAlertaMesa("niños en mesa")}>🧒peques</button>
                 </div>
 
                 <button className={styles.btnSiguiente} onClick={guardarAlertaYContinuar}>

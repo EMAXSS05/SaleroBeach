@@ -37,7 +37,7 @@ const Sidebar = ({ seccionActiva, setSeccionActiva, usuario }) => {
 
             <div className={styles.statusContainer}>
                 <div className={styles.statusOnline}></div>
-                Restaurant Open
+                Restaurante Abierto
             </div>
         </aside>
     );

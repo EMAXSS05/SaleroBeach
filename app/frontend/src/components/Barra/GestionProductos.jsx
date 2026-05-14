@@ -174,13 +174,16 @@ const GestionProductos = () => {
                 <button type="submit" className={styles.btnAdd}>+ Añadir</button>
             </form>
             <div className={styles.searchBox}>
-                <input
-                    type="text"
-                    placeholder="Buscar producto..."
-                    value={filtro}
-                    onChange={(e) => setFiltro(e.target.value)}
-                    className={styles.searchInput}
-                />
+                <div className={styles.searchWrapper}>
+                    <span className="material-icons" style={{ color: '#6b7280', fontSize: '20px' }}>search</span>
+                    <input
+                        type="text"
+                        placeholder="Buscar producto..."
+                        value={filtro}
+                        onChange={(e) => setFiltro(e.target.value)}
+                        className={styles.searchInput}
+                    />
+                </div>
             </div>
 
             {/* Tabla de productos */}

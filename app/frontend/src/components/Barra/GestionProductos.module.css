@@ -5,7 +5,7 @@
 
 .title {
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 600;
     color: white;
     margin-bottom: 24px;
     letter-spacing: 1px;
@@ -265,16 +265,33 @@
 .inputFile::file-selector-button:hover {
     filter: brightness(1.1);
 }
-.searchBox {
-    margin-bottom: 16px;
-}
-
-.searchInput {
-    width: 100%;
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 280px;
     padding: 10px 16px;
     background: #2a2d3e;
     border: 1px solid #3a3d4e;
     border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.searchWrapper:focus-within {
+    border-color: #f56a23;
+}
+.searchBox {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.searchInput {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
     color: white;
     font-size: 0.9rem;
 }

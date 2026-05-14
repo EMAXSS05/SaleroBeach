@@ -55,7 +55,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja }) => {
             resultado = resultado.filter(p => p.fecha.includes(filtroFecha));
         }
         if (filtroMesa) {
-            resultado = resultado.filter(p => p.mesas === filtroMesa);
+            resultado = resultado.filter(p => p.mesas.includes(filtroMesa));
         }
 
         setPedidosFiltrados(resultado);

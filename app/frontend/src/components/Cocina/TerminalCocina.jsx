@@ -69,7 +69,7 @@ const TerminalCocina = () => {
                         </div>
                         {pedido.alertas && pedido.alertas.length > 0 && (
                             <div className={styles.alertaMesa}>
-                                {[...new Set(pedido.alertas)].map((alerta, idx) => (
+                                {[...new Set(pedido.alertas)].filter(a => a && a.trim() !== '').map((alerta, idx) => (
                                     <span key={idx} className={styles.alertaBadge}>
                                         ⚠️ {alerta}
                                     </span>
