@@ -3,25 +3,54 @@
 
 ## Manual técnico do proxecto
 
-### Instalación
-No habrá que instalarla desde ningun lado, ya que es una aplicación web y por lo tanto para acceder a ella se necesitará el enlace hacia el sitio, que para eso dispongo tengo un subdomino gratuito que me provee Render y ese enlace será compartido con los trabajadores del establecimiento para que puedan darle uso.
+## Instalación
+No habrá que instalarla desde ningun lado, ya que es una aplicación web y por lo tanto para acceder a ella se necesitará el enlace hacia el sitio,para eso se dispone de un subdomino gratuito que provee Render y ese enlace será compartido con los trabajadores del establecimiento para que puedan darle uso.
 
 Link para acceder a la app web: [SaleroBeach.com](https://salerobeach-1.onrender.com)
 
+## Manual de Usuario
 
-## Promoción
+Se divide en 3 partes,una para cada rol del empleado en el establecimiento Salero Bar
+### Barra, Camarero y Cocina
+### 1. login
+Deberá introducir los credenciales proporcionadas por el admin (la barra)
+![](../img//loginSalerobeach.png)
+## Barra
+Credenciales para iniciar sesión en la barra(admin): [credenciales admin](../templates/4_codificacion_probas.md)
+
+### Gestion de pedidos:
+en la sección "Inicio" se podrán visualizar los pedidos que son enviados por los camareros, cada pedido muestra el número de pedido, los productos que contiene,la cantidad de cada producto, el número de mesa y el Total a cobrar.
+![](../img/vistaPedidosBarra.png)
+ ## Cobrar pedidos
+-Para cobrar los pedidos se debe pulsar en cobrar y seleccionar el método con el cual el cliente paga. 
+- ![](../img/metodosDePago.png)
+
+## Eliminar productos
+-Para eliminar productos se debe pulsar el siguiente botón el cual resta 1 a la cantidad de dicho producto del pedido.
+- ![](../img/quitarProducto.png)
+
+## Cancelar pedido
+-Debe pulsar el botón de cancelar, a continuación aparecerá un pop up en la parte superior,pulse en aceptar para confirmar la cancelación del pedido, al aceptar, este se moverá al historial de pedidos y aparecerá como CANCELADO
+
+-![](../img/cancelarPedido.png)
+
+
+
+
+
+# Promoción
 Esta aplicación o sistema se promocionará a través de redes sociales, en este caso escogí 3, Linkedin como la principal, secundarias serán Instagram y Facebook donde se publicará contenido sobre el uso de la aplicación e información para contactarme por si algun negocio se interesa y requiere este mismo sistema. 
 
 
 # Modelo de Negocio
 
-El modelo de negocio elegido para el desarrollo de este proyecto es un **modelo híbrido** que combina el **Desarrollo a Medida (In-house / B2B)** con el **Modelo de Suscripción por Mantenimiento**.
+El modelo de negocio elegido para el desarrollo de este proyecto es un **modelo híbrido** que combina el **Desarrollo a Medida** con el **Modelo de Suscripción por Mantenimiento**.
 
 Esta combinación es la que mejor se adapta a la realidad económica y operativa de un programador autónomo junior, garantizando la viabilidad del proyecto desde el primer momento. A continuación, se justifican detalladamente los motivos de esta elección.
 
 ---
 
-## 1. Desarrollo a Medida (In-house / B2B)
+## 1. Desarrollo a Medida
 
 Este proyecto no nace como un producto comercial masivo, sino como una solución de software específica para un cliente directo. Por ello, se descartan modelos basados en publicidad o freemium, y se opta por el desarrollo a medida.
 

@@ -34,7 +34,11 @@ Segundo reto fue pelearme con las esperas del servidor Al principio me daba erro
 Use thunder Client que es una extension del visual que me permitió probar los endpoints.
 
 ## Prototipo 2
-## Data de entrega: 05 de Mayo
+### Data de entrega: 05 de Mayo
+### Credenciales para hacer login en la app como administrador:
+**nombre de usuario: Admin_barra**\
+**contraseña:** abc123.
+
 ## Funcionalidades implementadas:
 - **RF1 Sistema Multimesa Dinámico:** Migración del modelo de datos de mesa única a un array de mesas, permitiendo vincular un pedido a varias ubicaciones físicas. 
 - **RF2 Control de Acceso (Login):** Implementación de un sistema de autenticación centralizado que redirige automáticamente a cada usuario a su terminal correspondiente (Barra, Cocina o Camarero) según su rol asignado.
