@@ -125,3 +125,32 @@
 .btnOk:active {
     transform: scale(0.98);
 }
+.chipsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+ 
+.chip {
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid #444;
+    background: transparent;
+    color: #aaa;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+ 
+.chip:hover {
+    border-color: #f56a23;
+    color: #f56a23;
+}
+ 
+.chipActivo {
+    background: rgba(245, 106, 35, 0.15);
+    border-color: #f56a23;
+    color: #f56a23;
+    font-weight: 600;
+}

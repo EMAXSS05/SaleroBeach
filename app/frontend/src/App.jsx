@@ -1,5 +1,5 @@
 import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import './App.css'
 import TerminalCamarero from './components/Camarero/TerminalCamarero'
 import TerminalCocina from './components/Cocina/TerminalCocina';
@@ -15,6 +15,25 @@ function App() {
   const [sesionCaja, setSesionCaja] = useState(null); 
   const [mostrarModalCaja, setMostrarModalCaja] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const usuario = localStorage.getItem('usuario');
+    if (token && usuario) {
+       const datosUsuario = JSON.parse(usuario);
+        setUsuarioLogueado(datosUsuario);
+        if (datosUsuario.rol === 'barra') navigate('/barra');
+        else if (datosUsuario.rol === 'camarero') navigate('/camarero');
+        else if (datosUsuario.rol === 'cocina') navigate('/cocina');
+    }
+}, []);
+
+const cerrarSesion = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    setUsuarioLogueado(null);
+    setSesionCaja(null);
+    navigate('/login');
+};
 
   // Esta función se llama desde el componente Login si el fetch es exitoso
   const manejarLoginExitoso = async (datosUsuario) => {
@@ -77,6 +96,8 @@ function App() {
                 <MainPanel seccionActiva={seccionActiva}
                 sesionCaja={sesionCaja}
                 setSesionCaja={setSesionCaja}
+                usuario={usuarioLogueado}
+                onCerrarSesion={cerrarSesion}
                 />
               </main>
             </>

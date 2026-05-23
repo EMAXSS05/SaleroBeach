@@ -8,7 +8,7 @@ import ConfiguracionMesas from './ConfiguracionMesas';
 import GestionProductos from './GestionProductos';
 import TerminalCocina from '../Cocina/TerminalCocina';
 
-const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario }) => {
+const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario, onCerrarSesion }) => {
     // Aquí se guardarám los pedidos que vengan de la base de datos
     const [pedidos, setPedidos] = useState([]);
     const [cargando, setCargando] = useState(true);
@@ -141,7 +141,7 @@ const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario }) => {
 
     return (
         <div className={styles.mainContainer}>
-            <Header />
+            <Header usuario={usuario} onCerrarSesion={onCerrarSesion}/>
             <div className={styles.content}>
                 {renderContent()}
             </div>

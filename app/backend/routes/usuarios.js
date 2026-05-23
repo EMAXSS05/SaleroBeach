@@ -1,12 +1,13 @@
-const bcrypt = require('bcryptjs'); 
+const bcrypt = require('bcryptjs');
 const express = require('express');
 const router = express.Router();
 const Usuario = require('../models/Usuario');
+const jwt = require('jsonwebtoken');
 
 //Obtener todos los usuarios
 router.get('/', async (req, res) => {
     try {
-        const usuarios = await Usuario.find().select('-password'); 
+        const usuarios = await Usuario.find().select('-password');
         res.json(usuarios);
     } catch (err) {
         res.status(500).json({ mensaje: "Error al obtener usuarios" });
@@ -41,7 +42,7 @@ router.patch('/:id', async (req, res) => {
         ).select('-password');
 
         if (!usuarioActualizado) return res.status(404).json({ mensaje: "Usuario no encontrado" });
-        
+
         res.json({ mensaje: "Usuario actualizado correctamente", usuario: usuarioActualizado });
     } catch (err) {
         res.status(400).json({ mensaje: "Error al actualizar usuario" });
@@ -53,7 +54,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const usuarioEliminado = await Usuario.findByIdAndDelete(req.params.id);
         if (!usuarioEliminado) return res.status(404).json({ mensaje: "Usuario no encontrado" });
-        
+
         res.json({ mensaje: "Usuario eliminado del sistema" });
     } catch (err) {
         res.status(500).json({ mensaje: "Error al eliminar usuario" });
@@ -74,10 +75,16 @@ router.post('/login', async (req, res) => {
         const passwordValida = await bcrypt.compare(password, usuario.password);
         if (!passwordValida) return res.status(401).json({ mensaje: "Contraseña incorrecta" });
 
-        // Si todo está bien, enviamos los datos (excepto password)
+        //crea el token con 3 parámetros:
+        const token = jwt.sign(
+            { id: usuario._id, rol: usuario.rol },
+            process.env.JWT_SECRET,
+            { expiresIn: '12h' }
+        );
+
         const { password: _, ...datosUsuario } = usuario._doc;
-        res.json({ mensaje: "Login exitoso", usuario: datosUsuario });
-        
+        res.json({ mensaje: "Login exitoso", usuario: datosUsuario, token });
+
     } catch (err) {
         res.status(500).json({ mensaje: "Error en el servidor durante el login" });
     }
