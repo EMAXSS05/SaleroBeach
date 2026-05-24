@@ -66,7 +66,7 @@
 .tabla th {
     background: #2d2f3e;
     padding: 15px;
-    color: #888;
+    color: #a1a6b4;
     font-size: 0.9rem;
     text-transform: uppercase;
 }
@@ -90,11 +90,16 @@
 }
 
 .btnVerDetalle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     background: #2d2f3e;
     color: white;
     border: none;
     padding: 8px 15px;
     border-radius: 8px;
+    text-align: center;
     cursor: pointer;
 }
 .btnReset {
@@ -176,6 +181,9 @@
 }
 
 .btnImprimir {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     padding: 10px 24px;
     background: #2980b9;
     color: white;
@@ -183,6 +191,9 @@
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
+}
+.filaCancelada {
+    opacity: 0.45;
 }
 
 .btnCerrarZ {
@@ -193,4 +204,147 @@
     border-radius: 8px;
     font-weight: 700;
     cursor: pointer;
+}
+.modalDetalle {
+    background: #1e2035;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+
+.detalleHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.detalleHeader h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin: 0 0 4px;
+}
+
+.detalleFecha {
+    font-size: 0.8rem;
+    color: #a1a6b4;
+}
+
+.detalleInfo {
+    display: flex;
+    gap: 16px;
+    font-size: 0.85rem;
+    color: #a1a6b4;
+    background: rgba(255,255,255,0.03);
+    padding: 10px 14px;
+    border-radius: 8px;
+}
+
+.detalleItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.detalleItemRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.detalleItemNombre {
+    flex: 1;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.detalleItemNombre small {
+    color: #a1a6b4;
+    font-style: italic;
+}
+
+.detalleItemQty {
+    color: #f56a23;
+    font-weight: 600;
+    font-size: 0.85rem;
+    min-width: 30px;
+    text-align: center;
+}
+
+.detalleItemPrecio {
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 60px;
+    text-align: right;
+}
+
+.detalleTotalRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.detalleTotalRow span:first-child {
+    color: #a1a6b4;
+    font-size: 0.9rem;
+}
+
+.detalleTotalImporte {
+    color: #f56a23;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.detalleAcciones {
+    display: flex;
+    gap: 10px;
+}
+
+.btnCerrarDetalle {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: #a1a6b4;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnCerrarDetalle:hover {
+    border-color: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.btnReimprimir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex: 2;
+    padding: 10px;
+    background: linear-gradient(135deg, #f56a23, #e04e0a);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btnReimprimir:hover {
+    filter: brightness(1.1);
 }

@@ -3,7 +3,7 @@ import styles from './MapaMesas.module.css';
 import iconoInterior from '../../assets/iconos/interior.png';
 import iconoTerraza from '../../assets/iconos/terraza.png';
 
-const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [], botonesUnion, mesasListas = [],usuario}) => {
+const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [], botonesUnion, mesasListas = [],usuario, onCerrarSesion}) => {
      console.log("Usuario recibido en MapaMesas:", usuario);
     const [mesas, setMesas] = useState([]);
     const [terrazaAbierta, setTerrazaAbierta] = useState(true);
@@ -31,11 +31,11 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [
     const mesasTerraza = mesasActivas.filter(m => m.zona === 'Terraza');
     const mesasInterior = mesasActivas.filter(m => m.zona === 'Interior');
     const [menuAbierto, setMenuAbierto] = useState(false);
-    // Solicita confirmación al usuario antes de recargar la página y cerrar la sesión
+    // Solicita confirmación al usuario antes de cerrar la sesión
     const cerrarSesion = () => {
         console.log("Cerrando sesión...");
         if (confirm("¿Estás seguro de que quieres salir?")) {
-            window.location.reload();
+           onCerrarSesion();
         }
     };
     // Renderiza el mapa de mesas dividido en dos secciones (Terraza e Interior),

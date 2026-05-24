@@ -62,6 +62,8 @@ router.delete('/:id', async (req, res) => {
 });
 // Login de usuario
 router.post('/login', async (req, res) => {
+     console.log('LOGIN INTENTADO:', req.body);
+    console.log('JWT_SECRET:', process.env.JWT_SECRET);
     const { username, password } = req.body;
     try {
         // Buscamos al usuario por su username

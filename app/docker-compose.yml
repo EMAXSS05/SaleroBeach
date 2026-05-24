@@ -6,6 +6,7 @@ services:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb+srv://emaxss05:promopush_2023@cluster0.pdg5oqs.mongodb.net/salero_beach?appName=Cluster0
+      - JWT_SECRET=salerobeach_secret_2024
     volumes:
       - ./backend/uploads:/app/uploads
 

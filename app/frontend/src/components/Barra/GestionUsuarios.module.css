@@ -56,6 +56,7 @@
 }
 .table th{
      background: #2d2f3e;
+     color: #a1a6b4;
 }
 
 .nombreReal {
@@ -123,7 +124,7 @@
 }
 
 .btnEdit {
-    background: #2f566f;
+    background: #2d2f3e;
     color: white;
     border: none;
     padding: 5px 10px;

@@ -91,7 +91,7 @@ const ConfiguracionMesas = () => {
                         <tr key={mesa._id}>
                             <td className={styles.numeroMesa}>Mesa {mesa.numero}</td>
                             <td>{mesa.zona}</td>
-                            <td>{mesa.capacidad} pax</td>
+                            <td>{mesa.capacidad} pers.</td>
                             <td>
                                 <span className={mesa.activa ? styles.badgeActive : styles.badgeInactive}>
                                     {mesa.activa ? 'Habilitada' : 'Deshabilitada'}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './GestionUsuarios.module.css';
+import iconoRestablecerContra from '../../assets/iconos/restablecer-contra.png'
 
 const GestionUsuarios = () => {
     const [usuarios, setUsuarios] = useState([]);
@@ -163,7 +164,7 @@ const GestionUsuarios = () => {
                                                 className={styles.btnEdit}
                                                 onClick={() => setEditandoId(u._id)}
                                             >
-                                                🔑 Contraseña
+                                               <img src={iconoRestablecerContra} width={22}/>
                                             </button>
                                             <button
                                                 className={styles.btnDelete}

@@ -13,7 +13,7 @@ const Login = ({ onLoginSuccess }) => {
         });
         if (error) setError('');
     };
-
+   /**Maneja el envio del formulario del login */
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);

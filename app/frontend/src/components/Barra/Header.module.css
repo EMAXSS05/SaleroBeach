@@ -1,7 +1,7 @@
 .header {
     height: 80px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
     align-items: center;
     padding: 0 40px;
@@ -65,4 +65,244 @@
 .logoutBtn:hover {
     background-color: rgba(239, 68, 68, 0.1);
     color: #ef4444; 
+}
+
+/* Modal overlay */
+.modalOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.modalSelect {
+    background: #1e2035;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 28px;
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modalSelectHeader {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.modalSelectIcon {
+    width: 44px;
+    height: 44px;
+    background: rgba(245, 106, 35, 0.12);
+    border: 1px solid rgba(245, 106, 35, 0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f56a23;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.modalSelectTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.modalSelectSubtitle {
+    font-size: 0.8rem;
+    color: #a1a6b4;
+    margin: 2px 0 0;
+}
+
+/* Botones de impresión */
+.printButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.btnPrint {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #a1a6b4;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease;
+}
+
+.btnPrint:hover {
+    background: rgba(245, 106, 35, 0.1);
+    border-color: #f56a23;
+    color: #f56a23;
+}
+
+.printIcon {
+    font-size: 18px;
+}
+
+/* Lista de pedidos */
+.pedidosList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.pedidosList::-webkit-scrollbar {
+    width: 4px;
+}
+
+.pedidosList::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.sinPedidos {
+    text-align: center;
+    color: #a1a6b4;
+    padding: 20px;
+    font-size: 0.9rem;
+}
+
+.pedidoOption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+}
+
+.pedidoOption:hover {
+    background: rgba(245, 106, 35, 0.06);
+    border-color: rgba(245, 106, 35, 0.3);
+}
+
+.pedidoOptionActivo {
+    background: rgba(245, 106, 35, 0.1) !important;
+    border-color: #f56a23 !important;
+}
+
+.pedidoOptionLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pedidoMesa {
+    font-weight: 700;
+    color: white;
+    font-size: 0.95rem;
+}
+
+.pedidoCamarero {
+    font-size: 0.75rem;
+    color: #a1a6b4;
+}
+
+.pedidoOptionRight {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.pedidoTotal {
+    font-weight: 700;
+    color: #f56a23;
+    font-size: 0.95rem;
+}
+
+.pedidoItems {
+    font-size: 0.75rem;
+    color: #a1a6b4;
+}
+
+
+.checkMark {
+    width: 22px;
+    height: 22px;
+    background: #f56a23;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    flex-shrink: 0;
+}
+
+/* Acciones del modal */
+.modalSelectActions {
+    display: flex;
+    gap: 10px;
+}
+
+.btnCancelarModal {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #a1a6b4;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnCancelarModal:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btnImprimirModal {
+    flex: 2;
+    padding: 12px;
+    background: linear-gradient(135deg, #f56a23, #e04e0a);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btnImprimirModal:hover:not(:disabled) {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+}
+
+.btnImprimirModal:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
 }

@@ -3,7 +3,7 @@ import MapaMesas from './MapaMesas';
 import DetalleMesa from './DetalleMesa';
 import styles from './TerminalCamarero.module.css';
 
-const TerminalCamarero = ({usuario}) => {
+const TerminalCamarero = ({usuario, onCerrarSesion}) => {
     console.log("Usuario recibido en TerminalCamarero:", usuario);
     const [mesaSeleccionada, setMesaSeleccionada] = useState(null);
     const [pedidosActivos, setPedidosActivos] = useState({});
@@ -217,6 +217,7 @@ const TerminalCamarero = ({usuario}) => {
                         mesasSeleccionadasParaUnion={mesasParaJuntar}
                         usuario={usuario}
                         mesasListas={mesasListas}
+                        onCerrarSesion={onCerrarSesion}
                         botonesUnion={
                             <div className={styles.unionControls}>
                                 <button

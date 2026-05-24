@@ -110,7 +110,7 @@ const cerrarSesion = () => {
         <Route path="/camarero" element={
           usuarioLogueado ? (
             <div className="full-screen-view">
-              <TerminalCamarero usuario={usuarioLogueado} />
+              <TerminalCamarero usuario={usuarioLogueado} onCerrarSesion={cerrarSesion} />
             </div>
           ) : (
             <Navigate to="/login" />

@@ -258,3 +258,119 @@
 .btnEliminarItem:hover {
     background: rgba(239, 68, 68, 0.1);
 }
+
+/* Añadir al PedidoCard.module.css existente */
+
+.efectivoInput {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.efectivoInput label {
+    font-size: 0.8rem;
+    color: #a1a6b4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.inputEuroWrapper {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.inputEuroWrapper:focus-within {
+    border-color: #f56a23;
+}
+
+.inputEuroWrapper span {
+    padding: 0 12px;
+    color: rgba(255,255,255,0.3);
+    font-size: 18px;
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.inputEfectivo {
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 12px 14px;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    width: 100%;
+    font-family: monospace;
+}
+
+.inputEfectivo::-webkit-outer-spin-button,
+.inputEfectivo::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.cambioBox {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid #2ecc71;
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: #2ecc71;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.btnConfirmarCobro {
+    flex: 2;
+    padding: 12px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btnConfirmarCobro:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.cobradoIcon {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.btnImprimirCobro {
+    flex: 2;
+    padding: 12px;
+    background: linear-gradient(135deg, #f56a23, #e04e0a);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: opacity 0.2s;
+}
+
+.btnImprimirCobro:hover {
+    filter: brightness(1.1);
+}

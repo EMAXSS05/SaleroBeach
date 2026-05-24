@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styles from './HistorialPedidos.module.css';
+import iconoOjo from '../../assets/iconos/ojo.png'
+import iconoImprimir from '../../assets/iconos/imprimir.png'
 
 const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja }) => {
     const [filtroFecha, setFiltroFecha] = useState('');
     const [filtroMesa, setFiltroMesa] = useState('');
     const [pedidosFiltrados, setPedidosFiltrados] = useState(pedidosFinalizados);
     const [mostrarZ, setMostrarZ] = useState(false);
+    const [pedidoDetalle, setPedidoDetalle] = useState(null);
+
+    
 
 
      // Si hay sesión de caja se usa fechaApertura
@@ -77,6 +82,84 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja }) => {
             .reduce((acc, p) => acc + p.total, 0)
             .toFixed(2);
     };
+    const reimprimirTicket = (pedido) => {
+    const itemsAgrupados = pedido.items.reduce((acc, item) => {
+        const existe = acc.find(i => i.nombre === item.nombre && i.nota === item.nota);
+        if (existe) { existe.cantidad += item.cantidad; }
+        else { acc.push({ ...item }); }
+        return acc;
+    }, []);
+
+    const fecha = new Date(pedido.fecha).toLocaleString('es-ES');
+    const ventana = window.open('', '_blank');
+    ventana.document.write(`
+        <html><head><title>Ticket</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Courier New', monospace; width: 80mm; padding: 8px; font-size: 12px; }
+            .center { text-align: center; }
+            .bold { font-weight: bold; }
+            .separator { border-top: 1px dashed #000; margin: 6px 0; }
+            .separator-solid { border-top: 2px solid #000; margin: 6px 0; }
+            .header { text-align: center; margin-bottom: 8px; line-height: 1.6; }
+            .item-row { display: flex; justify-content: space-between; margin: 3px 0; }
+            .col-uds { width: 20px; }
+            .col-nombre { flex: 1; padding: 0 6px; }
+            .col-precio { width: 45px; text-align: right; }
+            .col-importe { width: 50px; text-align: right; }
+            .total-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: bold; margin-top: 4px; }
+            .th { font-size: 10px; color: #555; }
+            .pago-row { display: flex; justify-content: space-between; margin: 3px 0; }
+            @page {size: 80mm auto; margin: 0;}
+        </style>
+        </head><body>
+        <div class="header">
+            <div class="bold" style="font-size:14px">SALERO BEACH BAR</div>
+            <div>CIF: 32973715H</div>
+            <div>A Raña 35, 15293 Carnota</div>
+            <div>Playa de Carnota</div>
+        </div>
+        <div class="separator-solid"></div>
+        <div class="center bold" style="font-size:13px; margin: 4px 0;">FACTURA SIMPLIFICADA</div>
+        <div class="separator"></div>
+        <div style="display:flex; justify-content:space-between;">
+            <span>Nº Op.: <b>T-${pedido._id?.slice(-5).toUpperCase()}</b></span>
+            <span>Mesa ${pedido.mesas?.join('/')}</span>
+        </div>
+        <div>${fecha}</div>
+        <div class="separator-solid"></div>
+        <div class="item-row th">
+            <span class="col-uds">Uds</span>
+            <span class="col-nombre">Producto</span>
+            <span class="col-precio">Precio</span>
+            <span class="col-importe">Importe</span>
+        </div>
+        <div class="separator"></div>
+        ${itemsAgrupados.map(i => `
+            <div class="item-row">
+                <span class="col-uds">${i.cantidad}</span>
+                <span class="col-nombre">${i.nombre}</span>
+                <span class="col-precio">${i.precio.toFixed(2)}</span>
+                <span class="col-importe">${(i.precio * i.cantidad).toFixed(2)}</span>
+            </div>
+        `).join('')}
+        <div class="separator-solid"></div>
+        <div class="total-row">
+            <span>Total (Impuestos Incl.)</span>
+            <span>${pedido.total?.toFixed(2)} €</span>
+        </div>
+        <div class="separator"></div>
+        <div class="pago-row">
+            <span>${pedido.metodoPago === 'efectivo' ? 'Efectivo' : 'Tarjeta'}</span>
+            <span>${pedido.total?.toFixed(2)} €</span>
+        </div>
+        <div class="separator"></div>
+        <div class="center" style="margin-top: 8px; font-size: 11px;">GRACIAS POR SU VISITA</div>
+        </body></html>
+    `);
+    ventana.document.close();
+    ventana.print();
+};
 
 
     return (
@@ -130,19 +213,19 @@ Fecha de Negocio:                    ${ahora.toLocaleDateString('es-ES')}
 Inicio de Jornada:             ${formatoTicket(fechaApertura)}
 Hasta:                         ${formatoTicket(ahora)}
 ------------------------------------------------
-Saldo Inicial:                        ${saldoInicial.toFixed(2)} €
+Saldo Inicial:                          ${saldoInicial.toFixed(2)} €
 ================================================
 
 Cobros Registrados:
-Efectivo                        ${String(cantidadEfectivo).padStart(3)}    ${totalEfectivo.toFixed(2)} €
-Tarjeta                         ${String(cantidadTarjeta).padStart(3)}     ${totalTarjeta.toFixed(2)} €
+Efectivo                       ${String(cantidadEfectivo).padStart(3)}    ${totalEfectivo.toFixed(2)} €
+Tarjeta                        ${String(cantidadTarjeta).padStart(3)}    ${totalTarjeta.toFixed(2)} €
 -----------------------------------------------
 Saldo Final:                          ${saldoFinal.toFixed(2)} €
 -----------------------------------------------
-Total Facturas:                 ${String(pedidosPagados.length).padStart(3)}    ${totalVentas.toFixed(2)} €
-- Ventas:                       ${String(pedidosPagados.length).padStart(3)}    ${totalVentas.toFixed(2)} €
+Total Facturas:                 ${String(pedidosPagados.length).padStart(3)}   ${totalVentas.toFixed(2)} €
+- Ventas:                       ${String(pedidosPagados.length).padStart(3)}   ${totalVentas.toFixed(2)} €
 - Cancelaciones:                ${String(pedidosCancelados.length).padStart(3)}     ${totalCancelaciones.toFixed(2)} €
-Impuestos Totales:                      ${impuestos.toFixed(2)} €
+Impuestos Totales:                     ${impuestos.toFixed(2)} €
 -----------------------------------------------
 Cobros Totales:                        ${totalVentas.toFixed(2)} €
 
@@ -167,7 +250,7 @@ ventana.document.close();
 ventana.print();
 }}
 >
-🖨️ Imprimir
+<img src={iconoImprimir} width={20}/> Imprimir
 </button>
 <button className={styles.btnCerrarZ} onClick={cerrarCaja}>Cerrar Caja</button>
 <button className={styles.btnCerrarZ} onClick={() => setMostrarZ(false)}>
@@ -194,7 +277,7 @@ Cerrar
                     </thead>
                     <tbody>
                         {pedidosFiltrados.map((pedido) => (
-                            <tr key={pedido._id}>
+                            <tr key={pedido._id} className={pedido.estadoGeneral === 'cancelado' ? styles.filaCancelada : ''}>
                                 <td className={styles.idText}>#{pedido._id.slice(-5)}</td>
                                 <td>{new Date(pedido.fecha).toLocaleString('es-ES')}</td>
                                 <td><span className={styles.mesaBadge}>{pedido.mesas.join(', ')}</span></td>
@@ -219,13 +302,73 @@ Cerrar
                                 </td>
                                 <td className={styles.totalTd}>{pedido.total.toFixed(2)}€</td>
                                 <td>
-                                    <button className={styles.btnVerDetalle}>👁️ Ver Ticket</button>
+                                    <button className={styles.btnVerDetalle} onClick={() => setPedidoDetalle(pedido)}><img src={iconoOjo} width={20}/> Ver Ticket</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            {pedidoDetalle && (
+    <div className={styles.modalOverlay} onClick={() => setPedidoDetalle(null)}>
+        <div className={styles.modalDetalle} onClick={e => e.stopPropagation()}>
+            <div className={styles.detalleHeader}>
+                <div>
+                    <h3>Pedido #{pedidoDetalle._id.slice(-5)}</h3>
+                    <span className={styles.detalleFecha}>{new Date(pedidoDetalle.fecha).toLocaleString('es-ES')}</span>
+                </div>
+                <span style={{
+                    padding: '4px 10px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold',
+                    backgroundColor: pedidoDetalle.estadoGeneral === 'pagado' ? 'rgba(0,255,0,0.1)' : 'rgba(255,0,0,0.1)',
+                    color: pedidoDetalle.estadoGeneral === 'pagado' ? '#2ecc71' : '#e74c3c',
+                    border: `1px solid ${pedidoDetalle.estadoGeneral === 'pagado' ? '#2ecc71' : '#e74c3c'}`
+                }}>
+                    {pedidoDetalle.estadoGeneral === 'pagado' ? 'COMPLETADO' : 'CANCELADO'}
+                </span>
+            </div>
+
+            <div className={styles.detalleInfo}>
+                <span>Mesa {pedidoDetalle.mesas.join(', ')}</span>
+                <span>Camarero: {pedidoDetalle.camarero}</span>
+                <span>Pago: {pedidoDetalle.metodoPago || 'N/A'}</span>
+            </div>
+
+            <div className={styles.detalleItems}>
+                {pedidoDetalle.items.reduce((acc, item) => {
+                    const existe = acc.find(i => i.nombre === item.nombre && i.nota === item.nota);
+                    if (existe) { existe.cantidad += item.cantidad; }
+                    else { acc.push({ ...item }); }
+                    return acc;
+                }, []).map((item, idx) => (
+                    <div key={idx} className={styles.detalleItemRow}>
+                        <span className={styles.detalleItemNombre}>
+                            {item.nombre}
+                            {item.nota && <small> ({item.nota})</small>}
+                        </span>
+                        <span className={styles.detalleItemQty}>x{item.cantidad}</span>
+                        <span className={styles.detalleItemPrecio}>{(item.precio * item.cantidad).toFixed(2)}€</span>
+                    </div>
+                ))}
+            </div>
+
+            <div className={styles.detalleTotalRow}>
+                <span>Total</span>
+                <span className={styles.detalleTotalImporte}>{pedidoDetalle.total.toFixed(2)}€</span>
+            </div>
+
+            <div className={styles.detalleAcciones}>
+                <button className={styles.btnCerrarDetalle} onClick={() => setPedidoDetalle(null)}>
+                    Cerrar
+                </button>
+                {pedidoDetalle.estadoGeneral === 'pagado' && (
+                    <button className={styles.btnReimprimir} onClick={() => reimprimirTicket(pedidoDetalle)}>
+                        <img src={iconoImprimir} width={20}/>  Reimprimir ticket
+                    </button>
+                )}
+            </div>
+        </div>
+    </div>
+)}
         </div>
     );
 };
