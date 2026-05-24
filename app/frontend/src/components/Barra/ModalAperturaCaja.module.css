@@ -71,7 +71,7 @@
 }
 
 .inputWrapper:focus-within {
-    border-color: rgba(100, 200, 150, 0.6);
+    border-color: rgba(236, 135, 3, 0.6);
 }
 
 .euro {
@@ -98,7 +98,6 @@
     color: rgba(255, 255, 255, 0.2);
 }
 
-/* Quitar flechas del input number */
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -116,7 +115,7 @@
     margin-top: 8px;
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    background: linear-gradient(to right, #FFA113, #F4350A); 
     color: #fff;
     border: none;
     border-radius: 10px;

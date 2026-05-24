@@ -74,14 +74,24 @@ const GestionProductos = () => {
     // Activa o desactiva un producto
     const toggleDisponible = async (producto) => {
         try {
+            const nuevoEstado = !producto.disponible;
+
+            // 1. Cambiamos el estado en el servidor
             await fetch(`${import.meta.env.VITE_API_URL}/api/productos/${producto._id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ disponible: !producto.disponible })
+                body: JSON.stringify({ disponible: nuevoEstado })
             });
-            obtenerProductos();
+            
+            // 2. Forzamos a React a redibujar la tabla cambiando el estado local de inmediato
+            setProductos(prevProductos => 
+                prevProductos.map(p => 
+                    p._id === producto._id ? { ...p, disponible: nuevoEstado } : p
+                )
+            );
+
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error al cambiar disponibilidad:", error);
         }
     };
 

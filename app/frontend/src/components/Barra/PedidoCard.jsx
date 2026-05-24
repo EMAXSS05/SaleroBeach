@@ -138,7 +138,9 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar, onEliminarItem }) => {
                         </span>
                     </div>
                 </div>
+                {pedido.alertas && pedido.alertas.filter(a => a && a.trim() !== '').length > 0 && (
                 <FaExclamationCircle className={styles.alertIcon} />
+                )}
             </div>
 
             <div className={styles.itemList}>

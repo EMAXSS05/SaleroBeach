@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MapaMesas from './MapaMesas';
 import DetalleMesa from './DetalleMesa';
 import styles from './TerminalCamarero.module.css';
+import iconoUnirMesas from '../../assets/iconos/unirMesas.png'
 
 const TerminalCamarero = ({usuario, onCerrarSesion}) => {
     console.log("Usuario recibido en TerminalCamarero:", usuario);
@@ -171,7 +172,13 @@ const TerminalCamarero = ({usuario, onCerrarSesion}) => {
             return prev;
         });
     };
-
+    /* Gestiona la acción de hacer clic sobre una mesa en el plano.
+     * * - Modo Unión: Actúa como un interruptor para seleccionar/deseleccionar
+     * múltiples mesas en un listado para combinarlas.
+     * - Modo Normal: Selecciona la mesa para trabajar en ella e inicializa
+     * un pedido vacío con 1 comensal si no existía un pedido previo.
+     * 
+     */
     const manejarSeleccionMesa = (numMesa) => {
         if (modoUnion) {
             setMesasParaJuntar(prev =>
@@ -224,7 +231,7 @@ const TerminalCamarero = ({usuario, onCerrarSesion}) => {
                                     className={modoUnion ? styles.btnCancel : styles.btnUnion}
                                     onClick={() => { setModoUnion(!modoUnion); setMesasParaJuntar([]); }}
                                 >
-                                    {modoUnion ? '✕' : '🔗'}
+                                    {modoUnion ? '✕' : <img src={iconoUnirMesas} width={20}/>}
                                 </button>
                                 {modoUnion && (
                                     <button

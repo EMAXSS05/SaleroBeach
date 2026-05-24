@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './TerminalCocina.module.css';
+import iconoChincheta from '../../assets/iconos/chincheta.png'
 
 const TerminalCocina = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -15,7 +16,7 @@ const TerminalCocina = () => {
         const data = await res.json();
         const soloComida = data.filter(p =>
             p.estadoGeneral === 'en_curso' &&
-            p.items.some(item => item.sub === 'Entrantes' || item.sub==='Segundos')
+            p.items.some(item => item.sub === 'Entrantes' || item.sub === 'Segundos')
         );
         setPedidos(soloComida);
     };
@@ -78,15 +79,22 @@ const TerminalCocina = () => {
                         )}
 
                         <div className={styles.itemsList}>
-                            {pedido.items.filter(i => i.sub === 'Entrantes' || i.sub==='Segundos').map((item, idx) => (
-                                <div key={item._id || idx} className={styles.itemRow}>
-                                    <div className={styles.itemMain}>
-                                        <span className={styles.cantidad}>{item.cantidad}x</span>
-                                        <div className={styles.itemInfo}>
-                                            <span className={styles.nombre}>{item.nombre}</span>
+                            {pedido.items.filter(i => i.sub === 'Entrantes' || i.sub === 'Segundos').map((item, idx) => (
+                                <div key={item._id || idx}className={`${styles.itemRow} ${styles[item.estadoItem.replace(' ', '')]}`} >
+                                    <div className={styles.itemInfoContainer}>
+                                        <div className={styles.lineaPrincipal}>
+                                            <span className={styles.cantidad}>{item.cantidad}x</span>
+                                            <span className={styles.nombrePlato}>{item.nombre}</span>
+                                        <div className={styles.detallesPlato}>
+                                            {item.nota && (
+                                                <div className={styles.notaPlato}>
+                                                    <img src={iconoChincheta} width={20}/> {item.nota}
+                                                </div>
+                                            )}
                                             <span className={`${styles.badge} ${styles[item.estadoItem.replace(' ', '')]}`}>
                                                 {item.estadoItem.toUpperCase()}
                                             </span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -116,7 +124,7 @@ const TerminalCocina = () => {
                             className={styles.btnNotificar}
                             onClick={() => finalizarTicket(pedido._id)}
                             // Si algún ítem de comida como entrantes o segundos, se deshabilita el aviso
-                            disabled={pedido.items.filter(i => i.sub === 'Entrantes'|| i.sub==='Segundos').some(i => i.estadoItem !== 'listo')}
+                            disabled={pedido.items.filter(i => i.sub === 'Entrantes' || i.sub === 'Segundos').some(i => i.estadoItem !== 'listo')}
                         >
                             AVISAR CAMARERO
                         </button>

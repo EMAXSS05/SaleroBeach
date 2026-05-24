@@ -213,19 +213,19 @@ Fecha de Negocio:                    ${ahora.toLocaleDateString('es-ES')}
 Inicio de Jornada:             ${formatoTicket(fechaApertura)}
 Hasta:                         ${formatoTicket(ahora)}
 ------------------------------------------------
-Saldo Inicial:                          ${saldoInicial.toFixed(2)} €
+Saldo Inicial:                        ${saldoInicial.toFixed(2)} €
 ================================================
 
 Cobros Registrados:
-Efectivo                       ${String(cantidadEfectivo).padStart(3)}    ${totalEfectivo.toFixed(2)} €
-Tarjeta                        ${String(cantidadTarjeta).padStart(3)}    ${totalTarjeta.toFixed(2)} €
+Efectivo                       ${String(cantidadEfectivo).padStart(3)}     ${totalEfectivo.toFixed(2)} €
+Tarjeta                        ${String(cantidadTarjeta).padStart(3)}     ${totalTarjeta.toFixed(2)} €
 -----------------------------------------------
 Saldo Final:                          ${saldoFinal.toFixed(2)} €
 -----------------------------------------------
-Total Facturas:                 ${String(pedidosPagados.length).padStart(3)}   ${totalVentas.toFixed(2)} €
-- Ventas:                       ${String(pedidosPagados.length).padStart(3)}   ${totalVentas.toFixed(2)} €
+Total Facturas:                 ${String(pedidosPagados.length).padStart(3)}    ${totalVentas.toFixed(2)} €
+- Ventas:                       ${String(pedidosPagados.length).padStart(3)}    ${totalVentas.toFixed(2)} €
 - Cancelaciones:                ${String(pedidosCancelados.length).padStart(3)}     ${totalCancelaciones.toFixed(2)} €
-Impuestos Totales:                     ${impuestos.toFixed(2)} €
+Impuestos Totales:                      ${impuestos.toFixed(2)} €
 -----------------------------------------------
 Cobros Totales:                        ${totalVentas.toFixed(2)} €
 

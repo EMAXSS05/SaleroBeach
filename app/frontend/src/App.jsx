@@ -1,5 +1,5 @@
 import { Routes, Route, Link, Navigate, useNavigate } from 'react-router-dom';
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TerminalCamarero from './components/Camarero/TerminalCamarero'
 import TerminalCocina from './components/Cocina/TerminalCocina';
@@ -8,38 +8,39 @@ import MainPanel from './components/Barra/MainPanel'
 import Login from './components/Login/Login';
 import Header from './components/Barra/Header';
 import ModalAperturaCaja from './components/Barra/ModalAperturaCaja';
+import HistorialPedidos from './components/Barra/HistorialPedidos';
 
 function App() {
   const [seccionActiva, setSeccionActiva] = useState('HOME');
   const [usuarioLogueado, setUsuarioLogueado] = useState(null);
-  const [sesionCaja, setSesionCaja] = useState(null); 
+  const [sesionCaja, setSesionCaja] = useState(null);
   const [mostrarModalCaja, setMostrarModalCaja] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('token');
     const usuario = localStorage.getItem('usuario');
     if (token && usuario) {
-       const datosUsuario = JSON.parse(usuario);
-        setUsuarioLogueado(datosUsuario);
-        if (datosUsuario.rol === 'barra') navigate('/barra');
-        else if (datosUsuario.rol === 'camarero') navigate('/camarero');
-        else if (datosUsuario.rol === 'cocina') navigate('/cocina');
+      const datosUsuario = JSON.parse(usuario);
+      setUsuarioLogueado(datosUsuario);
+      if (datosUsuario.rol === 'barra') navigate('/barra');
+      else if (datosUsuario.rol === 'camarero') navigate('/camarero');
+      else if (datosUsuario.rol === 'cocina') navigate('/cocina');
     }
-}, []);
+  }, []);
 
-const cerrarSesion = () => {
+  const cerrarSesion = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     setUsuarioLogueado(null);
     setSesionCaja(null);
     navigate('/login');
-};
+  };
 
   // Esta función se llama desde el componente Login si el fetch es exitoso
   const manejarLoginExitoso = async (datosUsuario) => {
     setUsuarioLogueado(datosUsuario);
     if (datosUsuario.rol === 'barra') {
-       try {
+      try {
         const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/caja/estado`);
         const datos = await respuesta.json();
 
@@ -65,10 +66,10 @@ const cerrarSesion = () => {
 
   return (
     <div className="app-container">
-     {/* Modal de apertura de caja */}
-          {mostrarModalCaja && (
-            <ModalAperturaCaja onCajaAbierta={manejarCajaAbierta} />
-          )}
+      {/* Modal de apertura de caja */}
+      {mostrarModalCaja && (
+        <ModalAperturaCaja onCajaAbierta={manejarCajaAbierta} />
+      )}
       <Routes>
         <Route
           path="/login"
@@ -94,10 +95,10 @@ const cerrarSesion = () => {
               />
               <main className="content-area">
                 <MainPanel seccionActiva={seccionActiva}
-                sesionCaja={sesionCaja}
-                setSesionCaja={setSesionCaja}
-                usuario={usuarioLogueado}
-                onCerrarSesion={cerrarSesion}
+                  sesionCaja={sesionCaja}
+                  setSesionCaja={setSesionCaja}
+                  usuario={usuarioLogueado}
+                  onCerrarSesion={cerrarSesion}
                 />
               </main>
             </>
@@ -125,14 +126,17 @@ const cerrarSesion = () => {
                 setSeccionActiva={setSeccionActiva}
                 usuario={usuarioLogueado}
               />
+
               <main className="content-area">
-                <MainPanel 
-                    seccionActiva={seccionActiva}
-                    sesionCaja={sesionCaja}
-                    setSesionCaja={setSesionCaja}
-                    usuario={usuarioLogueado}
+                <MainPanel
+                  seccionActiva={seccionActiva}
+                  usuario={usuarioLogueado}
+                  onCerrarSesion={cerrarSesion}
+                  sesionCaja={sesionCaja}
+                  setSesionCaja={setSesionCaja}
                 />
               </main>
+
             </>
           ) : (
             <Navigate to="/login" />

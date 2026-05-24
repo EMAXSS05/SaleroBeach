@@ -35,9 +35,12 @@ router.patch('/:id', async (req, res) => {
     try {
         const productoActualizado = await Producto.findByIdAndUpdate(
             req.params.id, 
-            req.body, 
-            { new: true }
+            { $set: req.body }, 
+            { new: true, runValidators: true }
         );
+        if (!productoActualizado) {
+            return res.status(404).json({ mensaje: "Producto no encontrado" });
+        }
         res.json(productoActualizado);
     } catch (err) {
         res.status(400).json({ mensaje: "Error al actualizar producto" });

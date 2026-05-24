@@ -141,7 +141,7 @@ const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario, onCerrarS
 
     return (
         <div className={styles.mainContainer}>
-            <Header usuario={usuario} onCerrarSesion={onCerrarSesion} pedidos={pedidos} mostrarBotonesPrint={seccionActiva === 'INICIO'}/>
+            <Header usuario={usuario} onCerrarSesion={onCerrarSesion} pedidos={pedidos} mostrarBotonesPrint={seccionActiva === 'INICIO' && usuario?.rol !== 'cocina'}/>
             <div className={styles.content}>
                 {renderContent()}
             </div>

@@ -25,6 +25,7 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
 
     // FILTRADO POR PASOS
     const productosFiltrados = productos.filter(p => {
+        if (p.disponible === false) return false;
         const coincideNombre = p.nombre.toLowerCase().includes(filtro.toLowerCase());
         if (!coincideNombre) return false;
 
