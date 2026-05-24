@@ -12,7 +12,7 @@ classDiagram
         +String password
         +String nombreReal
         +String rol
-        +String turno
+        +Date fecha_alta
     }
 
     class Productos {
@@ -25,7 +25,6 @@ classDiagram
         +String descripcionLarga
         +String imagen
         +Boolean disponible
-        +Boolean activo
     }
 
     class Pedidos {
@@ -60,11 +59,19 @@ classDiagram
         +Number capacidad
         +Array alertas
     }
+    class CajaSession {
+        +ObjectId _id
+        +Date fechaApertura
+        +Number saldoInicial
+        +Date fechaCierre
+        +Boolean abierta
+    }
 
     %% Relaciones
     Pedidos "1" *-- "n" ItemDetalle : contiene
     Usuarios "1" --o "n" Pedidos : gestiona
     Pedidos "n" --> "1" Mesa : ubicado en
+    Usuarios "1" --o "n" CajaSession : controla
 ```
 Para el proyecto Salero Beach, se ha optado por un sistema de base de datos NoSQL orientado a documentos (MongoDB). A diferencia de los modelos relacionales tradicionales (MariaDB/MySQL), este modelo posibilita una flexibilidad y escalabilidad superiores, ya que se adecúa más eficazmente a la naturaleza cambiante de un menú de restaurante y a la rapidez que necesita el servicio de comandas.
 
