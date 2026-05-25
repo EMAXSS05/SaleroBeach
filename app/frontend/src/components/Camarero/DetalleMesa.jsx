@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CartaProductos from './CartaProductos';
 import styles from './DetalleMesa.module.css';
+import iconoPlato from '../../assets/iconos/cubiertos.png'
 
 const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocina,alEliminarItem }) => {
     // Si el pedido no existe volvemos atrás
@@ -75,7 +76,7 @@ if (paso === 0.5) {
         <div className={styles.container}>
             <header className={styles.header}>
                 <button onClick={() => setPaso(0)} className={styles.btnBack}>←</button>
-                <h2>Mesa {mesa} - Notas</h2>
+                <h2>Mesa {mesa} - Alertas</h2>
             </header>
             <div className={styles.selectorComensales}>
                 <h3>¿Alguna alerta o necesidad?</h3>
@@ -83,7 +84,7 @@ if (paso === 0.5) {
                 
                 <textarea 
                     className={styles.inputAlerta} 
-                    placeholder="Escribe aquí (ej: Celiaco, 1 niño)..."
+                    placeholder="Escribe aquí (ej: 1 niño, prisa)..."
                     value={alertaMesa || ''}
                     onChange={(e) => setAlertaMesa(e.target.value)}
                     rows="4"
@@ -91,7 +92,7 @@ if (paso === 0.5) {
 
                 <div className={styles.botonesRapidos}>
                     {/* Botones para añadir texto rápido */}
-                    <button onClick={() => setAlertaMesa("Alergia: ")}>⚠️ Alergia</button>
+                    <button onClick={() => setAlertaMesa("Todo Junto")}> <img src={iconoPlato} width={20}/> Junto</button>
                     <button onClick={() => setAlertaMesa("Mesa con prisa")}>⏱️ Prisa</button>
                     <button onClick={() => setAlertaMesa("niños en mesa")}>🧒peques</button>
                 </div>
@@ -155,7 +156,7 @@ if (paso === 0.5) {
         <div className={styles.container}>
             <header className={styles.header}>
                 <button onClick={alVolver} className={styles.btnBack}>←</button>
-                <h2>Mesa {mesa} (Resumen)</h2>
+                <h2>Mesa {mesa} - Resumen</h2>
             </header>
 
             <div className={styles.listaConsumo}>

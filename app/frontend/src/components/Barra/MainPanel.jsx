@@ -78,6 +78,7 @@ const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario, onCerrarS
                 return <HistorialPedidos pedidosFinalizados={historial}
                     sesionCaja={sesionCaja}
                     setSesionCaja={setSesionCaja}
+                    onCerrarSesion={onCerrarSesion}
                 />;
 
             case 'MESAS':

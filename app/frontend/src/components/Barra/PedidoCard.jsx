@@ -6,6 +6,7 @@ import { formatDistanceToNow } from 'date-fns';
 import iconoTarjeta from '../../assets/iconos/tarjetaBancaria.png'
 import iconoEfectivo from '../../assets/iconos/dineroEfectivo.png'
 import iconoEliminar1 from '../../assets/iconos/boton-menoss.png'
+import iconoAlerta from '../../assets/iconos/senal-de-alerta.png'
 import { es } from 'date-fns/locale/es';
 
 const PedidoCard = ({ pedido, onCobrar, onCancelar, onEliminarItem }) => {
@@ -129,6 +130,7 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar, onEliminarItem }) => {
     return (
         <div className={styles.card}>
             <div className={styles.cardHeader}>
+              
                 <div className={styles.orderTitle}>
                     <span className={styles.orderNumber}>Pedido #...{pedido._id?.slice(-3)}</span>
                     <div className={styles.waiterInfo}>
@@ -142,6 +144,15 @@ const PedidoCard = ({ pedido, onCobrar, onCancelar, onEliminarItem }) => {
                 <FaExclamationCircle className={styles.alertIcon} />
                 )}
             </div>
+              {pedido.alertas && pedido.alertas.filter(a => a && a.trim() !== '').length > 0 && (
+                <div className={styles.alertasMesa}>
+                  {[...new Set(pedido.alertas)].filter(a => a && a.trim() !== '').map((alerta, idx) => (
+                    <span key={idx} className={styles.alertaBadge}>
+                     <img src={iconoAlerta} width={18}/> {alerta}
+                    </span>
+                ))}
+                </div>
+)}
 
             <div className={styles.itemList}>
                 {/* IMPORTANTE: Ahora mapeamos 'itemsAgrupados' en lugar de 'pedido.items' */}

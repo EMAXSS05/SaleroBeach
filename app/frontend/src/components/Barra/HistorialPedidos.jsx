@@ -3,7 +3,7 @@ import styles from './HistorialPedidos.module.css';
 import iconoOjo from '../../assets/iconos/ojo.png'
 import iconoImprimir from '../../assets/iconos/imprimir.png'
 
-const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja }) => {
+const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja, onCerrarSesion }) => {
     const [filtroFecha, setFiltroFecha] = useState('');
     const [filtroMesa, setFiltroMesa] = useState('');
     const [pedidosFiltrados, setPedidosFiltrados] = useState(pedidosFinalizados);
@@ -71,6 +71,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja }) => {
             await fetch(`${import.meta.env.VITE_API_URL}/api/caja/cerrar`, { method: 'POST' });
             setSesionCaja(null);
             setMostrarZ(false);
+            onCerrarSesion();
         } catch (err) {
             console.error('Error al cerrar la caja:', err);
         }

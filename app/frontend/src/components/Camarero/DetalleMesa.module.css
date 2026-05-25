@@ -16,12 +16,15 @@
 }
 
 .btnBack {
-    background: none;
-    border: none;
-    color: #f56a23;
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 0;
+background: none;
+  border: none;
+  font-size: 2.5rem; 
+  cursor: pointer;
+  background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block; 
 }
 
 .header h2 {
@@ -101,7 +104,7 @@
 }
 
 .btnAñadir {
-    background-color: #f56a23;
+    background: linear-gradient(45deg, #FFA113, #F4350A);
     color: white;
     border: none;
     padding: 18px;
@@ -161,7 +164,7 @@
 }
 
 .btnSiguiente {
-    background: #f56a23;
+    background: linear-gradient(45deg, #FFA113, #F4350A);
     color: white;
     border: none;
     padding: 15px 40px;
@@ -186,7 +189,7 @@
 }
 
 .btnSaltar {
-    background: #f56a23; 
+    background: linear-gradient(45deg, #FFA113, #F4350A);
     color: white;
     border: none;
     padding: 18px;
@@ -280,7 +283,8 @@
     font-size: 0.9rem;
     transition: all 0.2s;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
     gap: 5px;
 }
