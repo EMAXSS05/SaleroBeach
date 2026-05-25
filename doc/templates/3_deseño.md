@@ -22,7 +22,6 @@ classDiagram
         +Number precio
         +String categoria
         +String sub
-        +String descripcionLarga
         +String imagen
         +Boolean disponible
     }

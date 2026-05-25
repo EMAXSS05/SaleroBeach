@@ -14,28 +14,89 @@ Se divide en 3 partes,una para cada rol del empleado en el establecimiento Saler
 ### Barra, Camarero y Cocina
 ### 1. login
 Deberá introducir los credenciales proporcionadas por el admin (la barra)
-![](../img//loginSalerobeach.png)
+![](../img/loginSalerobeach.png)
 ## Barra
 Credenciales para iniciar sesión en la barra(admin): [credenciales admin](../templates/4_codificacion_probas.md)
 
-### Gestion de pedidos:
-en la sección "Inicio" se podrán visualizar los pedidos que son enviados por los camareros, cada pedido muestra el número de pedido, los productos que contiene,la cantidad de cada producto, el número de mesa y el Total a cobrar.
-![](../img/vistaPedidosBarra.png)
+### Apartura de la Caja
+Al hacer login se abrirá un modal donde deberá introducir el saldo inicial antes de comenzar la jornada.
+
+![](../img/apertura-caja.png)
+## Gestion de pedidos:
+en la sección "Inicio" se podrán visualizar los pedidos que son enviados por los camareros, cada pedido muestra:
+- Número de pedido.
+- Alertas de la mesa.
+- Los productos que contiene
+- Notas de los platos, si los hay.
+- Cantidad de cada producto.
+- Número de mesa y el Total a cobrar.
+- Un icono con singo de exlamación que es para resaltar que hay una alerta o nota en el pedido. 
+
+![](../img/barra-pedidos.png)
  ## Cobrar pedidos
--Para cobrar los pedidos se debe pulsar en cobrar y seleccionar el método con el cual el cliente paga. 
-- ![](../img/metodosDePago.png)
+Para cobrar los pedidos se debe pulsar en cobrar y seleccionar el método con el cual el cliente paga.
+
+ ![](../img/metodosDePago.png)
 
 ## Eliminar productos
--Para eliminar productos se debe pulsar el siguiente botón el cual resta 1 a la cantidad de dicho producto del pedido.
-- ![](../img/quitarProducto.png)
+Para eliminar productos se debe pulsar el siguiente botón el cual resta 1 a la cantidad de dicho producto del pedido.
+
+ ![](../img/quitarProducto.png)
 
 ## Cancelar pedido
--Debe pulsar el botón de cancelar, a continuación aparecerá un pop up en la parte superior,pulse en aceptar para confirmar la cancelación del pedido, al aceptar, este se moverá al historial de pedidos y aparecerá como CANCELADO
+Debe pulsar el botón de cancelar, a continuación aparecerá un pop up en la parte superior,pulse en aceptar para confirmar la cancelación del pedido, al aceptar, este se moverá al historial de pedidos y aparecerá como CANCELADO
 
--![](../img/cancelarPedido.png)
+![](../img/cancelarPedido.png)
 
+## Imprimir facturas
 
+###  Factura Proforma:
+1. Hacer clic en "Ticket"
 
+![](../img/seleccionFacturaProforma.png)
+
+2. Seleccionar la mesa de la cual se desea imprimir la factura y hacer clic en Imprimir
+
+![](../img/seleccionMesaImprimir-proforma.png)
+
+3. A continuacion se abrirá una pestaña en el navegador con la vista previa de la impresión, personalize las configuraciones a gusto y finalmente haga clic en Imprimir.
+![](../img//vistaPreviaImpresion-proforma.png)
+
+## Ticket Cocina
+1. Hacer clic en el botón cocina.
+
+![](../img/seleccionTicketCocina.png)
+
+2. Seleccionar una mesa que tenga platos de comida o entrantes y hacer clic en Imprimir
+
+![](../img/seleccionMesaImprimir-cocina.png)
+
+3. Se abrirá la vista previa de la impresión, personalize las configuraciones para la impresión y haga clic en Imprimir.
+
+![](../img/vistaPreviaTicketCocina.png)
+
+## Historial de Ventas
+En esta sección se podrá visualizar el registro de todos los pedidos completados y cancelados, se puede filtrar por una fecha en concreto o por el numero de mesa, también se podrá ver la recaudación de dinero.
+
+![](../img/HistorialPedidos-vista.png)
+## Imprimir Z
+1. Debe hacer clic en Z-Cierre de Caja
+
+![](../img/btnZ.png)
+
+2. A continuación se le abrirá una vista previa del ticket con datos como el saldo inicial, los cobros que se hicieron con tarjeta y efectivo,etc.
+
+![](../img/ejemploZ.png)
+
+3. Hacer clic en imprimir para abrir la pestaña de la impresión:
+![](../img/btnImprimirZ.png)
+
+4. Personlizar la configuracion de la impresión y finalmente clic en imprimir
+![](../img/vistaPreviaImpresion-z.png)
+
+5. Una vez en imprimido el informe Z puede hacer clic en cerrar Caja, esto cerrará automáticamente la sesión, y reiniciará todos los datos para el comienzo de la próxima jornada
+
+![](../img/btnCerrarCaja.png)
 
 
 # Promoción
