@@ -22,7 +22,13 @@ function App() {
     if (token && usuario) {
       const datosUsuario = JSON.parse(usuario);
       setUsuarioLogueado(datosUsuario);
-      if (datosUsuario.rol === 'barra') navigate('/barra');
+      if(datosUsuario.rol==='barra'){
+        fetch(`${import.meta.env.VITE_API_URL}/api/caja/estado`).then(r => r.json())
+        .then(datos=>{if(datos.abierta) setSesionCaja(datos.sesion);
+          else setMostrarModalCaja(true) ;
+        }).catch(err=> console.error(err));
+        navigate('/barra');
+      }
       else if (datosUsuario.rol === 'camarero') navigate('/camarero');
       else if (datosUsuario.rol === 'cocina') navigate('/cocina');
     }
