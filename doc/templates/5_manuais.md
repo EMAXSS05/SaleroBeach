@@ -14,6 +14,7 @@ Se divide en 3 partes,una para cada rol del empleado en el establecimiento Saler
 ### Barra, Camarero y Cocina
 ### 1. login
 Deberá introducir los credenciales proporcionadas por el admin (la barra)
+
 ![](../img/loginSalerobeach.png)
 ## Barra
 Credenciales para iniciar sesión en la barra(admin): [credenciales admin](../templates/4_codificacion_probas.md)
@@ -89,9 +90,11 @@ En esta sección se podrá visualizar el registro de todos los pedidos completad
 ![](../img/ejemploZ.png)
 
 3. Hacer clic en imprimir para abrir la pestaña de la impresión:
+
 ![](../img/btnImprimirZ.png)
 
 4. Personlizar la configuracion de la impresión y finalmente clic en imprimir
+
 ![](../img/vistaPreviaImpresion-z.png)
 
 5. Una vez en imprimido el informe Z puede hacer clic en cerrar Caja, esto cerrará automáticamente la sesión, y reiniciará todos los datos para el comienzo de la próxima jornada
