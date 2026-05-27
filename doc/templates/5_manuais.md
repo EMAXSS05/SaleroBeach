@@ -3,6 +3,18 @@
 
 ## Manual técnico do proxecto
 
+## Acceso a la Aplicación Desplegada
+
+Para facilitar la evaluación del proyecto sin necesidad de realizar una instalación local, la aplicación se encuentra totalmente desplegada en: https://salerobeach-1.onrender.com
+
+### Credenciales de Acceso para Pruebas
+
+| Rol | Usuario  | Contraseña  |
+| :--- | :--- | :--- |
+| **Administrador**| `Admin_barra`  | `abc123.`  |
+| **Camarero**| `treyci` | `abc123.` |
+| **Cocina**  | `pedro` | `abc123.` |
+
 ## Instalación y ejecución Local
 
 
