@@ -88,7 +88,7 @@ const ConfiguracionMesas = () => {
                 </thead>
                 <tbody>
                     {mesas.map(mesa => (
-                        <tr key={mesa._id}>
+                        <tr key={mesa._id} className={!mesa.activa ? styles.filaDeshabilitada : ''}>
                             <td className={styles.numeroMesa}>Mesa {mesa.numero}</td>
                             <td>{mesa.zona}</td>
                             <td>{mesa.capacidad} pers.</td>
