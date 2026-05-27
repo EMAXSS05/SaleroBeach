@@ -51,6 +51,7 @@ Debe pulsar el botón de cancelar, a continuación aparecerá un pop up en la pa
 
 ## Imprimir facturas
 
+
 ###  Factura Proforma:
 1. Hacer clic en "Ticket"
 
@@ -61,7 +62,23 @@ Debe pulsar el botón de cancelar, a continuación aparecerá un pop up en la pa
 ![](../img/seleccionMesaImprimir-proforma.png)
 
 3. A continuacion se abrirá una pestaña en el navegador con la vista previa de la impresión, personalize las configuraciones a gusto y finalmente haga clic en Imprimir.
-![](../img//vistaPreviaImpresion-proforma.png)
+
+![](../img/vistaPreviaImpresion-proforma.png)
+
+## Facura Simplificada
+
+1. Después de seleccionar el método de pago deberá introducir la cantidad entrega y hacer clic en Confirmar Cobro
+
+
+![](../img/confirmarCobro.png)
+
+2. A continuación se abrirá un pop up y deberá hacer clic en Imprimir ticket.
+
+![](../img/popupCobrado.png)
+
+3. Luego se abrirá en el navegador la vista previa de la impresión, personalize las configuraciones para la impresión y haga clic en imprimir.
+
+![](../img/vistaPreviaImpresion-simplificada.png)
 
 ## Ticket Cocina
 1. Hacer clic en el botón cocina.
@@ -75,6 +92,8 @@ Debe pulsar el botón de cancelar, a continuación aparecerá un pop up en la pa
 3. Se abrirá la vista previa de la impresión, personalize las configuraciones para la impresión y haga clic en Imprimir.
 
 ![](../img/vistaPreviaTicketCocina.png)
+
+
 
 ## Historial de Ventas
 En esta sección se podrá visualizar el registro de todos los pedidos completados y cancelados, se puede filtrar por una fecha en concreto o por el numero de mesa, también se podrá ver la recaudación de dinero.
@@ -100,6 +119,51 @@ En esta sección se podrá visualizar el registro de todos los pedidos completad
 5. Una vez en imprimido el informe Z puede hacer clic en cerrar Caja, esto cerrará automáticamente la sesión, y reiniciará todos los datos para el comienzo de la próxima jornada
 
 ![](../img/btnCerrarCaja.png)
+
+## Gestión De Mesas
+
+Se puede dar de alta nuevas mesas, desactivarlas,y eliminarlas.
+
+![](../img/GestionMesas.png)
+
+## Gestión de Personal
+
+Se pueda dar de alta nuevos empleados, modficar la contraseña en caso de olvidarla y eliminar cuentas de empleados.
+
+![](../img/GestionPersonal.png)
+
+## Gestión de productos
+
+Se puede dar de alta nuevos productos, modificar el precio, cambiar la imagen, desactivar y eliminar productos.
+
+![](../img/GestionProductos.png)
+
+## Camarero
+
+## Mapa de Mesas
+
+![](../img/vistaPrincipalCamarero.png) 
+
+## Unir Mesas
+Seleccionar las mesas que se desean juntar.
+
+![](../img/unirMesas-seleccion.png)
+
+## Procedimiento para hacer un pedido
+
+Hacer clic en una mesa y seleccionar el numero de personas para empezar el pedido o si es una mesa ocupada, dar clic en añadir más.
+
+![](../img/empezarPedido.png)   ![](../img/añadirMasProductos.png) 
+
+![](../img/AlertasDeMesa.png) ![](../img/cartaBebidas.png) ![](../img/notasDelProducto.png)
+
+![](../img/cartaEntrantes.png) ![](../img/cartaSegundos.png) ![](../img/cartaPostres.png)
+
+![](../img/vistaResumenPedido.png) ![](../img/confirmacionDePedidoEnviado.png)
+
+## Cocina
+
+
 
 
 # Promoción
