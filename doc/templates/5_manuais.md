@@ -3,10 +3,70 @@
 
 ## Manual técnico do proxecto
 
-## Instalación
-No habrá que instalarla desde ningun lado, ya que es una aplicación web y por lo tanto para acceder a ella se necesitará el enlace hacia el sitio,para eso se dispone de un subdomino gratuito que provee Render y ese enlace será compartido con los trabajadores del establecimiento para que puedan darle uso.
+## Instalación y ejecución Local
 
-Link para acceder a la app web: [SaleroBeach.com](https://salerobeach-1.onrender.com)
+
+### 1. Clonar Repositorio
+> git clone  https://github.com/EMAXSS05/SaleroBeach.git
+
+>cd app 
+### 2. Variables de Entorno
+
+Crear el archivo app/.env con el siguiente contenido:
+````
+MONGO_URI=mongodb+srv://<usuario>:<password>@cluster0.pdg5oqs.mongodb.net/salero_beach
+JWT_SECRET=salerobeach_secret_2024
+````
+### 3. Arrancar docker compose
+>docker compose up -d --build
+
+## Despliegue en Render
+### 1. Backend — Web Service (Docker)
+
+| Parámetro | Valor |
+|---|---|
+| Nombre del servicio | SaleroBeach |
+| URL | https://salerobeach.onrender.com |
+| Tipo | Web Service (Docker) |
+| Repositorio | EMAXSS05/SaleroBeach (rama master) |
+| Dockerfile Path | app/backend/Dockerfile |
+| Root Directory | (vacío) |
+
+Variables de entorno configuradas en Render:
+
+| Variable | Valor |
+|---|---|
+| MONGO_URI | mongodb+srv://...@cluster0.pdg5oqs.mongodb.net/salero_beach |
+| JWT_SECRET | salerobeach_secret_2024 |
+
+### 2. Frontend — Static Site
+
+| Parámetro | Valor |
+|---|---|
+| URL | https://salerobeach-1.onrender.com |
+| Tipo | Static Site |
+| Repositorio | EMAXSS05/SaleroBeach (rama master) |
+| Root Directory | app/frontend |
+| Build Command | npm install && npm run build |
+| Publish Directory | dist |
+
+Variables de entorno configuradas en Render:
+
+| Variable | Valor |
+|---|---|
+| VITE_API_URL | https://salerobeach.onrender.com |
+
+### Actualizar el despliegue
+
+Render redespliega automáticamente al hacer push a la rama master de GitHub:
+
+```bash
+git add .
+git commit -m "descripción del cambio"
+git push github master
+```
+
+
 
 ## Manual de Usuario
 
@@ -155,13 +215,79 @@ Hacer clic en una mesa y seleccionar el numero de personas para empezar el pedid
 
 ![](../img/empezarPedido.png)   ![](../img/añadirMasProductos.png) 
 
+-Debe seleccionar una alerta o necesidad para la mesa y posteriormente empieze a seleccionar las bebidas, entrantes, segundos y postres de la carta.
+
 ![](../img/AlertasDeMesa.png) ![](../img/cartaBebidas.png) ![](../img/notasDelProducto.png)
 
 ![](../img/cartaEntrantes.png) ![](../img/cartaSegundos.png) ![](../img/cartaPostres.png)
 
-![](../img/vistaResumenPedido.png) ![](../img/confirmacionDePedidoEnviado.png)
+![](../img/vistaResumenPedido.png)
+
+![](../img/confirmacionDePedidoEnviado.png)
+
+>Cuando Cocina avisa que un pedido está terminado, aparecerá en el mapa de las mesas de la siguiente manera:
+
+![](../img/pedidosListos.png)
 
 ## Cocina
+
+La Cocina tiene acceso a las siguientes secciones:
+* **INICIO**
+* **HISTORIAL** -> Ya explicado en la vista de la Barra
+* **PRODUCTOS** -> Ya explicado en la vista de la Barra
+
+### INICIO — Comandas de Cocina
+
+Muestra todas las comandas activas enviadas por los camareros. 
+Solo aparecen los platos de tipo **Entrantes** y **Segundos**.
+
+Cada comanda muestra:
+- **Número de mesa** (pueden ser mesas unidas, ej: Mesa 4 + 7 + 10)
+- **Hora de apertura** del pedido
+- **Alertas de mesa** — avisos importantes como "Mesa con prisa" 
+  o "niños en mesa" (si los hay)
+- **Lista de platos** con su estado actual
+
+![](../img/comandasCocina.png)
+
+#### Estados de los platos
+
+| Estado | Significado |
+|---|---|
+|  PENDIENTE | El plato aún no ha empezado a prepararse |
+|  EN PREPARACIÓN | El cocinero ha empezado a prepararlo |
+|  LISTO | El plato está listo para servir |
+
+![](../img/estadoPlatos.png)
+
+#### Flujo de trabajo
+
+1. Al recibir una comanda nueva, los platos aparecen en estado **PENDIENTE**
+2. Pulsar **EMPEZAR** cuando se comience a preparar el plato → pasa a **EN PREPARACIÓN**
+3. Pulsar **TERMINAR** cuando el plato esté listo → pasa a **LISTO**
+4. Cuando **todos** los platos de la comanda estén en estado LISTO, 
+   se activa el botón **AVISAR CAMARERO**
+5. Pulsar **AVISAR CAMARERO** para notificar que los platos están listos 
+   para servir → la comanda desaparece de la vista
+
+> El botón **AVISAR CAMARERO** permanece desactivado mientras haya 
+> algún plato que no esté en estado LISTO.
+
+---
+
+
+### Cerrar sesión
+
+Para cerrar sesión pulsar el icono de salida en la esquina superior derecha.
+
+![](../img/cerrarSesion.png)
+
+
+
+
+
+
+
 
 
 
