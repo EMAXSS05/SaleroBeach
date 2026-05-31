@@ -1,7 +1,9 @@
 .container {
     background-color: #131521;
     height: 100vh; 
+    height: 100dvh;
     padding: 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 10px));
     color: white;
     display: flex;
     flex-direction: column;
@@ -25,6 +27,7 @@ background: none;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block; 
+  line-height: 1;
 }
 
 .header h2 {
@@ -107,21 +110,21 @@ background: none;
     background: linear-gradient(45deg, #FFA113, #F4350A);
     color: white;
     border: none;
-    padding: 18px;
-    border-radius: 15px;
-    font-size: 1.1rem;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.1s;
 }
 
-.btnCobrar {
+.btnEnviar {
     background-color: #27ae60; 
     color: white;
     border: none;
-    padding: 18px;
-    border-radius: 15px;
-    font-size: 1.1rem;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 0.95rem;
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.1s;
@@ -184,6 +187,7 @@ background: none;
 
 .accionesFlujo {
     padding: 15px 0;
+    padding-bottom: 0;
     border-top: 1px solid #2a2d3e;
     background-color: #131521;
 }
@@ -278,7 +282,8 @@ background: none;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background: white;
+    background: #fcfdff;
+    color: #000000;
     cursor: pointer;
     font-size: 0.9rem;
     transition: all 0.2s;

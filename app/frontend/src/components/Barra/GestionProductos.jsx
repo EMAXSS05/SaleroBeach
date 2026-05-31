@@ -21,6 +21,8 @@ const GestionProductos = () => {
     const productosFiltrados = productos.filter(p =>
         p.nombre.toLowerCase().includes(filtro.toLowerCase())
     );
+    const [archivoSeleccionado, setArchivoSeleccionado] = useState(null);
+    const [vistaPrevia, setVistaPrevia] = useState('');
     //función para cambiar Precio
     const cambiarPrecio = async (id) => {
         if (!nuevoPrecio || isNaN(nuevoPrecio)) return;
@@ -52,16 +54,23 @@ const GestionProductos = () => {
     const handleCrear = async (e) => {
         e.preventDefault();
         try {
+            let nombreImagenFinal = '';
+            if (archivoSeleccionado) {
+            nombreImagenFinal = await subirImagen(archivoSeleccionado);
+        }
             const res = await fetch(`${import.meta.env.VITE_API_URL}/api/productos`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     ...nuevoProducto,
+                    imagen: nombreImagenFinal,
                     precio: parseFloat(nuevoProducto.precio)
                 })
             });
             if (res.ok) {
                 setNuevoProducto({ id: '', nombre: '', precio: '', categoria: 'Cocina', sub: 'Starters', imagen: '', disponible: true });
+                setArchivoSeleccionado(null);
+                setVistaPrevia('');
                 obtenerProductos();
             } else {
                 alert("Error al crear producto");
@@ -166,8 +175,9 @@ const GestionProductos = () => {
                     <option value="Postres">Postres</option>
                 </select>
                 <label className={styles.labelFile}>
-                    {nuevoProducto.imagen ? '✓ Imagen seleccionada' : 'Seleccionar imagen'}
+                    {vistaPrevia ? '✓ Imagen seleccionada' : 'Seleccionar imagen'}
                     <input
+                       key={vistaPrevia || 'limpio'}
                         type="file"
                         accept="image/*"
                         className={styles.inputFile}
@@ -175,12 +185,24 @@ const GestionProductos = () => {
                         onChange={async (e) => {
                             const archivo = e.target.files[0];
                             if (archivo) {
-                                const nombreArchivo = await subirImagen(archivo);
-                                setNuevoProducto({ ...nuevoProducto, imagen: nombreArchivo });
+                                setArchivoSeleccionado(archivo)
+                                setVistaPrevia(URL.createObjectURL(archivo));
                             }
                         }}
                     />
                 </label>
+                {vistaPrevia && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <img src={vistaPrevia} alt="Preview" width={50} style={{ borderRadius: '8px' }} />
+            <button 
+                type="button" 
+                onClick={() => { setArchivoSeleccionado(null); setVistaPrevia(''); }}
+                style={{ background: '#ef4444', color: 'white', border: 'none', padding: '2px 6px', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}
+            >
+                Quitar
+            </button>
+        </div>
+    )}
                 <button type="submit" className={styles.btnAdd}>+ Añadir</button>
             </form>
             <div className={styles.searchBox}>

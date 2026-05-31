@@ -23,6 +23,10 @@ const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocin
             setPaso(0); 
         }
     }, [mesa]);
+    /**
+     * Registra las notas o alertas de la mesa en la base de datos (alergias, niños, etc.)
+     * Soporta mesas unidas (ej: "1+2") mapeando la alerta a cada una individualmente.
+     */
     const guardarAlertaYContinuar = async () => {
     if (alertaMesa.trim() !== "") {
         const arrayMesas = String(mesa).includes('+')
@@ -104,7 +108,7 @@ if (paso === 0.5) {
         </div>
     );
 }
-   //VISTAS DEL PASO 1 AL 3
+   //VISTAS DEL PASO 1 AL 4
     if (paso >= 1 && paso <= 4) {
         const titulos = ["", "Bebidas","Entrantes","Segundos", "Postres"];
         return (
@@ -151,7 +155,7 @@ if (paso === 0.5) {
         return acc;
     }, []);
 
-    // VISTA 4: RESUMEN
+    // VISTA 5: RESUMEN
     return (
         <div className={styles.container}>
             <header className={styles.header}>
@@ -191,7 +195,7 @@ if (paso === 0.5) {
                 <button className={styles.btnAñadir} onClick={() => setPaso(1)}>
                     Añadir más
                 </button>
-                <button className={styles.btnCobrar} onClick={()=>alEnviarA_Cocina(alertaMesa)}>
+                <button className={styles.btnEnviar} onClick={()=>alEnviarA_Cocina(alertaMesa)}>
                     Confirmar y Enviar
                 </button>
             </div>

@@ -173,11 +173,11 @@ const Header = ({ usuario, onCerrarSesion,pedidos=[],mostrarBotonesPrint = false
 
             <div className={styles.userSection}>
                 <div className={styles.userInfo}>
-                    <span className={styles.userName}>{usuario?.nombreReal || usuario?.userName || 'Usuario'}</span>
+                    <span className={styles.userName}>{usuario?.nombreReal || usuario?.username || 'Usuario'}</span>
                     <span className={styles.userRole}>{usuario?.rol || 'Admin'}</span>
                 </div>
                 <div className={styles.userAvatar}>
-                    {usuario?.nombreReal?.charAt(0).toUpperCase() || 'S'}
+                    {usuario?.nombreReal?.charAt(0).toUpperCase() || usuario?.username.charAt(0).toUpperCase() || 'D' }
                 </div>
 
                 <button className={styles.logoutBtn} title="Cerrar sesión" onClick={onCerrarSesion}>

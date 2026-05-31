@@ -36,7 +36,7 @@ span.listo {
 .notaPlato {
     display: inline-flex;
     align-items: center;
-    font-size: 0.72rem;     
+    font-size: 0.70rem;     
     font-weight: 600;
     color: #ffb74d; 
     background-color: rgba(255, 183, 77, 0.1); 
@@ -134,7 +134,7 @@ span.listo {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    padding: 6px 8px;
+    padding: 0px 8px 9px;
 }
 
 .alertaBadge {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './TerminalCocina.module.css';
 import iconoChincheta from '../../assets/iconos/chincheta.png'
+import iconoAlerta from '../../assets/iconos/senal-de-alerta.png'
 
 const TerminalCocina = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -72,7 +73,7 @@ const TerminalCocina = () => {
                             <div className={styles.alertaMesa}>
                                 {[...new Set(pedido.alertas)].filter(a => a && a.trim() !== '').map((alerta, idx) => (
                                     <span key={idx} className={styles.alertaBadge}>
-                                        ⚠️ {alerta}
+                                        <img src={iconoAlerta} width={12}/> {alerta}
                                     </span>
                                 ))}
                             </div>
