@@ -44,7 +44,8 @@ const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario, onCerrarS
     };
 
 
-
+   /** Consulta los pedidos al arrancar y los refresca automáticamente cada 5 segundos
+    Al cerrar o cambiar de panel, limpia el intervalo para no sobrecargar la memoria. */
     useEffect(() => {
         obtenerPedidos();
         const intervalo = setInterval(obtenerPedidos, 5000);
@@ -71,7 +72,11 @@ const MainPanel = ({ seccionActiva, sesionCaja, setSesionCaja,usuario, onCerrarS
         }
     };
 
-    //muestra la seccion que está activa
+    /**
+     * Renderiza el componente adecuado según la sección activa del menú lateral.
+     * Además, si el rol del usuario es 'cocina', restringe el inicio y le muestra directamente 
+     * la Terminal de Cocina.
+     */
     const renderContent = () => {
         switch (seccionActiva) {
             case 'HISTORIAL':

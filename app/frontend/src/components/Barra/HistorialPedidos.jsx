@@ -10,9 +10,6 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja, onCerra
     const [mostrarZ, setMostrarZ] = useState(false);
     const [pedidoDetalle, setPedidoDetalle] = useState(null);
 
-    
-
-
      // Si hay sesión de caja se usa fechaApertura
     const fechaApertura = sesionCaja?.fechaApertura
         ? new Date(sesionCaja.fechaApertura)
@@ -38,7 +35,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja, onCerra
     const pedidosPagados = pedidosJornada.filter(p => p.estadoGeneral === 'pagado');
     const pedidosCancelados = pedidosJornada.filter(p => p.estadoGeneral === 'cancelado');
     
-
+    /*En estas funciones se calcula totales por método de pago, desglosa el IVA (10% de hostelería) y calcula el saldo esperado en el cajón de efectivo.*/
     const totalEfectivo = pedidosPagados
         .filter(p => p.metodoPago === 'efectivo')
         .reduce((acc, p) => acc + p.total, 0);
@@ -53,6 +50,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja, onCerra
     const impuestos = totalVentas - (totalVentas / 1.10);
     const saldoInicial = sesionCaja?.saldoInicial ?? 0;
     const saldoFinal = saldoInicial + totalEfectivo;
+    /* Aplica los filtros de fecha y número de mesa sobre el historial completo cada vez que el usuario cambia los inputs.*/
     useEffect(() => {
         let resultado = pedidosFinalizados;
 
@@ -65,7 +63,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja, onCerra
 
         setPedidosFiltrados(resultado);
     }, [filtroFecha, filtroMesa, pedidosFinalizados]);
-
+     /* Comunica al servidor el cierre definitivo de la jornada actual y limpia la sesión en el frontend.*/
      const cerrarCaja = async () => {
         try {
             await fetch(`${import.meta.env.VITE_API_URL}/api/caja/cerrar`, { method: 'POST' });
@@ -83,6 +81,7 @@ const HistorialPedidos = ({ pedidosFinalizados,sesionCaja,setSesionCaja, onCerra
             .reduce((acc, p) => acc + p.total, 0)
             .toFixed(2);
     };
+    /* Permite recuperar un pedido ya cerrado del historial para volver a generar su factura simplificada de 80mm.*/
     const reimprimirTicket = (pedido) => {
     const itemsAgrupados = pedido.items.reduce((acc, item) => {
         const existe = acc.find(i => i.nombre === item.nombre && i.nota === item.nota);

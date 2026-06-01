@@ -7,7 +7,11 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
     const [filtro, setFiltro] = useState('');
     const [cargando, setCargando] = useState(true);
     const [productoEdicion, setProductoEdicion] = useState(null);
-
+   /**
+     * Al abrir la carta, realiza una petición asíncrona al backend para 
+     * traer todos los productos disponibles en el menú. Una vez cargados los datos,
+     * apaga el estado de 'cargando' para renderizar la interfaz.
+     */
     useEffect(() => {
         const obtenerProductos = async () => {
             try {
@@ -23,7 +27,12 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
         obtenerProductos();
     }, []);
 
-    // FILTRADO POR PASOS
+    /**
+     * Filtra la lista completa de productos basándose en tres cosas:
+     * 1. Que el producto esté marcado como disponible.
+     * 2. Que coincida con el texto del buscador.
+     * 3. Que pertenezca a la subcategoría asignada al paso actual del flujo del pedido. 
+     */
     const productosFiltrados = productos.filter(p => {
         if (p.disponible === false) return false;
         const coincideNombre = p.nombre.toLowerCase().includes(filtro.toLowerCase());
@@ -91,7 +100,10 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
                     </div>
                 ))}
             </div>
-
+            {/* * Si hay un producto seleccionado, se abre el componente modal 'DetalleProducto'.
+              * Permite al camarero especificar la cantidad y notas especiales antes de confirmar
+              * y mandar el item final a la comanda general de la mesa.
+            */}
             {productoEdicion && (
                 <DetalleProducto
                     producto={productoEdicion}

@@ -6,7 +6,8 @@ const ModalAperturaCaja = ({ onCajaAbierta }) => {
     const [saldoInicial, setSaldoInicial] = useState('');
     const [cargando, setCargando] = useState(false);
     const [error, setError] = useState('');
-
+    /* Valida que el dinero introducido sea correcto, inicia el estado de carga y
+     envía el saldo inicial al backend para crear la nueva sesión de caja.*/
     const handleAbrir = async () => {
         const saldo = parseFloat(saldoInicial);
         if (isNaN(saldo) || saldo < 0) {

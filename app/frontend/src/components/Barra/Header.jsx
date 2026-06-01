@@ -14,7 +14,12 @@ const Header = ({ usuario, onCerrarSesion,pedidos=[],mostrarBotonesPrint = false
         setModalImpresion(null);
         setPedidoSeleccionado(null);
     };
-
+   /**
+     * Filtra el pedido para extraer únicamente la comida (Entrantes y Segundos).
+     * Agrupa los productos idénticos,mismo nombre y misma nota de cocina sumando sus cantidades
+     * para evitar duplicados en el ticket. Finalmente, genera un documento HTML 
+     * formateado en formato estándar de 80mm y lanza el comando de impresión nativo del navegador.
+     */
     const imprimirCocina = (pedido) => {
         const itemsComida = pedido.items.filter(i => i.sub === 'Entrantes' || i.sub === 'Segundos');
         const itemsAgrupados = itemsComida.reduce((acc, item) => {
@@ -75,6 +80,11 @@ const Header = ({ usuario, onCerrarSesion,pedidos=[],mostrarBotonesPrint = false
         ventana.print();
         cerrarModal();
     };
+    /**
+     * Genera el ticket de cuenta (Factura Proforma) para el cliente.
+     * Agrupa los productos, calcula el importe por línea (cantidad * precio) y renderiza
+     * un diseño de ticket limpio con datos fiscales del negocio (CIF, dirección).
+     */
     const imprimirTicket = (pedido) => {
         const itemsAgrupados = pedido.items.reduce((acc, item) => {
             const existe = acc.find(i => i.nombre === item.nombre && i.nota === item.nota);
@@ -84,6 +94,7 @@ const Header = ({ usuario, onCerrarSesion,pedidos=[],mostrarBotonesPrint = false
         }, []);
 
         const fecha = new Date(pedido.fecha).toLocaleString('es-ES');
+        // Abre una nueva ventana en blanco en el navegador para meter el layout del ticket
         const ventana = window.open('', '_blank');
         ventana.document.write(`
             <html><head><title>Ticket Cliente</title>
