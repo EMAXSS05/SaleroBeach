@@ -39,7 +39,11 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
         return true;
     });
 
-    // Ahora, al añadir un producto, avisamos directamente al padre
+    /**
+     * Organiza los datos del producto seleccionado (nombre, precio, etc.) 
+     * y le genera un ID único usando la hora exacta en milisegundos. Luego, envía este 
+     * producto hacia el componente padre para que se sume a la comanda de la mesa.
+     */
     const añadirAlPedido = (producto, cantidad, nota) => {
         const nuevoItem = {
             nombre: producto.nombre,
@@ -49,8 +53,6 @@ const CartaProductos = ({ mesa, alFinalizarPedido, pasoInterior }) => {
             nota,
             idTemporal: Date.now()
         };
-
-        // Enviamos el producto individual al TerminalCamarero
         console.log("Enviando item con categoría:", nuevoItem.sub);
         alFinalizarPedido(nuevoItem);
         setProductoEdicion(null);

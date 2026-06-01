@@ -3,7 +3,7 @@ import CartaProductos from './CartaProductos';
 import styles from './DetalleMesa.module.css';
 import iconoPlato from '../../assets/iconos/cubiertos.png'
 
-const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocina,alEliminarItem }) => {
+const DetalleMesa = ({ mesa, pedido, alVolver, alConfirmarPedido, alEnviarA_Cocina, alEliminarItem }) => {
     // Si el pedido no existe volvemos atrás
     if (!pedido) {
         setTimeout(() => alVolver(), 0);
@@ -17,23 +17,23 @@ const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocin
 
     // si se cambia de mesa el estado se actualiza.
     useEffect(() => {
+        setAlertaMesa(pedido.alerta || pedido.nota || '');
         if (pedido.items.length > 0) {
             setPaso(5);
         } else {
-            setPaso(0); 
+            setPaso(0);
         }
     }, [mesa]);
     /**
      * Registra las notas o alertas de la mesa en la base de datos (alergias, niños, etc.)
-     * Soporta mesas unidas (ej: "1+2") mapeando la alerta a cada una individualmente.
+     * Soporta mesas unidas como "1+2" mapeando la alerta a cada una individualmente.
      */
     const guardarAlertaYContinuar = async () => {
-    if (alertaMesa.trim() !== "") {
         const arrayMesas = String(mesa).includes('+')
             ? mesa.split('+')
             : [String(mesa)];
 
-        // Envía la alerta a cada mesa por separado
+        // Envía la alerta actual a cada mesa
         await Promise.all(
             arrayMesas.map(numMesa =>
                 fetch(`${import.meta.env.VITE_API_URL}/api/mesas/${numMesa}/alerta`, {
@@ -43,9 +43,9 @@ const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocin
                 })
             )
         );
-    }
-    setPaso(1);
-};
+
+        setPaso(1);
+    };
 
     // Cálculo del total acumulado
     const totalConsumido = pedido.items.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
@@ -75,42 +75,45 @@ const DetalleMesa = ({ mesa, pedido,alVolver, alConfirmarPedido, alEnviarA_Cocin
     }
 
     // VISTA 0.5: ALERTAS DE MESA
-if (paso === 0.5) {
-    return (
-        <div className={styles.container}>
-            <header className={styles.header}>
-                <button onClick={() => setPaso(0)} className={styles.btnBack}>←</button>
-                <h2>Mesa {mesa} - Alertas</h2>
-            </header>
-            <div className={styles.selectorComensales}>
-                <h3>¿Alguna alerta o necesidad?</h3>
-                <p style={{fontSize: '0.9rem', color: '#666'}}>Ej: Alergias, bebés/niños, prisa...</p>
-                
-                <textarea 
-                    className={styles.inputAlerta} 
-                    placeholder="Escribe aquí (ej: 1 niño, prisa)..."
-                    value={alertaMesa || ''}
-                    onChange={(e) => setAlertaMesa(e.target.value)}
-                    rows="4"
-                />
+    if (paso === 0.5) {
+        return (
+            <div className={styles.container}>
+                <header className={styles.header}>
+                    <button onClick={() => setPaso(0)} className={styles.btnBack}>←</button>
+                    <h2>Mesa {mesa} - Alertas</h2>
+                </header>
+                <div className={styles.selectorComensales}>
+                    <h3>¿Alguna alerta o necesidad?</h3>
+                    <p style={{ fontSize: '0.9rem', color: '#666' }}>Ej: Alergias, bebés/niños, prisa...</p>
 
-                <div className={styles.botonesRapidos}>
-                    {/* Botones para añadir texto rápido */}
-                    <button onClick={() => setAlertaMesa("Todo Junto")}> <img src={iconoPlato} width={20}/> Junto</button>
-                    <button onClick={() => setAlertaMesa("Mesa con prisa")}>⏱️ Prisa</button>
-                    <button onClick={() => setAlertaMesa("niños en mesa")}>🧒peques</button>
+                    <textarea
+                        className={styles.inputAlerta}
+                        placeholder="Escribe aquí (ej: 1 niño, prisa)..."
+                        value={alertaMesa || ''}
+                        onChange={(e) => setAlertaMesa(e.target.value)}
+                        rows="4"
+                    />
+
+                    <div className={styles.botonesRapidos}>
+                        {/* Botones para añadir texto rápido */}
+                        <button onClick={() => setAlertaMesa(prev => {
+                            if (!prev) return "Todo Junto";
+                            return prev.includes("Todo Junto") ? prev : `${prev}, Todo Junto`;
+                        })}> <img src={iconoPlato} width={20} /> Junto</button>
+                        <button onClick={() => setAlertaMesa( prev => { if(!prev) return "Mesa con prisa"; return prev.includes("Mesa con prisa") ? prev: `${prev}, Mesa con prisa`;})}>⏱️ Prisa</button>
+                        <button onClick={() => setAlertaMesa( prev => { if(!prev) return "Niños en mesa"; return prev.includes("Niños en mesa") ? prev: `${prev}, Niños en mesa`;})}>🧒peques</button>
+                    </div>
+
+                    <button className={styles.btnSiguiente} onClick={guardarAlertaYContinuar}>
+                        Ir a la Carta →
+                    </button>
                 </div>
-
-                <button className={styles.btnSiguiente} onClick={guardarAlertaYContinuar}>
-                    Ir a la Carta →
-                </button>
             </div>
-        </div>
-    );
-}
-   //VISTAS DEL PASO 1 AL 4
+        );
+    }
+    //VISTAS DEL PASO 1 AL 4
     if (paso >= 1 && paso <= 4) {
-        const titulos = ["", "Bebidas","Entrantes","Segundos", "Postres"];
+        const titulos = ["", "Bebidas", "Entrantes", "Segundos", "Postres"];
         return (
             <div className={styles.container}>
                 <header className={styles.header}>
@@ -164,38 +167,38 @@ if (paso === 0.5) {
             </header>
 
             <div className={styles.listaConsumo}>
-               {itemsAgrupados.map((item, idx) => (
-    <div key={idx} className={styles.item}>
-        {/* Este contenedor agrupa nombre y precio y los separa */}
-        <div className={styles.itemMainInfo}>
-            <span className={styles.nombre}>
-                {item.nombre} x{item.cantidad}
-                {item.nota && <small style={{ display: 'block', color: '#888', fontSize: '0.8rem' }}>({item.nota})</small>}
-            </span>
-            <span className={styles.precio}>
-                {(item.precio * item.cantidad).toFixed(2)}€
-            </span>
-        </div>
-        <button 
-            className={styles.btnBorrarItem} 
-            onClick={() => alEliminarItem(item.nombre, item.nota)}
-        >
-            <span className="material-icons">delete_outline</span>
-        </button>
-    </div>
-))}
+                {itemsAgrupados.map((item, idx) => (
+                    <div key={idx} className={styles.item}>
+                        {/* Este contenedor agrupa nombre y precio y los separa */}
+                        <div className={styles.itemMainInfo}>
+                            <span className={styles.nombre}>
+                                {item.nombre} x{item.cantidad}
+                                {item.nota && <small style={{ display: 'block', color: '#888', fontSize: '0.8rem' }}>({item.nota})</small>}
+                            </span>
+                            <span className={styles.precio}>
+                                {(item.precio * item.cantidad).toFixed(2)}€
+                            </span>
+                        </div>
+                        <button
+                            className={styles.btnBorrarItem}
+                            onClick={() => alEliminarItem(item.nombre, item.nota)}
+                        >
+                            <span className="material-icons">delete_outline</span>
+                        </button>
+                    </div>
+                ))}
             </div>
 
             <div className={styles.totalBox}>
                 <span>TOTAL:</span>
                 <span className={styles.montoTotal}>{totalConsumido.toFixed(2)}€</span>
             </div>
-                    
+
             <div className={styles.acciones}>
                 <button className={styles.btnAñadir} onClick={() => setPaso(1)}>
                     Añadir más
                 </button>
-                <button className={styles.btnEnviar} onClick={()=>alEnviarA_Cocina(alertaMesa)}>
+                <button className={styles.btnEnviar} onClick={() => alEnviarA_Cocina(alertaMesa)}>
                     Confirmar y Enviar
                 </button>
             </div>

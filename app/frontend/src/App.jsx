@@ -16,6 +16,12 @@ function App() {
   const [sesionCaja, setSesionCaja] = useState(null);
   const [mostrarModalCaja, setMostrarModalCaja] = useState(false);
   const navigate = useNavigate();
+  /**
+   * Verifica si existen credenciales activas en el almacenamiento local (localStorage)
+   * al cargar la aplicación. Si el usuario está autenticado, recupera su sesión y realiza el
+   * redireccionamiento automático a su terminal correspondiente según su Rol de trabajo.
+   * En caso de ser personal de barra, comprueba asíncronamente si la caja diaria está abierta.
+   */
   useEffect(() => {
     const token = localStorage.getItem('token');
     const usuario = localStorage.getItem('usuario');

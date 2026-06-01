@@ -115,10 +115,12 @@ router.patch('/:numero/alerta', async (req, res) => {
     try {
         const { numero } = req.params;
         const { nuevaAlerta } = req.body;
+        const nuevoContenidoAlertas = nuevaAlerta && nuevaAlerta.trim() !== "" ? [nuevaAlerta] : [];
 
         const mesaActualizada = await Mesa.findOneAndUpdate(
+            
             { numero: numero }, 
-            { $push: { alertas: nuevaAlerta } }, 
+            { $set: { alertas: nuevoContenidoAlertas } }, 
             { new: true }
         );
 

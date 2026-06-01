@@ -6,12 +6,12 @@ import iconoAlerta from '../../assets/iconos/senal-de-alerta.png'
 const TerminalCocina = () => {
     const [pedidos, setPedidos] = useState([]);
 
-    /**
-   * Obtiene pedidos desde el backend
-   * Filtra:
-   *  - Solo pedidos en curso
-   *  - Solo aquellos que contienen items de tipo "Segundos y Entrantes"
-   */
+  /**
+     * Trae todas las comandas del servidor y las filtra para la cocina. 
+     * Solo muestra los pedidos que están 'en_curso' y que tienen, al menos, un plato 
+     * que preparar (es decir, que sean de la categoría Entrantes o Segundos). 
+     * Las bebidas se ignoran porque van directamente a la barra.
+     */
     const obtenerPedidos = async () => {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos`);
         const data = await res.json();
@@ -48,7 +48,11 @@ const TerminalCocina = () => {
             console.error("Error actualizando estado del plato:", error);
         }
     };
-
+   /**
+     * Al cargar la pantalla de cocina, busca los platos pendientes inmediatamente 
+     * y arranca un temporizador que vuelve a consultar al servidor automáticamente cada 6 segundos.
+     * Al salir de la pantalla, limpia el intervalo.
+     */ 
     useEffect(() => {
         obtenerPedidos();
         const intervalo = setInterval(obtenerPedidos, 6000);
