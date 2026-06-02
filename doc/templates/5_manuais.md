@@ -44,12 +44,14 @@ JWT_SECRET=salerobeach_secret_2024
 | Dockerfile Path | app/backend/Dockerfile |
 | Root Directory | (vacío) |
 
-Variables de entorno configuradas en Render:
+**Variables de entorno configuradas en Render:**
 
 | Variable | Valor |
 |---|---|
 | MONGO_URI | mongodb+srv://...@cluster0.pdg5oqs.mongodb.net/salero_beach |
 | JWT_SECRET | salerobeach_secret_2024 |
+
+![](../img/variableWebService.png)
 
 ### 2. Frontend — Static Site
 
@@ -62,11 +64,13 @@ Variables de entorno configuradas en Render:
 | Build Command | npm install && npm run build |
 | Publish Directory | dist |
 
-Variables de entorno configuradas en Render:
+**Variable de entorno configurada en Render:**
 
 | Variable | Valor |
 |---|---|
 | VITE_API_URL | https://salerobeach.onrender.com |
+
+![](../img/VariableStaticSite.png)
 
 ### Actualizar el despliegue
 
@@ -240,6 +244,14 @@ Hacer clic en una mesa y seleccionar el numero de personas para empezar el pedid
 >Cuando Cocina avisa que un pedido está terminado, aparecerá en el mapa de las mesas de la siguiente manera:
 
 ![](../img/pedidosListos.png)
+
+## Eliminar un producto del pedido
+
+Debe hacer clic en el ícono del tacho de basura y luego hacer clic en confirmar y Enviar.
+
+![](../img/eliminarProductoDelPedido.png)
+
+
 
 ## Cocina
 
