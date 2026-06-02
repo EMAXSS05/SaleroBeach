@@ -56,7 +56,8 @@ const DetalleMesa = ({ mesa, pedido, alVolver, alConfirmarPedido, alEnviarA_Coci
         return (
             <div className={styles.container}>
                 <header className={styles.header}>
-                    <button onClick={alVolver} className={styles.btnBack}>←</button>
+                    <button onClick={alVolver} className={styles.btnBack}>
+                        <span className="material-icons">arrow_back</span> </button>
                     <h2>Mesa {mesa}</h2>
                 </header>
                 <div className={styles.selectorComensales}>
@@ -79,7 +80,9 @@ const DetalleMesa = ({ mesa, pedido, alVolver, alConfirmarPedido, alEnviarA_Coci
         return (
             <div className={styles.container}>
                 <header className={styles.header}>
-                    <button onClick={() => setPaso(0)} className={styles.btnBack}>←</button>
+                    <button onClick={() => setPaso(0)} className={styles.btnBack}>
+                         <span className="material-icons">arrow_back</span>
+                    </button>
                     <h2>Mesa {mesa} - Alertas</h2>
                 </header>
                 <div className={styles.selectorComensales}>
@@ -117,7 +120,9 @@ const DetalleMesa = ({ mesa, pedido, alVolver, alConfirmarPedido, alEnviarA_Coci
         return (
             <div className={styles.container}>
                 <header className={styles.header}>
-                    <button onClick={() => setPaso(paso - 1)} className={styles.btnBack}>←</button>
+                    <button onClick={() => setPaso(paso - 1)} className={styles.btnBack}>
+                         <span className="material-icons">arrow_back</span>
+                    </button>
                     <h2>Mesa {mesa}</h2>
                 </header>
 
@@ -162,7 +167,9 @@ const DetalleMesa = ({ mesa, pedido, alVolver, alConfirmarPedido, alEnviarA_Coci
     return (
         <div className={styles.container}>
             <header className={styles.header}>
-                <button onClick={alVolver} className={styles.btnBack}>←</button>
+                <button onClick={alVolver} className={styles.btnBack}>
+                     <span className="material-icons">arrow_back</span>
+                </button>
                 <h2>Mesa {mesa} - Resumen</h2>
             </header>
 
