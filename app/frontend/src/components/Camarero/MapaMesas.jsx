@@ -132,7 +132,8 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [
                     <div className={styles.gridMesas}>
                         {mesasInterior.map(mesa => {
                             const ocupada = estaOcupada(mesa.numero);
-                            const estaSiendoElegida = mesasSeleccionadasParaUnion.includes(mesa.numero);
+                            const estaLista = mesasListas.some(m => String(m) === String(mesa.numero));
+                            const estaSiendoElegida = mesasSeleccionadasParaUnion.some(m => String(m) === String(mesa.numero));
 
                             return (
                                 <div
@@ -140,6 +141,7 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [
                                     className={`
                 ${styles.mesaCard} 
                 ${ocupada ? styles.ocupada : styles.libre} 
+                ${estaLista ? styles.lista : ''}
                 ${estaSiendoElegida ? styles.seleccionadaUnion : ''}
             `}
                                     onClick={() => alSeleccionarMesa(mesa.numero)}
@@ -147,7 +149,7 @@ const MapaMesas = ({ alSeleccionarMesa, pedidos, mesasSeleccionadasParaUnion = [
                                     <span className={styles.numeroMesa}>{mesa.numero}</span>
 
                                     <span className={styles.estadoTexto}>
-                                        {ocupada ? 'OCUPADA' : 'LIBRE'}
+                                        {estaLista ? '🔔 LISTO' : ocupada ? 'OCUPADA' : 'LIBRE'}
                                     </span>
                                 </div>
                             );
