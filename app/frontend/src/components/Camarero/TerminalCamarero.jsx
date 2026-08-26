@@ -11,25 +11,29 @@ const TerminalCamarero = ({usuario, onCerrarSesion}) => {
     const [modoUnion, setModoUnion] = useState(false);
     const [mesasParaJuntar, setMesasParaJuntar] = useState([]);
     const [mesasListas, setMesasListas] = useState([]);
-    const sonidoNotificacion = new Audio('../../../public/sonidos/campana.mp3');
     const [mesasYaAvisadas, setMesasYaAvisadas] = useState([]);
     // Efecto para reproducir música cuando cocina avisa
-    useEffect(() => {
-        if (mesasListas.length === 0) {
-            if (mesasYaAvisadas.length > 0) setMesasYaAvisadas([]);
-            return;
-        }
-        const nuevasMesasListas = mesasListas.filter(mesa => !mesasYaAvisadas.includes(mesa));
+   // Cambia tu useEffect por este:
+useEffect(() => {
+    if (mesasListas.length === 0) {
+        if (mesasYaAvisadas.length > 0) setMesasYaAvisadas([]);
+        return;
+    }
+    
+    const nuevasMesasListas = mesasListas.filter(mesa => !mesasYaAvisadas.includes(mesa));
 
-        if (nuevasMesasListas.length > 0) {
-            sonidoNotificacion.play().catch(error => {
-                console.log("No se pudo reproducir el sonido" ,error);
-            });
-            // Guardamos estas mesas en el registro para que no vuelvan a sonar en el siguiente fetch
-            setMesasYaAvisadas(prev => [...prev, ...nuevasMesasListas]);
-        }
+    if (nuevasMesasListas.length > 0) {
+        // Ruta directa desde la raíz pública
+        const audio = new Audio('/sonidos/campana.mp3');
         
-    }, [mesasListas, mesasYaAvisadas]);
+        audio.play().catch(error => {
+            console.log("No se pudo reproducir el sonido (posible bloqueo de autoplay):", error);
+        });
+        
+        // Guardamos estas mesas en el registro
+        setMesasYaAvisadas(prev => [...prev, ...nuevasMesasListas]);
+    }
+}, [mesasListas, mesasYaAvisadas]);
 
     useEffect(() => {
         const sincronizarMesas = async () => {
